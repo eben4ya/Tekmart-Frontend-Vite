@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 @font-face {
+
     font-family: font-vinque;
     src: url(./assets/fonts/Vinque-Regular.otf);
 }
+
 .font-vinque {
     font-family: font-vinque;
 }

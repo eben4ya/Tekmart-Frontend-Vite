@@ -1,30 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/AllPage/Navbar";
-import LandingPage from "./components/LandingPage/LandingPage";
-import OrderPage from "./components/OrderPage/OrderPage";
-
-import Test from "./test/Test";
+import './App.css'
+import Hero from './components/LandingPage/Hero'
+import Navbar from './components/LandingPage/Navbar'
+import OrderHeading from './components/OrderPage/OrderHeading.jsx';
+import Footer from './components/OrderPage/Footer';
 
 function App() {
+
   return (
-    <Router>
-      <Navbar />
-      <main className="flex flex-col items-center w-screen h-screen">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          {/* route to /about */}
-          {/* <Route path="/about" element={<About />} /> */}
-          {/* route to /order */}
-          <Route path="/order" element={<OrderPage />} />
-          {/* route to /products */}
-          {/* <Route path="/products" element={<Products />} /> */}
-          {/* testing route */}
-          <Route path="/test" element={<Test />} />
-        </Routes>
-      </main>
-    </Router>
-  );
+    <main className="flex flex-col justify-center items-center w-screen h-screen">
+     
+     <Navbar />
+     <OrderHeading />
+     <Hero />
+     <Footer />
+    </main>
+  )
 }
 
-export default App;
+export default App

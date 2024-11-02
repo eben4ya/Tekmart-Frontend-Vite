@@ -10,8 +10,8 @@ export default {
     },
     extend: {
       fontFamily:{
-        poppins: ['Poppins', 'sans-serif'],
-        inter:['Inter', 'sans-serif']
+        vinque: ['Vinque', 'serif'],
+        poppins: ['Poppins', 'sans-serif']
       }
     },
   },

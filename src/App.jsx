@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/AllPage/Navbar";
 import LandingPage from "./components/LandingPage/LandingPage";
+import Test from "./test/Test";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           {/* <Route path="/order" element={<Order />} /> */}
           {/* route to /products */}
           {/* <Route path="/products" element={<Products />} /> */}
+          {/* testing route */}
+          <Route path="/test" element={<Test />} />
         </Routes>
       </main>
     </Router>

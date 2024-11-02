@@ -1,11 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/LandingPage/Navbar"
-import LandingPage from './components/LandingPage/LandingPage';
+import Navbar from "./components/AllPage/Navbar";
+import LandingPage from "./components/LandingPage/LandingPage";
 
 function App() {
-  
-
   return (
     <Router>
       <Navbar />
@@ -21,7 +19,7 @@ function App() {
         </Routes>
       </main>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,11 +1,14 @@
-import Title from "./components/LandingPage/Title";
-
+import Hero from "./components/LandingPage/Hero"
+import Navbar from "./components/LandingPage/Navbar"
 function App() {
+  
+
   return (
     <main className="flex flex-col justify-center items-center w-screen h-screen">
-      <Title />
+     <Navbar />
+     <Hero />
     </main>
-  );
+  )
 }
 
-export default App;
+export default App

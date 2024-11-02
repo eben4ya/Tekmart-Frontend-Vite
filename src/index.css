@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: font-poppins;
+    src: url(./assets/Poppins-Regular.ttf);
+}
+
+.font-poppins {
+    font-family: font-poppins;
+}
+
+@font-face {
+    font-family: font-vinque;
+    src: url(./assets/Vinque-Regular.otf);
+}
+
+.font-vinque {
+    font-family: font-vinque;
+}

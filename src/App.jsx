@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Hero from "./components/LandingPage/Hero"
 import Navbar from "./components/LandingPage/Navbar"
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   
@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <main className="flex flex-col justify-center items-center w-screen h-screen">
         <Routes>
-          <Route path="/" element={<Hero />} />
+          <Route path="/" element={<LandingPage />} />
           {/* route to /about */}
           {/* <Route path="/about" element={<About />} /> */}
           {/* route to /order */}

@@ -3,11 +3,18 @@
 @tailwind utilities;
 
 @font-face {
-
-    font-family: font-vinque;
-    src: url(./assets/fonts/Vinque-Regular.otf);
+  font-family: 'Vinque';
+  src: url('./assets/fonts/Vinque-Regular.otf') format('opentype');
 }
 
-.font-vinque {
-    font-family: font-vinque;
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
 }

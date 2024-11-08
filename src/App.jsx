@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/AllPage/Navbar";
 import LandingPage from "./components/LandingPage/LandingPage";
 import OrderPage from "./components/OrderPage/OrderPage";
+import Footer from './components/OrderPage/Footer';
 
-import Test from "./test/Test";
+// Used for testing
+import Test from "./test/Test"; 
 
 function App() {
   return (
@@ -23,8 +25,9 @@ function App() {
           <Route path="/test" element={<Test />} />
         </Routes>
       </main>
+      <Footer />
     </Router>
   );
 }
 
-export default App;
+export default App

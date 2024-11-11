@@ -13,7 +13,7 @@ const Input = ({ type = "" }) => {
       <input
         type={type === "username" ? "text" : "password"}
         placeholder={type  === "username" ? "Insert Phone Number or Email Here" : "Insert Password Here"}
-        className={`${type === "username" ? "bg-yellow" : "bg-white" } w-[35.3vw] placeholder-black text-[1.4vw] rounded-full px-[1.354vw] py-[0.729vw] focus:outline-none`}
+        className={`${type === "username" ? "bg-yellow" : "bg-white" } w-[35.3vw] placeholder-black placeholder-opacity-60 text-[1.4vw] rounded-full px-[1.354vw] py-[0.729vw] focus:outline-none`}
       />
     </div>
   );

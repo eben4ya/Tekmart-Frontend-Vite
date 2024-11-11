@@ -7,6 +7,7 @@ import Footer from './components/OrderPage/Footer';
 
 // Used for testing
 import Test from "./test/Test"; 
+import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           <Route path="/order" element={<OrderPage />} />
           {/* route to /products */}
           {/* <Route path="/products" element={<Products />} /> */}
+          {/* route to /login */}
+          <Route path="/login" element={<RegisterLogin type="login" />} />
+          {/* route to /register */}
+          <Route path="/register" element={<RegisterLogin type="register" />} />
           {/* testing route */}
           <Route path="/test" element={<Test />} />
         </Routes>

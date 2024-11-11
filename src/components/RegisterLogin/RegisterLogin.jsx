@@ -1,7 +1,8 @@
 import coffeeImage from "../../assets/landingpage.png";
 import Input from "./Input";
 
-const RegisterLogin = () => {
+// eslint-disable-next-line react/prop-types
+const RegisterLogin = ({ type = "" }) => {
   return (
     <section
       className="relative flex flex-col justify-center items-center text-center h-screen w-full bg-cover bg-center "
@@ -20,11 +21,13 @@ const RegisterLogin = () => {
           <Input type="password" />
         </div>
         <div className="flex flex-row gap-[0.958vw] w-fit placeholder-black text-[1.4vw] focus:outline-none mx-auto mt-[1.458vw]">
-          <button className="bg-white font-poppins font-bold text-black px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow active:bg-yellow active:text-white shadow-xl">
-            Login
-          </button>
+          {type === "login" && (
+            <button className="bg-white font-poppins font-bold text-black px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow active:bg-yellow active:text-white shadow-xl">
+              Login
+            </button>
+          )}
           <button className="bg-black font-poppins font-bold text-white px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow hover:text-black active:bg-yellow active:text-white">
-            Sign Up First
+           {type === "login" ? "Sign Up First" : "Register Now!"}
           </button>
         </div>
       </div>

@@ -19,11 +19,11 @@ const RegisterLogin = () => {
           <Input type="username" />
           <Input type="password" />
         </div>
-        <div className="flex gap-4 mt-6">
-          <button className="bg-white font-poppins font-bold text-black py-2 px-8 rounded-full hover:bg-yellow-400 active:bg-yellow-500 active:text-white text-xl shadow-xl">
+        <div className="flex flex-row gap-[0.958vw] w-fit placeholder-black text-[1.4vw] focus:outline-none mx-auto mt-[1.458vw]">
+          <button className="bg-white font-poppins font-bold text-black px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow active:bg-yellow active:text-white shadow-xl">
             Login
           </button>
-          <button className="bg-transparent border-2 border-white font-poppins font-bold text-white py-2 px-8 rounded-full hover:bg-yellow-400 hover:text-black active:bg-yellow-500 text-xl">
+          <button className="bg-black font-poppins font-bold text-white px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow hover:text-black active:bg-yellow active:text-white">
             Sign Up First
           </button>
         </div>

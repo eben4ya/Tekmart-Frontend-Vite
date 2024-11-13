@@ -25,3 +25,6 @@ dist-ssr
 
 # ignore test foler
 src/test
+
+# ignore .env file
+.env

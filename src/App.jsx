@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/AllPage/Navbar";
 import LandingPage from "./components/LandingPage/LandingPage";
+import AboutPage from "./components/AboutPage/AboutPage";
 import OrderPage from "./components/OrderPage/OrderPage";
 import Footer from './components/OrderPage/Footer';
 
@@ -17,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           {/* route to /about */}
-          {/* <Route path="/about" element={<About />} /> */}
+          <Route path="/about" element={<AboutPage />} />
           {/* route to /order */}
           <Route path="/order" element={<OrderPage />} />
           {/* route to /products */}

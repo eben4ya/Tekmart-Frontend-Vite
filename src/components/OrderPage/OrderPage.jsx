@@ -8,7 +8,14 @@ const OrderPage = () => {
         bgSrc="/images/orderBG.svg"
         title="Order Details"
         subtitle="One last step, don’t worry!"
+
+
       />
+      {/* Order Summary */}
+
+      {/* Payment Method Option */}
+
+      {/* Payment Confirmation Button */}
     </>
   );
 };

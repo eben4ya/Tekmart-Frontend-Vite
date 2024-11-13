@@ -4,11 +4,14 @@ import Navbar from "./components/AllPage/Navbar";
 import LandingPage from "./components/LandingPage/LandingPage";
 import AboutPage from "./components/AboutPage/AboutPage";
 import OrderPage from "./components/OrderPage/OrderPage";
+import ProductPage from "./components/ProductPage/ProductPage";
 import Footer from './components/OrderPage/Footer';
+import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
 
 // Used for testing
 import Test from "./test/Test"; 
-import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
+
+
 
 function App() {
   return (
@@ -22,7 +25,7 @@ function App() {
           {/* route to /order */}
           <Route path="/order" element={<OrderPage />} />
           {/* route to /products */}
-          {/* <Route path="/products" element={<Products />} /> */}
+          <Route path="/products" element={<ProductPage />} />
           {/* route to /login */}
           <Route path="/login" element={<RegisterLogin type="login" />} />
           {/* route to /register */}

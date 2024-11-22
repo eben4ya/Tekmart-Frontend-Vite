@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState } from "react";
 
 // Create AuthContext
 export const AuthContext = createContext();
@@ -90,8 +90,41 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Logout function
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/user/logout", {
+        method: "POST",
+        credentials: "include", // send token cookie to server to remove it
+      });
+
+      if (response.ok) {
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // remove token cookie in browser
+        setIsLoggedIn(false);
+        alert("Logout successful!");
+      } else {
+        const data = await response.json();
+        alert(`Logout failed: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+      alert("Logout failed: Server error");
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, handleLogin, handleRegister, email, password, handleInputChange }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        handleLogin,
+        handleRegister,
+        handleLogout,
+        email,
+        password,
+        handleInputChange,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

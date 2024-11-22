@@ -95,6 +95,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await fetch("http://localhost:3000/api/user/logout", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         credentials: "include", // send token cookie to server to remove it
       });
 

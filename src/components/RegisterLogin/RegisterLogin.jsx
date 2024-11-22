@@ -1,91 +1,12 @@
 import coffeeImage from "../../assets/landingpage.png";
 import Input from "./Input";
 
-import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 // eslint-disable-next-line react/prop-types
 const RegisterLogin = ({ type = "" }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    const trimmedValue = value.trim();
-    if (name === "email") {
-      setEmail(trimmedValue);
-    } else if (name === "password") {
-      setPassword(trimmedValue);
-    }
-  };
-
-  // handle register
-  const handleRegister = async () => {
-    if (!email || !password) {
-      alert("Email and password are required!");
-      return;
-    }
-    try {
-      const response = await fetch("http://localhost:3000/api/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      if (response.ok) {
-        setEmail("");
-        setPassword("");
-        alert("Registration successful! Please login.");
-        // redirect to login page
-        window.location.href = "/login";
-      } else {
-        const data = await response.json();
-        alert(`Registration failed: ${data.message}`);
-      }
-    } catch (error) {
-      console.error("Error during registration:", error);
-      alert("Registration failed: Server error");
-    }
-  };
-
-  // handle login
-  const handleLogin = async () => {
-    if (!email || !password) {
-      alert("Email and password are required!");
-      return;
-    }
-    try {
-      const response = await fetch("http://localhost:3000/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-        credentials: "include", // send token cookie to server
-      });
-
-      if (response.ok) {
-        setEmail("");
-        setPassword("");
-        alert("Login successful!");
-        // Redirect to order page
-        window.location.href = "/products";
-      } else {
-        const data = await response.json();
-        alert(`Login failed: ${data.message}`);
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-      alert("Login failed: Server error");
-    }
-  };
+ const { email, password, handleInputChange, handleRegister, handleLogin } = useContext(AuthContext);
 
   return (
     <section

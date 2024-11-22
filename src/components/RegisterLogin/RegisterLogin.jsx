@@ -45,6 +45,35 @@ const RegisterLogin = ({ type = "" }) => {
     }
   };
 
+  // handle login
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+        credentials: "include", // send token cookie to server
+      });
+
+      if (response.ok) {
+        alert("Login successful!");
+        // Redirect to order page
+        window.location.href = "/products";
+      } else {
+        const data = await response.json();
+        alert(`Login failed: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Login failed: Server error");
+    }
+  };
+
   return (
     <section
       className="relative flex flex-col justify-center items-center text-center h-screen w-full bg-cover bg-center "
@@ -68,7 +97,10 @@ const RegisterLogin = ({ type = "" }) => {
         </div>
         <div className="flex flex-row gap-[0.958vw] w-fit placeholder-black text-[1.4vw] focus:outline-none mx-auto mt-[1.458vw]">
           {type === "login" && (
-            <button className="bg-white font-poppins font-bold text-black px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow active:bg-yellow active:text-white shadow-xl">
+            <button
+              className="bg-white font-poppins font-bold text-black px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow active:bg-yellow active:text-white shadow-xl"
+              onClick={handleLogin}
+            >
               Login
             </button>
           )}

@@ -119,7 +119,13 @@ const RegisterLogin = ({ type = "" }) => {
           )}
           <button
             className="bg-black font-poppins font-bold text-white px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow hover:text-black active:bg-yellow active:text-white"
-            onClick={type === "register" && handleRegister}
+            onClick={
+              type === "register"
+                ? handleRegister
+                : () => {
+                    window.location.href = "/register";
+                  }
+            }
           >
             {type === "login" ? "Sign Up First" : "Register Now!"}
           </button>

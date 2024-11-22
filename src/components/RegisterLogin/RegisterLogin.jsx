@@ -10,15 +10,20 @@ const RegisterLogin = ({ type = "" }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const trimmedValue = value.trim();
     if (name === "email") {
-      setEmail(value);
+      setEmail(trimmedValue);
     } else if (name === "password") {
-      setPassword(value);
+      setPassword(trimmedValue);
     }
   };
 
   // handle register
   const handleRegister = async () => {
+    if (!email || !password) {
+      alert("Email and password are required!");
+      return;
+    }
     try {
       const response = await fetch("http://localhost:3000/api/user/register", {
         method: "POST",
@@ -32,6 +37,8 @@ const RegisterLogin = ({ type = "" }) => {
       });
 
       if (response.ok) {
+        setEmail("");
+        setPassword("");
         alert("Registration successful! Please login.");
         // redirect to login page
         window.location.href = "/login";
@@ -47,6 +54,10 @@ const RegisterLogin = ({ type = "" }) => {
 
   // handle login
   const handleLogin = async () => {
+    if (!email || !password) {
+      alert("Email and password are required!");
+      return;
+    }
     try {
       const response = await fetch("http://localhost:3000/api/user/login", {
         method: "POST",
@@ -61,6 +72,8 @@ const RegisterLogin = ({ type = "" }) => {
       });
 
       if (response.ok) {
+        setEmail("");
+        setPassword("");
         alert("Login successful!");
         // Redirect to order page
         window.location.href = "/products";

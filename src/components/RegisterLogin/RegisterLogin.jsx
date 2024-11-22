@@ -16,6 +16,35 @@ const RegisterLogin = ({ type = "" }) => {
       setPassword(value);
     }
   };
+
+  // handle register
+  const handleRegister = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        alert("Registration successful! Please login.");
+        // redirect to login page
+        window.location.href = "/login";
+      } else {
+        const data = await response.json();
+        alert(`Registration failed: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("Registration failed: Server error");
+    }
+  };
+
   return (
     <section
       className="relative flex flex-col justify-center items-center text-center h-screen w-full bg-cover bg-center "
@@ -30,11 +59,7 @@ const RegisterLogin = ({ type = "" }) => {
           One Step Closer to <span className="text-yellow">Not Queueing!</span>
         </h1>
         <div className="flex flex-col gap-[1.458vw] items-center w-full">
-          <Input
-            type="email"
-            value={email}
-            onChange={handleInputChange}
-          />
+          <Input type="email" value={email} onChange={handleInputChange} />
           <Input
             type="password"
             value={password}
@@ -47,7 +72,10 @@ const RegisterLogin = ({ type = "" }) => {
               Login
             </button>
           )}
-          <button className="bg-black font-poppins font-bold text-white px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow hover:text-black active:bg-yellow active:text-white">
+          <button
+            className="bg-black font-poppins font-bold text-white px-[1.5625vw] py-[0.833vw] rounded-full hover:bg-yellow hover:text-black active:bg-yellow active:text-white"
+            onClick={type === "register" && handleRegister}
+          >
             {type === "login" ? "Sign Up First" : "Register Now!"}
           </button>
         </div>

@@ -8,16 +8,16 @@ const Navbar = () => {
       <div className="flex item-center justify-between">
         <ul className="flex-1 md:flex md:text-l text-white font-poppins">
           <li className="self-center cursor-pointer">
-            <a href="">Home</a>
+            <a href="/">Home</a>
           </li>
           <li className="self-center md:ms-9 cursor-pointer">
-            <a href="">About</a>
+            <a href="/about">About</a>
           </li>
           <li className="self-center md:ms-9 cursor-pointer">
-            <a href="">Products</a>
+            <a href="products">Products</a>
           </li>
           <li className="self-center md:ms-9 cursor-pointer">
-            <a href="">Order</a>
+            <a href="/order">Order</a>
           </li>
         </ul>
         <div className="flex item-center justify-center md:text-4xl font-vinque pb-2">

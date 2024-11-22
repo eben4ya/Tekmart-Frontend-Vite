@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 // Create AuthContext
 export const AuthContext = createContext();
@@ -9,6 +9,13 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const checkIsLoggedIn = localStorage.getItem("isLoggedIn");
+    if (checkIsLoggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,6 +84,7 @@ export const AuthProvider = ({ children }) => {
         setEmail("");
         setPassword("");
         setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn", true);
         alert("Login successful!");
         // Redirect to order page
         window.location.href = "/products";
@@ -105,6 +113,7 @@ export const AuthProvider = ({ children }) => {
         document.cookie =
           "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // remove token cookie in browser
         setIsLoggedIn(false);
+        localStorage.removeItem("isLoggedIn");
         alert("Logout successful!");
       } else {
         const data = await response.json();

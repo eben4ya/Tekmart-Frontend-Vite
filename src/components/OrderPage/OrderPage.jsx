@@ -82,7 +82,7 @@ const OrderPage = () => {
         </div>  
         {/* Payment Method Option */}<div className="bg-white rounded-lg shadow-md p-6 mb-6">
 
-            <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
+            <h2 className="text-3xl font-poppins font-bold mb-4">Payment Method</h2>
               <div className='space-y-3'> 
                 <label className='flex items-center gap-3 cursor-pointer'>
                   <input
@@ -92,7 +92,7 @@ const OrderPage = () => {
                     checked={selectedPayment === 'debit'}
                     onChange={(e) => setSelectedPayment(e.target.value)}
                     className="form-radio text-yellow"/>
-                    <span>
+                    <span className='font-inter font-medium'>
                       Debit Card
                     </span>
                 </label>
@@ -104,7 +104,7 @@ const OrderPage = () => {
                     checked={selectedPayment==='QRIS'}
                     onChange={(e)=> setSelectedPayment(e.target.value)}
                     className='form-radio text-yellow'/>
-                    <span>
+                    <span className='font-inter font-medium'>
                       QRIS
                     </span>
                 </label>
@@ -117,12 +117,28 @@ const OrderPage = () => {
                     onChange={(e) => setSelectedPayment(e.target.value)}
                     className="form-radio text-yellow"
                   ></input>
-                  <span>
+                  <span className="font-inter font-medium">
                     Cash
                   </span>
                 </label>
               </div>
-          </div> 
+          </div>
+           {/*Payment Configuration */}
+          <div>
+            <div>
+              <span>
+
+              </span>
+              <span>
+              </span>
+            </div>
+            <button>
+
+            </button>
+            <p>
+              
+            </p>
+          </div>
       </div>
     
            

@@ -7,9 +7,12 @@ import OrderPage from "./components/OrderPage/OrderPage";
 import ProductPage from "./components/ProductPage/ProductPage";
 import Footer from './components/OrderPage/Footer';
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
+import ErrorOrder from "./components/OrderPage/ErrorOrder";
+import ErrorLogin from "./components/OrderPage/ErrorLogin";
 
 // Used for testing
 import Test from "./test/Test"; 
+
 
 
 
@@ -32,6 +35,10 @@ function App() {
           <Route path="/register" element={<RegisterLogin type="register" />} />
           {/* testing route */}
           <Route path="/test" element={<Test />} />
+          {/* route to error bcoz no item ordered yet*/}
+          <Route path="/order/errorNoItem" element={<ErrorOrder/>}/>
+          {/* route to error bcoz not logged in yet */}
+          <Route path="/order/errorNotLoggedInYet" element={<ErrorLogin/>}/>
         </Routes>
       </main>
       <Footer />

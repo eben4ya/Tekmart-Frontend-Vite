@@ -44,8 +44,10 @@ const OrderPage = () => {
 
 
       />
-      {/* Order Summary */}
+      
+      
       <div className="w-full max-h-4 mx-auto px-4 py-8">
+        {/* Order Summary */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-3xl font-poppins font-bold">
@@ -58,7 +60,7 @@ const OrderPage = () => {
 
           <div className="space-y-3">
             {orderItems.map((item)=> (
-              <div key={item.id} className="flex justify-between items-center bg-gray-80 rounded pb-4 pt-4 pl-4 pr-4 outline outline-zinc outline-1">
+              <div key={item.id} className="flex justify-between items-center bg-gray-80 rounded pb-4 pt-4 pl-4 pr-4 outline outline-zinc outline-2">
                 <div className="flex items-center gap-4">
                   <span className="text-gray-600 font-inter font-bold">{item.quantity}x</span>
                   <div>
@@ -77,10 +79,53 @@ const OrderPage = () => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-      {/* Payment Method Option */}
+        </div>  
+        {/* Payment Method Option */}<div className="bg-white rounded-lg shadow-md p-6 mb-6">
 
+            <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
+              <div className='space-y-3'> 
+                <label className='flex items-center gap-3 cursor-pointer'>
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="debit"
+                    checked={selectedPayment === 'debit'}
+                    onChange={(e) => setSelectedPayment(e.target.value)}
+                    className="form-radio text-yellow"/>
+                    <span>
+                      Debit Card
+                    </span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type='radio'
+                    name='payment'
+                    value='QRIS'
+                    checked={selectedPayment==='QRIS'}
+                    onChange={(e)=> setSelectedPayment(e.target.value)}
+                    className='form-radio text-yellow'/>
+                    <span>
+                      QRIS
+                    </span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type='radio'
+                    name='payment'
+                    value='cash'
+                    checked={selectedPayment==='cash'}
+                    onChange={(e) => setSelectedPayment(e.target.value)}
+                    className="form-radio text-yellow"
+                  ></input>
+                  <span>
+                    Cash
+                  </span>
+                </label>
+              </div>
+          </div> 
+      </div>
+    
+           
       {/* Payment Confirmation Button */}
     </>
   );

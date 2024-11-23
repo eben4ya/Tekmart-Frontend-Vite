@@ -19,7 +19,9 @@ const Hero = () => {
           <br /> experience, interact, and explore the goodness of the time you{" "}
           <br /> just saved by ordering with this website.
         </p>
-        <button className="bg-white font-poppins font-bold text-black py-4 px-5 rounded-2xl hover:bg-yellow active:bg-yellow active:text-white text-2xl shadow-2xl stroke-zinc-200 stroke-2">
+        <button 
+          // onClick={handleShowBanner} //nyoba2
+          className="bg-white font-poppins font-bold text-black py-4 px-5 rounded-2xl hover:bg-yellow active:bg-yellow active:text-white text-2xl shadow-2xl stroke-zinc-200 stroke-2">
           Get Started Now
         </button>
       </div>

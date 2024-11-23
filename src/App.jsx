@@ -7,6 +7,7 @@ import OrderPage from "./components/OrderPage/OrderPage";
 import ProductPage from "./components/ProductPage/ProductPage";
 import Footer from './components/OrderPage/Footer';
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
+import WarningBanner from "./components/OrderPage/WarningBanner"; 
 
 // Used for testing
 import Test from "./test/Test"; 
@@ -17,6 +18,8 @@ function App() {
   return (
     <Router>
       <Navbar />
+      {/* {showBanner && <WarningBanner />}  */}
+      {/* uncomment kalau mau coba banner (gatau buatnya gmn lbh modular) */}
       <main className="flex flex-col items-center w-screen h-screen">
         <Routes>
           <Route path="/" element={<LandingPage />} />

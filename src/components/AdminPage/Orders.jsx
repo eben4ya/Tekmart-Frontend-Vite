@@ -93,22 +93,22 @@ const Orders = () => {
                   key={item.id}
                   className="flex-row py-2 flex justify-between items-center rounded bg-zinc outline outline-white2 outline-2"
                 >
-                  <div className="mx-6 my-4 flex flex-row space-x-4">
-                    <p>
+                  <div className="font-poppins mx-6 my-4 flex flex-row space-x-4">
+                    <p className="font-bold">
                       {item.quantity}x 
                     </p>
                     <p>
                         {item.name} ({item.variant})
                     </p>
                   </div>
-                  <p className="mx-4">IDR{item.price.toLocaleString()}</p>
+                  <p className="mx-4 font-poppins font-bold">IDR{item.price.toLocaleString()}</p>
                 </div>
               ))}
               <div className="flex flex-row justify-between my-4 px-4 py-5 font-bold text-right bg-yellow rounded outline outline-yellow">
-                <p>
-                  Total:  
+                <p className="px-10 font-poppins font-medium">
+                  Total  
                 </p>
-                <p>
+                <p className="font-poppins">
                    IDR{""}{orderItems
                   .reduce((sum, item) => sum + item.price * item.quantity, 0)
                   .toLocaleString()}

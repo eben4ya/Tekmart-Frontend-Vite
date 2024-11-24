@@ -3,7 +3,7 @@ import usingBrowserrUrl from "../../assets/images/Using-Browser.png";
 
 const AboutUsContent = () => {
   return (
-    <div className="flex flex-col w-screen font-poppins">
+    <div className="flex flex-col w-screen font-poppins my-[2.6vw]">
       <div className="flex md:flex-row md:px-7 lg:px-8 xl:ps-9 xl:pe-36">
         <img src={queuedrUrl} alt="Order" className="md:w-2/5 object-cover" />
         <div className="flex flex-col md:mt-10 lg:mt-20 xl:mt-32 md:ms-3 lg:ms-4 xl:ms-5 font-bold">

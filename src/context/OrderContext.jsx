@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 import { createContext, useState, useEffect } from "react";
 
 export const OrderContext = createContext();
@@ -12,12 +14,23 @@ export const OrderProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
-  
+
   const [showNotification, setShowNotification] = useState(false);
+
+  const generateOrderId = () => {
+    const id = `TX-${uuidv4}`;
+    return id;
+  };
 
   return (
     <OrderContext.Provider
-      value={{ cart, setCart, showNotification, setShowNotification }}
+      value={{
+        cart,
+        setCart,
+        showNotification,
+        setShowNotification,
+        generateOrderId,
+      }}
     >
       {children}
     </OrderContext.Provider>

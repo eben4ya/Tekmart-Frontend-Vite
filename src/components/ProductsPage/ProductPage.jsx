@@ -138,7 +138,7 @@ const ProductPage = () => {
       {cart.length > 0 && (
         <OrderButton
           onClick={() => {
-            window.location.href = "/products";
+            window.location.href = "/order";
             console.log(cart);
           }}
           amount={cart.length}

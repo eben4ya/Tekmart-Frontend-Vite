@@ -9,8 +9,13 @@ import useSnap from "../../hooks/useSnap";
 
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
-  const { cart, setCart, showNotification, setShowNotification } =
-    useContext(OrderContext);
+  const {
+    cart,
+    setCart,
+    showNotification,
+    setShowNotification,
+    generateOrderId,
+  } = useContext(OrderContext);
   const { isLoggedIn } = useContext(AuthContext);
 
   const [customerDetails, setCustomerDetails] = useState({
@@ -18,9 +23,10 @@ const OrderPage = () => {
     email: "john.doe@example.com",
     phone: "08123456789",
   });
+  const orderId = generateOrderId();
   const [snapShow, setSnapShow] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
-  const [notifMessage, setNotifMessage] = useState("");
+  const [notifMessage, setNotifMessage] = useState({ type: "", message: "" });
 
   const totalPrice = cart.reduce(
     (sum, item) =>
@@ -37,29 +43,41 @@ const OrderPage = () => {
   const handlePlaceOrder = async () => {
     if (cart.length === 0) {
       setShowNotification(true);
-      setNotifMessage("No items in the cart, go to page product");
+      setNotifMessage({
+        type: "warning",
+        message: "No items in the cart, go to page product",
+      });
       return;
     }
     if (selectedPayment === null) {
       setShowNotification(true);
-      setNotifMessage("Please select payment method");
+      setNotifMessage({
+        type: "warning",
+        message: "Please select payment method",
+      });
       return;
     }
     // if user not logged in, redirect to login page
     if (!isLoggedIn) {
       setShowNotification(true);
-      setNotifMessage("Please login to place order");
+      setNotifMessage({
+        type: "warning",
+        message: "Please login to place order",
+      });
       window.location.href = "/login";
       return;
     } else {
       // if user logged in, place order
       if (selectedPayment === "cash") {
         setShowNotification(true);
-        setNotifMessage("Order placed successfully");
+        setNotifMessage({
+          type: "info",
+          message: "Order placed successfully",
+        });
         setCart([]);
         localStorage.setItem("cart", JSON.stringify([]));
         // redirect to list order page
-        // window.location.href = "/orders
+        window.location.href = `/order/${orderId}`;
       } else {
         try {
           const response = await fetch("http://localhost:3000/api/payment", {
@@ -91,6 +109,7 @@ const OrderPage = () => {
               alert("Payment Success: " + JSON.stringify(result));
               // give navigation to the next page
               setSnapShow(false);
+              window.location.href = `/order/${orderId}`;
             },
             onPending: (result) => {
               alert("Payment Pending: " + JSON.stringify(result));
@@ -133,6 +152,9 @@ const OrderPage = () => {
               <button
                 style={{ color: "#FFDE4D" }}
                 className="pt-4 font-poppins font-medium text-xl"
+                onClick={() => {
+                  window.location.href = "/products";
+                }}
               >
                 + Add More
               </button>
@@ -219,7 +241,7 @@ const OrderPage = () => {
           <div className="bg-yellow rounded-lg p-2 mx-[1vw]">
             <div className="flex justify-between items-center p-4 ">
               <span className="font-bold font-poppins flex items-center justify-between">
-                Total Price: IDR{totalPrice.toLocaleString()}
+                Total Price: IDR{totalPrice.toLocaleString()}.000,00
               </span>
               <button
                 onClick={handlePlaceOrder}
@@ -235,7 +257,10 @@ const OrderPage = () => {
       <div id="snap-container"></div>
       {/* Notification */}
       {showNotification && (
-        <NotificationBanner type="warning" message={notifMessage} />
+        <NotificationBanner
+          type={notifMessage.type}
+          message={notifMessage.message}
+        />
       )}
     </>
   );

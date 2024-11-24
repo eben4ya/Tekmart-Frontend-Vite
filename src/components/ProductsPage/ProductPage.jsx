@@ -13,6 +13,7 @@ const dummyFoods = [
 
   { id: 5, image: bengBengUrl, name: "SilverQueen", price: "IDR15.000,00" },
   { id: 6, image: bengBengUrl, name: "Indomie", price: "IDR2.500,00" },
+  
 ];
 
 const dummyDrinks = [
@@ -91,26 +92,28 @@ const ProductCard = () => {
 
   // renderProducts function
   const renderProducts = (title, products) => (
-    <div className="flex flex-wrap w-screen md:px-6 lg:px-7 xl:px-8 font-poppins">
-      <h1>{title}</h1>
-      {products.map((product) => (
-        <div
-          key={product.id}
-          className={`flex flex-col border rounded-xl items-center md:text-md lg:text-lg xl:text-xl md:w-[210px] lg:w-[211px] xl:w-[213px] md:py-5 lg:py-6 xl:py-7 cursor-pointer m-2 ${
-            cart.some((item) => item.id === product.id) ? "bg-yellow" : ""
-          }`}
-          onClick={() => handleCardClick(product)}
-        >
-          <img src={product.image} alt={product.name} />
-          <h1 className="font-bold">{product.name}</h1>
-          <h1>{product.price}</h1>
-        </div>
-      ))}
+    <div className="flex flex-col w-full md:px-6 lg:px-7 xl:px-[1vw] font-poppins mb-[2.5vw]">
+      <h1 className="text-[2.08vw] font-bold mb-[1.67vw]">{title}</h1>
+      <div className="flex overflow-x-auto space-x-[1.67vw]">
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className={`flex flex-col border rounded-xl items-center md:text-md lg:text-lg xl:text-xl p-5 cursor-pointer min-w-[210px] ${
+              cart.some((item) => item.id === product.id) ? "bg-yellow" : ""
+            }`}
+            onClick={() => handleCardClick(product)}
+          >
+            <img src={product.image} alt={product.name} className="w-32 h-32 object-contain" />
+            <h1 className="font-bold text-lg">{product.name}</h1>
+            <h1 className="text-md">{product.price}</h1>
+          </div>
+        ))}
+      </div>
     </div>
   );
 
   return (
-    <div className="w-full h-full px-[1.56vw] mt-[6.61vw] mb-[4.42vw]">
+    <div className="w-full h-full px-[1.56vw] mt-[6.61vw] mb-[2.92vw]">
       {/* Foods Product */}
       {renderProducts("Foods", dummyFoods)}
 

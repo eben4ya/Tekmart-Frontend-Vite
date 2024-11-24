@@ -1,10 +1,10 @@
 import bengBengUrl from "../../assets/Beng-Beng.png";
 import OrderButton from "./OrderButton";
 import ProductDetail from "./ProductDetail";
+import NotificationBanner from "../AllPage/NotificationBanner";
 
 import { useState, useEffect, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
-import NotificationBanner from "../AllPage/NotificationBanner";
 
 const dummyFoods = [
   { id: 1, image: bengBengUrl, name: "Beng-Beng", price: "IDR4.000,00" },
@@ -90,6 +90,7 @@ const ProductPage = () => {
     }
 
     setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
     closeModal();
     if (quantity > 0) setShowNotification(true);
   };
@@ -135,7 +136,13 @@ const ProductPage = () => {
       {renderProducts("Stationeries", dummyStationeries)}
 
       {cart.length > 0 && (
-        <OrderButton onClick={() => console.log(cart)} amount={cart.length} />
+        <OrderButton
+          onClick={() => {
+            window.location.href = "/products";
+            console.log(cart);
+          }}
+          amount={cart.length}
+        />
       )}
 
       {/* Selected Items Configuration */}

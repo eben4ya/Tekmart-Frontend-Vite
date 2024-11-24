@@ -19,6 +19,7 @@ const OrderPage = () => {
   const handleRemoveItem = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const handlePlaceOrder = () => {

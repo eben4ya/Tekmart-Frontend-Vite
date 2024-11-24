@@ -15,7 +15,6 @@ const dummyFoods = [
 
   { id: 5, image: bengBengUrl, name: "SilverQueen", price: "IDR15.000,00" },
   { id: 6, image: bengBengUrl, name: "Indomie", price: "IDR2.500,00" },
-  
 ];
 
 const dummyDrinks = [
@@ -105,7 +104,11 @@ const ProductPage = () => {
             }`}
             onClick={() => handleCardClick(product)}
           >
-            <img src={product.image} alt={product.name} className="w-32 h-32 object-contain" />
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-32 h-32 object-contain"
+            />
             <h1 className="font-bold text-lg">{product.name}</h1>
             <h1 className="text-md">{product.price}</h1>
           </div>
@@ -128,7 +131,9 @@ const ProductPage = () => {
       {/* Stationeries Product */}
       {renderProducts("Stationeries", dummyStationeries)}
 
-      <OrderButton onClick={() => console.log(cart)} amount={cart.length} />
+      {cart.length > 0 && (
+        <OrderButton onClick={() => console.log(cart)} amount={cart.length} />
+      )}
 
       {/* Selected Items Configuration */}
       {selectedProduct && (

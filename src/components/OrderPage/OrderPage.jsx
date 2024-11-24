@@ -46,32 +46,38 @@ const OrderPage = () => {
           </div>
 
           <div className="space-y-3">
-            {cart.map((item) => (
-              <div
-                key={item.id}
-                className="flex justify-between items-center bg-gray-80 rounded pb-4 pt-4 pl-4 pr-4 outline outline-zinc outline-2"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="text-gray-600 font-inter font-bold">
-                    {item.quantity}x
-                  </span>
-                  <div>
-                    <h3 className="font-poppins font-medium">{item.name}</h3>
-                    <p className="text-sm text-gray-500 font-light">
-                      {item.variant}
-                    </p>
+            {cart.length > 0 ? (
+              cart.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex justify-between items-center bg-gray-80 rounded pb-4 pt-4 pl-4 pr-4 outline outline-zinc outline-2"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="text-gray-600 font-inter font-bold">
+                      {item.quantity}x
+                    </span>
+                    <div>
+                      <h3 className="font-poppins font-medium">{item.name}</h3>
+                      <p className="text-sm text-gray-500 font-light">
+                        {item.variant}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="font-bold font-inter">
+                      IDR{item.price.toLocaleString()}
+                    </span>
+                    <button className="text-yellow-500">
+                      <Trash className="w-6 h-6" color="#FFDE4D" />
+                    </button>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <span className="font-bold font-inter">
-                    IDR{item.price.toLocaleString()}
-                  </span>
-                  <button className="text-yellow-500">
-                    <Trash className="w-6 h-6" color="#FFDE4D" />
-                  </button>
-                </div>
+              ))
+            ) : (
+              <div className="flex justify-center items-center text-gray-500 font-inter font-medium text-[1vw] h-[5.5vw]">
+                <p> No items in the cart, go to page product <a href="/products" className="text-[#29b5fb]">here</a></p>
               </div>
-            ))}
+            )}
           </div>
         </div>
         {/* Payment Method Option */}

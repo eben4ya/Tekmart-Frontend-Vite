@@ -4,7 +4,7 @@ import Navbar from "./components/AllPage/Navbar";
 import LandingPage from "./components/LandingPage/LandingPage";
 import AboutPage from "./components/AboutUsPage/AboutPage";
 import OrderPage from "./components/OrderPage/OrderPage";
-import ProductPage from "./components/ProductPage/ProductPage";
+import ProductPage from "./components/ProductsPage/ProductPage";
 import Footer from "./components/AllPage/Footer";
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
 import ErrorOrder from "./components/OrderPage/ErrorOrder";

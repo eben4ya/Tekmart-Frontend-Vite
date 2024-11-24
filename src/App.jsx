@@ -23,7 +23,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <main className="flex flex-col items-center w-screen h-screen">
+      <main className="flex flex-col items-center w-screen h-full">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           {/* route to /about */}

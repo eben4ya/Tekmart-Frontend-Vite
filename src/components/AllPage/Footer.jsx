@@ -5,7 +5,7 @@ import instagramImage from '../../assets/Instagram.png';
 
 const Footer = () => {
     return (
-        <footer className="relative bg-black text-white p-6 bottom-0 left-0 w-full font-poppins z-50">
+        <footer className="bg-black text-white p-6 bottom-0 left-0 w-full font-poppins z-50">
             <div className="flex justify-between">
                 
                 <div>
@@ -52,8 +52,9 @@ const Footer = () => {
                 className="bg-white" 
                 style={{ 
                     position: 'absolute',
-                    top: '42%',            
-                    height: '3px', 
+                    bottom: '8%',           
+                    left: '2%',             
+                    height: '4px', 
                     width: '75%'
                 }}
             ></div>

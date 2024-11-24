@@ -2,10 +2,10 @@ import Title from "../AllPage/Title";
 import { Trash } from "lucide-react";
 
 import { useState, useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { OrderContext } from "../../context/OrderContext";
 
 const OrderPage = () => {
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(OrderContext);
   const [selectedPayment, setSelectedPayment] = useState("QRIS");
 
   const totalPrice = cart.reduce(

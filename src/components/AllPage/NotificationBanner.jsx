@@ -1,32 +1,39 @@
-import React, { useState, useEffect } from "react";
+
+import { useState, useEffect } from "react";
 import warningImage from "../../assets/images/Warning.png";
 
+import { BsInfoCircleFill } from "react-icons/bs";
 
 //// Pasang ini di tombol yang mau dipasangin banner nnti
-// onClick={handleShowBanner} 
-
+// onClick={handleShowBanner}
 
 //// Pasang ini jg nnti di main function page ordernya
 // const [showBanner, setShowBanner] = useState(false);
 //   const handleShowBanner = () => {
-//     setShowBanner(true); 
+//     setShowBanner(true);
 //     setTimeout(() => setShowBanner(false), 5000);
 //   };
 
-const WarningBanner = ({ duration = 5000, onDismiss }) => {
+/* eslint-disable react/prop-types */
+const NotificationBanner = ({
+  duration = 5000,
+  onDismiss,
+  type = "info",
+  message = "",
+}) => {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     // supaya hilang stlh 5 detik
     const timer = setTimeout(() => {
       setVisible(false);
-      if (onDismiss) onDismiss(); 
+      if (onDismiss) onDismiss();
     }, duration);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, [duration, onDismiss]);
 
-  if (!visible) return null; 
+  if (!visible) return null;
 
   return (
     <div
@@ -40,17 +47,17 @@ const WarningBanner = ({ duration = 5000, onDismiss }) => {
       }}
     >
       <div className="flex items-center">
-        <img
-          src={warningImage}
-          alt="Warning Icon"
-          className="h-10 w-10 object-contain"
-        />
+        {type === "info" ? (
+          <BsInfoCircleFill className="w-10 h-10 text-black" />
+        ) : (
+          <img src={warningImage} alt="warning" className="w-10 h-10" />
+        )}
         <div className="ml-4">
           <h1 className="font-bold text-lg" style={{ fontFamily: "Poppins" }}>
-            Peringatan!
+            {type === "info" ? "Info" : "Warning!"}
           </h1>
           <p className="text-sm" style={{ fontFamily: "Poppins" }}>
-            Produk Telah Diterima.
+            {message}
           </p>
         </div>
       </div>
@@ -58,4 +65,4 @@ const WarningBanner = ({ duration = 5000, onDismiss }) => {
   );
 };
 
-export default WarningBanner;
+export default NotificationBanner;

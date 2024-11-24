@@ -3,7 +3,7 @@ import OrderButton from "./OrderButton";
 import ProductDetail from "./ProductDetail";
 
 import { useState, useEffect, useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { OrderContext } from "../../context/OrderContext";
 
 const dummyFoods = [
   { id: 1, image: bengBengUrl, name: "Beng-Beng", price: "IDR4.000,00" },
@@ -42,7 +42,7 @@ const dummyStationeries = [
 const ProductPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(OrderContext);
 
   useEffect(() => {
     if (selectedProduct) {

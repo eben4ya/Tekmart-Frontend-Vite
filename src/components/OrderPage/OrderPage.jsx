@@ -1,15 +1,17 @@
 import Title from "../AllPage/Title";
 import { Trash } from "lucide-react";
+import NotificationBanner from "../AllPage/NotificationBanner";
 
 import { useState, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
-import NotificationBanner from "../AllPage/NotificationBanner";
+import { AuthContext } from "../../context/AuthContext";
 
 const OrderPage = () => {
   const { cart, setCart, showNotification, setShowNotification } =
     useContext(OrderContext);
-  const [selectedPayment, setSelectedPayment] = useState(null);
+  const { isLoggedIn } = useContext(AuthContext);
 
+  const [selectedPayment, setSelectedPayment] = useState(null);
   const [notifMessage, setNotifMessage] = useState("");
 
   const totalPrice = cart.reduce(
@@ -30,15 +32,21 @@ const OrderPage = () => {
       setNotifMessage("No items in the cart, go to page product");
       return;
     }
-    if(selectedPayment === null){
+    if (selectedPayment === null) {
       setShowNotification(true);
       setNotifMessage("Please select payment method");
       return;
     }
     // if user not logged in, redirect to login page
-
-    // if user logged in, place order
-    console.log("Order placed with payment method:", selectedPayment);
+    if (!isLoggedIn) {
+      setShowNotification(true);
+      setNotifMessage("Please login to place order");
+      window.location.href = "/login";
+      return;
+    } else {
+      // if user logged in, place order
+      console.log("Order placed with payment method:", selectedPayment);
+    }
   };
 
   return (

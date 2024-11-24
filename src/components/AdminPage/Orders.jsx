@@ -1,5 +1,6 @@
 import { useState } from "react";
 import OrderBg from "../../../src/assets/berryImage.jpg"
+import Title from "../AllPage/Title";
 const orderInfo =[
     {
         id: 1,
@@ -39,21 +40,10 @@ const Orders = () => {
     };
   return (
     <>
-        <div
-      style={{
-        backgroundImage: `url(${OrderBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-      className="bg-black font-poppins flex flex-col justify-center items-center gap-[1.25vw] w-full h-[16.14vw]"
-    >
-      <h1 className="font-bold text-[5vw] ">
-        <span className="text-yellow">  </span>
-        <span className="text-white"> Orders</span>
-      </h1>
-      <p className="text-white text-[1.04vw]">Where admin could edit the inventory of their products.</p>
-    </div>
+       <Title
+       bgSrc="/images/orderBG.svg"
+       title=" Orders"
+       subtitle="Where admin could edit the inventory of their products"/>
     <div className="w-full pr-8 pl-4 m-4">
         {/* Active Orders */}
         <h1 className='ml-8 font-poppins font-bold text-2xl'>Active Orders</h1>

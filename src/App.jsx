@@ -9,9 +9,11 @@ import Footer from './components/OrderPage/Footer';
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
 import ErrorOrder from "./components/OrderPage/ErrorOrder";
 import ErrorLogin from "./components/OrderPage/ErrorLogin";
+import Dashboard from "./components/AdminPage/Dashboard";
 
 // Used for testing
 import Test from "./test/Test"; 
+
 
 
 
@@ -33,6 +35,8 @@ function App() {
           <Route path="/login" element={<RegisterLogin type="login" />} />
           {/* route to /register */}
           <Route path="/register" element={<RegisterLogin type="register" />} />
+          {/* route to admin Dashboard */}
+          <Route path="/admin/dashboard" element={<Dashboard/>}/>
           {/* testing route */}
           <Route path="/test" element={<Test />} />
           {/* route to error bcoz no item ordered yet*/}

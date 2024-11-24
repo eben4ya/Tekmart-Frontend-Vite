@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
 import bengBengUrl from "../../assets/Beng-Beng.png";
 import OrderButton from "./OrderButton";
 import ProductDetail from "./ProductDetail";
+
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 
 const dummyFoods = [
   { id: 1, image: bengBengUrl, name: "Beng-Beng", price: "IDR4.000,00" },
@@ -38,10 +40,10 @@ const dummyStationeries = [
   { id: 19, image: bengBengUrl, name: "Buku Tulis", price: "IDR5.000,00" },
 ];
 
-const ProductCard = () => {
+const ProductPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
-  const [cart, setCart] = useState([]);
+  const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
     if (selectedProduct) {
@@ -126,7 +128,7 @@ const ProductCard = () => {
       {/* Stationeries Product */}
       {renderProducts("Stationeries", dummyStationeries)}
 
-      <OrderButton onClick={() => console.log(cart)} />
+      <OrderButton onClick={() => console.log(cart)} amount={cart.length} />
 
       {/* Selected Items Configuration */}
       {selectedProduct && (
@@ -143,4 +145,4 @@ const ProductCard = () => {
   );
 };
 
-export default ProductCard;
+export default ProductPage;

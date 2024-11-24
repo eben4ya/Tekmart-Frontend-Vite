@@ -1,10 +1,10 @@
 // eslint-disable-next-line react/prop-types
-const OrderButton = ({onClick = () => {}}) => {
+const OrderButton = ({onClick = () => {}, amount = 0}) => {
   return (
     <div className="bg-yellow rounded-lg p-2 mx-[1vw]">
       <div className="flex justify-between items-center p-4 ">
         <span className="font-bold font-poppins flex items-center justify-between">
-          2 Items Selected
+          {amount} Items Selected
         </span>
         <button
           onClick={onClick}

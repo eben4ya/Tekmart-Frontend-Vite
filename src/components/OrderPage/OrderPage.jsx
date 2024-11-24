@@ -1,39 +1,28 @@
-import React, { useState } from "react";
 import Title from "../AllPage/Title";
 import { Trash } from "lucide-react";
 
+import { useState, useContext } from "react";
+import { CartContext } from "../../context/CartContext";
+
 const OrderPage = () => {
+  const { cart, setCart } = useContext(CartContext);
   const [selectedPayment, setSelectedPayment] = useState("QRIS");
 
-  const orderItems = [
-    {
-      id: 1,
-      name: "Beng-Beng",
-      variant: "Standard",
-      quantity: 1,
-      price: 4000.0,
-    },
-    {
-      id: 2,
-      name: "Chitat0",
-      variant: "Jumbo",
-      quantity: 2,
-      price: 20000.0,
-    },
-    {
-      id: 3,
-      name: "Onigiri",
-      variant: "Rendang",
-      quantity: "1",
-      price: 9500.0,
-    },
-  ];
+  const totalPrice = cart.reduce(
+    (sum, item) =>
+      sum + parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * item.quantity,
+    0
+  );
 
-  const totalPrice = orderItems.reduce((sum, item) => sum + item.price, 0);
+  const handleRemoveItem = (id) => {
+    const updatedCart = cart.filter((item) => item.id !== id);
+    setCart(updatedCart);
+  };
 
   const handlePlaceOrder = () => {
     console.log("Order placed with payment method:", selectedPayment);
   };
+
   return (
     <>
       {/* Order Title */}
@@ -57,7 +46,7 @@ const OrderPage = () => {
           </div>
 
           <div className="space-y-3">
-            {orderItems.map((item) => (
+            {cart.map((item) => (
               <div
                 key={item.id}
                 className="flex justify-between items-center bg-gray-80 rounded pb-4 pt-4 pl-4 pr-4 outline outline-zinc outline-2"
@@ -130,10 +119,10 @@ const OrderPage = () => {
         <div className="bg-yellow rounded-lg p-2 mx-[1vw]">
           <div className="flex justify-between items-center p-4 ">
             <span className="font-bold font-poppins flex items-center justify-between">
-              2 Items Selected
+              {cart.length} Items Selected
             </span>
             <button
-              /* onClick={handlePlaceOrder} */
+              onClick={handlePlaceOrder}
               className="font-poppins flex items-center bg-yellow text-black py-3 rounded-lg font-bold hover:bg-yellow transition-colors"
             >
               Proceed to Order

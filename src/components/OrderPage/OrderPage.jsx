@@ -66,13 +66,13 @@ const OrderPage = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${userToken}`, // Adding user token to headers
             },
             body: JSON.stringify({
               orderId,
               totalPrice: totalPrice,
               customerDetails,
             }),
+            include: "credentials",
           });
 
           if (!response.ok) {

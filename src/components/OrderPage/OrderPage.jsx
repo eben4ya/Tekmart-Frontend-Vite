@@ -4,6 +4,7 @@ import { Trash } from "lucide-react";
 import { useState, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
 import NotificationBanner from "../AllPage/NotificationBanner";
+import { handler } from "@tailwindcss/aspect-ratio";
 
 const OrderPage = () => {
   const { cart, setCart, showNotification, setShowNotification } =
@@ -27,6 +28,7 @@ const OrderPage = () => {
       setShowNotification(true);
       return;
     }
+    
     console.log("Order placed with payment method:", selectedPayment);
   };
 
@@ -75,7 +77,11 @@ const OrderPage = () => {
                       IDR{item.price.toLocaleString()}
                     </span>
                     <button className="text-yellow-500">
-                      <Trash className="w-6 h-6" color="#FFDE4D" />
+                      <Trash
+                        className="w-6 h-6"
+                        color="#FFDE4D"
+                        onClick={() => handleRemoveItem(item.id)}
+                      />
                     </button>
                   </div>
                 </div>
@@ -138,7 +144,7 @@ const OrderPage = () => {
         <div className="bg-yellow rounded-lg p-2 mx-[1vw]">
           <div className="flex justify-between items-center p-4 ">
             <span className="font-bold font-poppins flex items-center justify-between">
-              {cart.length} Items Selected
+              Total Price: IDR{totalPrice.toLocaleString()}
             </span>
             <button
               onClick={handlePlaceOrder}

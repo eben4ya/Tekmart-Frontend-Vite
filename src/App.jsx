@@ -13,6 +13,7 @@ import Dashboard from "./components/AdminPage/Dashboard";
 
 // Used for testing
 import Test from "./test/Test"; 
+import Orders from "./components/AdminPage/Orders";
 
 
 
@@ -37,6 +38,8 @@ function App() {
           <Route path="/register" element={<RegisterLogin type="register" />} />
           {/* route to admin Dashboard */}
           <Route path="/admin/dashboard" element={<Dashboard/>}/>
+          {/* route to admin orders */}
+          <Route path='/admin/orders' element={<Orders/>}/>
           {/* testing route */}
           <Route path="/test" element={<Test />} />
           {/* route to error bcoz no item ordered yet*/}

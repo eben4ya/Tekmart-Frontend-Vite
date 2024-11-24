@@ -3,9 +3,11 @@ import { Trash } from "lucide-react";
 
 import { useState, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
+import NotificationBanner from "../AllPage/NotificationBanner";
 
 const OrderPage = () => {
-  const { cart, setCart } = useContext(OrderContext);
+  const { cart, setCart, showNotification, setShowNotification } =
+    useContext(OrderContext);
   const [selectedPayment, setSelectedPayment] = useState("QRIS");
 
   const totalPrice = cart.reduce(
@@ -20,6 +22,10 @@ const OrderPage = () => {
   };
 
   const handlePlaceOrder = () => {
+    if (cart.length === 0) {
+      setShowNotification(true);
+      return;
+    }
     console.log("Order placed with payment method:", selectedPayment);
   };
 
@@ -75,7 +81,13 @@ const OrderPage = () => {
               ))
             ) : (
               <div className="flex justify-center items-center text-gray-500 font-inter font-medium text-[1vw] h-[5.5vw]">
-                <p> No items in the cart, go to page product <a href="/products" className="text-[#29b5fb]">here</a></p>
+                <p>
+                  {" "}
+                  No items in the cart, go to page product{" "}
+                  <a href="/products" className="text-[#29b5fb]">
+                    here
+                  </a>
+                </p>
               </div>
             )}
           </div>
@@ -136,6 +148,10 @@ const OrderPage = () => {
           </div>
         </div>
       </div>
+      {/* Notification */}
+      {showNotification && (
+        <NotificationBanner type="warning" message="No product ordered" />
+      )}
     </>
   );
 };

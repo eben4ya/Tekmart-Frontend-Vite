@@ -1,8 +1,9 @@
 
-import { useState, useEffect } from "react";
 import warningImage from "../../assets/images/Warning.png";
-
 import { BsInfoCircleFill } from "react-icons/bs";
+
+import { useEffect, useContext } from "react";
+import { OrderContext } from "../../context/OrderContext";
 
 //// Pasang ini di tombol yang mau dipasangin banner nnti
 // onClick={handleShowBanner}
@@ -21,19 +22,19 @@ const NotificationBanner = ({
   type = "info",
   message = "",
 }) => {
-  const [visible, setVisible] = useState(true);
+  const { showNotification, setShowNotification } = useContext(OrderContext);
 
   useEffect(() => {
     // supaya hilang stlh 5 detik
     const timer = setTimeout(() => {
-      setVisible(false);
+      setShowNotification(false);
       if (onDismiss) onDismiss();
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [duration, onDismiss]);
+  }, [duration, onDismiss, setShowNotification]);
 
-  if (!visible) return null;
+  if (!showNotification) return null;
 
   return (
     <div

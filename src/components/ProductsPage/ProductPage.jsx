@@ -4,6 +4,7 @@ import ProductDetail from "./ProductDetail";
 
 import { useState, useEffect, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
+import NotificationBanner from "../AllPage/NotificationBanner";
 
 const dummyFoods = [
   { id: 1, image: bengBengUrl, name: "Beng-Beng", price: "IDR4.000,00" },
@@ -42,7 +43,8 @@ const dummyStationeries = [
 const ProductPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
-  const { cart, setCart } = useContext(OrderContext);
+  const { cart, setCart, showNotification, setShowNotification } =
+    useContext(OrderContext);
 
   useEffect(() => {
     if (selectedProduct) {
@@ -89,6 +91,7 @@ const ProductPage = () => {
 
     setCart(updatedCart);
     closeModal();
+    if (quantity > 0) setShowNotification(true);
   };
 
   // renderProducts function
@@ -145,6 +148,10 @@ const ProductPage = () => {
           selectedProduct={selectedProduct}
           quantity={quantity}
         />
+      )}
+
+      {showNotification && (
+        <NotificationBanner type="info" message="Product added to cart below" />
       )}
     </div>
   );

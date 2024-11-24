@@ -119,6 +119,10 @@ const Orders = () => {
             </div>
           )}
         </div>
+        
+    <div className="flex items-center">
+        <div className="w-full h-px mb-10 bg-black"></div> 
+    </div>
 
         {/* Orders Prepared */}
         <h2 className="ml-8 font-poppins font-bold text-2xl">Orders Prepared</h2>
@@ -159,7 +163,9 @@ const Orders = () => {
             </div>
           )}
         </div>
-
+        <div className="flex items-center">
+            <div className="w-full h-px mb-10 bg-black"></div> 
+        </div>
         {/* Orders Ready For Pickup */}
         <h2 className="ml-8 font-poppins font-bold text-2xl"> Orders Ready for Pickup</h2>
         <div className="rounded mb-4 p-2">
@@ -198,7 +204,9 @@ const Orders = () => {
             </div>
           )}
         </div>
-
+        <div className="flex items-center">
+            <div className="w-full h-px mb-10 bg-black"></div> 
+        </div>
         {/* Completed Orders */}
         <h2 className="ml-8 font-poppins font-bold text-2xl"> Completed Orders</h2>
         <div className="rounded mb-4 p-2">

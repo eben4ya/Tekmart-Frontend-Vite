@@ -1,7 +1,7 @@
-import mailImage from '../../assets/Mail.png';
-import lineImage from '../../assets/Line.png';
-import twitterImage from '../../assets/Twitter.png';
-import instagramImage from '../../assets/Instagram.png';
+import mailImage from '../../assets/images/Mail.png';
+import lineImage from '../../assets/images/Line.png';
+import twitterImage from '../../assets/images/Twitter.png';
+import instagramImage from '../../assets/images/Instagram.png';
 
 const Footer = () => {
     return (
@@ -10,9 +10,8 @@ const Footer = () => {
                 
                 <div>
                     <h2 className="text-yellow text-3xl font-semibold mb-4">Reach Us Out</h2>
-                    <div className="pt-4"> {/* Wrapper for spacing */}
+                    <div className="pt-4"> 
                         <div className="flex space-x-4">
-                            {/* Circle for the envelope icon */}
                             <div className="flex items-center justify-center bg-yellow rounded-full h-10 w-10">
                                 <img src={mailImage} className="h-5 w-7" />
                             </div>

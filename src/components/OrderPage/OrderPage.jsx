@@ -1,3 +1,8 @@
+// TODO
+// 1. craete post order endpoint (save order to database)
+// 2. called it when user click `proceed to order` button
+// 3. Check why backend not receive cookie
+
 import Title from "../AllPage/Title";
 import { Trash } from "lucide-react";
 import NotificationBanner from "../AllPage/NotificationBanner";

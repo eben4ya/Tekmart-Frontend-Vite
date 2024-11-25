@@ -14,6 +14,7 @@ import Dashboard from "./components/AdminPage/Dashboard";
 // Used for testing
 import Test from "./test/Test"; 
 import Orders from "./components/AdminPage/Orders";
+import PaymentHistory from "./components/AdminPage/PaymentHistory";
 
 
 
@@ -40,12 +41,15 @@ function App() {
           <Route path="/admin/dashboard" element={<Dashboard/>}/>
           {/* route to admin orders */}
           <Route path='/admin/orders' element={<Orders/>}/>
+          {/* route to admin payment history */}
+          <Route path="/admin/paymenthistory" element={<PaymentHistory/>}/>
           {/* testing route */}
           <Route path="/test" element={<Test />} />
           {/* route to error bcoz no item ordered yet*/}
           <Route path="/order/errorNoItem" element={<ErrorOrder/>}/>
           {/* route to error bcoz not logged in yet */}
           <Route path="/order/errorNotLoggedInYet" element={<ErrorLogin/>}/>
+          
         </Routes>
       </main>
       <Footer />

@@ -44,7 +44,7 @@ const Orders = () => {
        bgSrc="/images/orderBG.svg"
        title=" Orders"
        subtitle="Where admin could edit the inventory of their products"/>
-    <div className="w-full pr-8 pl-4 m-4">
+    <div className="w-full m-4 pl-6 p-2">
         {/* Active Orders */}
         <h1 className='ml-8 font-poppins font-bold text-2xl'>Active Orders</h1>
         <div className=" rounded p-2 mb-4">

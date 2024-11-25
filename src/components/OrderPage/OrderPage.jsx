@@ -213,10 +213,10 @@ const OrderPage = () => {
             </div>
           </div>
           {/* Payment Method Option */}
-          <div className="bg-white rounded-lg shadow-md p-6 mb-6 mx-[1vw]">
-            <h2 className="text-3xl font-poppins font-bold mb-4">
+          <h2 className="text-3xl font-poppins font-bold ml-6">
               Payment Method
-            </h2>
+          </h2>
+          <div className="bg-white rounded-lg shadow-md p-6 mb-6 mx-[1vw]">
             <div className="space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input

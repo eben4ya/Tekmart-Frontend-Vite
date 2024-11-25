@@ -57,7 +57,7 @@ const Orders = () => {
                 <div key={item.id} 
                 className="font-semibold flex flex-row px-2 mx-4 my-1">
                     <button className="">{expandedSection === "activeOrders" ? "▲" : "▼"}</button>
-                    <div className="mx-4">
+                    <div className="mx-6">
                     <p className="font-inter font-medium">
                         Order [{item.orderNum}]
                     </p>
@@ -125,7 +125,7 @@ const Orders = () => {
                 <div key={item.id} 
                 className="font-semibold flex flex-row px-2 mx-4 my-1">
                     <button className="">{expandedSection === "activeOrders" ? "▲" : "▼"}</button>
-                    <div className="mx-4">
+                    <div className="mx-6">
                     <p className="font-inter font-medium">
                         Order [{item.orderNum}]
                     </p>
@@ -167,7 +167,7 @@ const Orders = () => {
                 <div key={item.id} 
                 className="font-semibold flex flex-row px-2 mx-4 my-1">
                     <button className="">{expandedSection === "activeOrders" ? "▲" : "▼"}</button>
-                    <div className="mx-4">
+                    <div className="mx-6">
                     <p className="font-inter font-medium">
                         Order [{item.orderNum}]
                     </p>
@@ -208,7 +208,7 @@ const Orders = () => {
                 <div key={item.id} 
                 className="font-semibold flex flex-row px-2 mx-4 my-1">
                     <button className="">{expandedSection === "activeOrders" ? "▲" : "▼"}</button>
-                    <div className="mx-4">
+                    <div className="mx-6">
                     <p className="font-inter font-medium">
                         Order [{item.orderNum}]
                     </p>

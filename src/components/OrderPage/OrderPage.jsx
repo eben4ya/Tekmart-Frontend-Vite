@@ -23,7 +23,7 @@ const OrderPage = () => {
     setShowNotification,
     generateOrderId,
   } = useContext(OrderContext);
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, userSession } = useContext(AuthContext);
 
   const [customerDetails, setCustomerDetails] = useState({
     first_name: "John",
@@ -36,8 +36,7 @@ const OrderPage = () => {
   const [notifMessage, setNotifMessage] = useState({ type: "", message: "" });
 
   const totalPrice = cart.reduce(
-    (sum, item) =>
-      sum + parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * item.quantity,
+    (sum, item) => sum + parseFloat(item.price) * item.quantity,
     0
   );
 
@@ -79,6 +78,37 @@ const OrderPage = () => {
       window.location.href = "/login";
       return;
     } else {
+      // Generate order items
+      const orderItems = cart.map((item) => ({
+        productId: item.id,
+        amount: item.quantity,
+        price: parseFloat(item.price.replace(/[^0-9.-]+/g, "")),
+      }));
+
+      // Create order in the database
+      try {
+        const response = await fetch("http://localhost:3000/api/order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Include credentials to send cookies automatically
+          body: JSON.stringify({
+            userId: userSession?.id,
+            items: orderItems,
+            totalPrice: totalPrice,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to create order");
+        }
+      } catch (error) {
+        console.error("Failed to create order", error);
+        alert("Failed to create order");
+        return;
+      }
+
       // if user logged in, place order
       if (selectedPayment === "cash") {
         setShowNotification(true);
@@ -102,7 +132,7 @@ const OrderPage = () => {
               totalPrice: totalPrice,
               customerDetails,
             }),
-            include: "credentials",
+            credentials: "include",
           });
 
           if (!response.ok) {
@@ -221,7 +251,7 @@ const OrderPage = () => {
           </div>
           {/* Payment Method Option */}
           <h2 className="text-3xl font-poppins font-bold ml-6">
-              Payment Method
+            Payment Method
           </h2>
           <div className="bg-white rounded-lg shadow-md p-6 mb-6 mx-[1vw]">
             <div className="space-y-3">

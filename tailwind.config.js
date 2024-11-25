@@ -7,7 +7,8 @@ export default {
       'black': '#343131',
       'white': '#FFFFFF',
       'white2': '#E4E4E7',
-      'zinc': '#EEEEF0'
+      'zinc': '#EEEEF0',
+      'gray':'#D7D6D6'
     },
     extend: {
       fontFamily:{

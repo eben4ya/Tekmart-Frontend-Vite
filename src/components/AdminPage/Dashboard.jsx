@@ -2,8 +2,33 @@ import Title from "../AllPage/Title";
 import ProductsUrl from "/images/dashboard1.png";
 import OrderUrl from "/images/dashboard2.png";
 import PaymentUrl from "/images/dashboard3.png";
+import AddProductModal from './AddProductModal'; 
+import EditProductModal from "./EditProductModal";
 
 const Dashboard = () => {
+  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
+  const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);  // State for Edit Product Modal
+
+  // Function to open the Add Product Modal
+  const openAddProductModal = () => {
+    setIsAddProductModalOpen(true);
+  };
+
+  // Function to close the Add Product Modal
+  const closeAddProductModal = () => {
+    setIsAddProductModalOpen(false);
+  };
+
+  // Function to open the Edit Product Modal
+  const openEditProductModal = () => {
+    setIsEditProductModalOpen(true);
+  };
+
+  // Function to close the Edit Product Modal
+  const closeEditProductModal = () => {
+    setIsEditProductModalOpen(false);
+  };
+
   return (
     <>
       <Title
@@ -37,6 +62,37 @@ const Dashboard = () => {
           </h1>
         </div>
       </div>
+
+      
+      {/* Floating Button for Adding Product */}
+      <button
+        onClick={openAddProductModal}
+        className="absolute bg-yellow text-black py-4 px-8 rounded-full shadow-lg z-50"
+        style={{
+          top: '500px', // Fixed vertical position
+          left: '500px', // Fixed horizontal position
+        }}
+      >
+        Add Product
+      </button>
+
+      {/* Floating Button for Editing Product */}
+      <button
+        onClick={openEditProductModal}
+        className="absolute bg-yellow text-black py-4 px-8 rounded-full shadow-lg z-50"
+        style={{
+          top: '600px', // Slightly below the Add Product button
+          left: '500px', // Fixed horizontal position
+        }}
+      >
+        Edit Product
+      </button>
+
+      {/* Add Product Modal */}
+      {isAddProductModalOpen && <AddProductModal closeModal={closeAddProductModal} />}
+
+      {/* Edit Product Modal */}
+      {isEditProductModalOpen && <EditProductModal closeModal={closeEditProductModal} />}
     </>
   );
 };

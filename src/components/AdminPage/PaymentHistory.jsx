@@ -49,7 +49,7 @@ const PaymentHistory = () => {
      
       <div>
         {orders.map((order) => (
-          <div key={order.id} className="mr-4 rounded mb-4 p-2">
+          <div key={order.id} className=" rounded mb-4 p-2">
             {/* Order Header */}
             <div
               className="flex items-center flex-row cursor-pointer justify-between bg-white outline rounded-md outline-2 outline-white2 leading-5 h-16"

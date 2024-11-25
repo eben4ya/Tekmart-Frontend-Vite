@@ -49,7 +49,7 @@ const Orders = () => {
         <h1 className='ml-8 font-poppins font-bold text-2xl'>Active Orders</h1>
         <div className=" rounded p-2 mb-4">
           <div
-            className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2"
+            className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
             onClick={() => toggleSection("activeOrders")}
           >
             
@@ -77,7 +77,7 @@ const Orders = () => {
             
           </div>
           {expandedSection === "activeOrders" && (
-            <div className=" mt-2 space-y-2">
+            <div className="mr-8 mt-2 space-y-2">
               {orderItems.map((item) => (
                 <div
                   key={item.id}
@@ -118,12 +118,12 @@ const Orders = () => {
         <h2 className="ml-8 font-poppins font-bold text-2xl">Orders Prepared</h2>
         <div className="rounded mb-4 p-2">
           <div
-            className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2"
+            className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
             onClick={() => toggleSection("ordersPrepared")}
           >
             {orderInfo.map((item)=>(
                 <div key={item.id} 
-                className="font-semibold flex flex-row px-2 mx-4 my-1">
+                className="font-semibold flex flex-row px-2 mx-4 my-1 mr-8">
                     <button className="">{expandedSection === "activeOrders" ? "▲" : "▼"}</button>
                     <div className="mx-6">
                     <p className="font-inter font-medium">
@@ -160,7 +160,7 @@ const Orders = () => {
         <h2 className="ml-8 font-poppins font-bold text-2xl"> Orders Ready for Pickup</h2>
         <div className="rounded mb-4 p-2">
           <div
-            className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2"
+            className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
             onClick={() => toggleSection("readyForPickup")}
           >
             {orderInfo.map((item)=>(
@@ -201,7 +201,7 @@ const Orders = () => {
         <h2 className="ml-8 font-poppins font-bold text-2xl"> Completed Orders</h2>
         <div className="rounded mb-4 p-2">
           <div
-            className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2"
+            className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
             onClick={() => toggleSection("completedOrders")}
           >
             {orderInfo.map((item)=>(

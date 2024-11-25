@@ -95,7 +95,7 @@ const OrderPage = () => {
               totalPrice: totalPrice,
               customerDetails,
             }),
-            include: "credentials",
+            credentials: "include",
           });
 
           if (!response.ok) {

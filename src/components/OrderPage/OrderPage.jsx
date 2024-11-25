@@ -35,7 +35,7 @@ const OrderPage = () => {
 
   const totalPrice = cart.reduce(
     (sum, item) =>
-      sum + parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * item.quantity,
+      sum + parseFloat(item.price) * item.quantity,
     0
   );
 

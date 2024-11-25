@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 // Create AuthContext
 export const AuthContext = createContext();
@@ -7,8 +8,18 @@ export const AuthContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userSession, setUserSession] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    // Check if user session exists (e.g., from a cookie)
+    const userSessionCookie = Cookies.get("userSession");
+    if (userSessionCookie) {
+      setUserSession(JSON.parse(userSessionCookie));
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   useEffect(() => {
     const checkIsLoggedIn = localStorage.getItem("isLoggedIn");
@@ -85,6 +96,7 @@ export const AuthProvider = ({ children }) => {
         setPassword("");
         setIsLoggedIn(true);
         localStorage.setItem("isLoggedIn", true);
+        Cookies.set("userSession", true);
         alert("Login successful!");
         // Redirect to order page
         window.location.href = "/products";
@@ -114,6 +126,7 @@ export const AuthProvider = ({ children }) => {
           "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // remove token cookie in browser
         setIsLoggedIn(false);
         localStorage.removeItem("isLoggedIn");
+        Cookies.remove("userSession");
         alert("Logout successful!");
       } else {
         const data = await response.json();

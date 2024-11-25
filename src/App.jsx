@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+
 import Navbar from "./components/AllPage/Navbar";
 import LandingPage from "./components/LandingPage/LandingPage";
 import AboutPage from "./components/AboutUsPage/AboutPage";
@@ -7,9 +8,6 @@ import OrderPage from "./components/OrderPage/OrderPage";
 import ProductPage from "./components/ProductsPage/ProductPage";
 import Footer from "./components/AllPage/Footer";
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
-import ErrorOrder from "./components/OrderPage/ErrorOrder";
-import ErrorLogin from "./components/OrderPage/ErrorLogin";
-import Dashboard from "./components/AdminPage/Dashboard";
 
 // Used for testing
 import Test from "./test/Test";

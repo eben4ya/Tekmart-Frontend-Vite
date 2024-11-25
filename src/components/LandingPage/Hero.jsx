@@ -3,7 +3,7 @@ import coffeeImage from "../../assets/landingpage.png";
 const Hero = () => {
   return (
     <section
-      className="relative flex flex-col justify-center items-center text-center h-screen w-full bg-contain bg-center "
+      className="relative flex flex-col justify-center items-center text-center h-screen w-full bg-cover bg-center"
       style={{
         backgroundImage: `url(${coffeeImage})`,
       }}

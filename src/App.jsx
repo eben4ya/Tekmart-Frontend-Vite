@@ -3,16 +3,19 @@ import { useState } from "react";
 
 import Navbar from "./components/AllPage/Navbar";
 import LandingPage from "./components/LandingPage/LandingPage";
-import AboutPage from "./components/AboutPage/AboutPage";
+import AboutPage from "./components/AboutUsPage/AboutPage";
 import OrderPage from "./components/OrderPage/OrderPage";
-import ProductPage from "./components/ProductPage/ProductPage";
-import Footer from './components/OrderPage/Footer';
+import ProductPage from "./components/ProductsPage/ProductPage";
+import Footer from "./components/AllPage/Footer";
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
 import WarningBanner from "./components/OrderPage/WarningBanner"; 
-import AddButton from "./components/OrderPage/AddButton";
 
 // Used for testing
-import Test from "./test/Test"; 
+import Test from "./test/Test";
+import Orders from "./components/AdminPage/Orders";
+import PaymentHistory from "./components/AdminPage/PaymentHistory";
+
+
 
 
 
@@ -28,9 +31,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      {/* {showBanner && <WarningBanner />}  */}
-      {/* uncomment kalau mau coba banner (gatau buatnya gmn lbh modular) */}
-      <main className="flex flex-col items-center w-screen h-screen">
+      <main className="flex flex-col items-center w-screen h-full">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           {/* route to /about */}
@@ -43,8 +44,18 @@ function App() {
           <Route path="/login" element={<RegisterLogin type="login" />} />
           {/* route to /register */}
           <Route path="/register" element={<RegisterLogin type="register" />} />
+          {/* route to admin Dashboard */}
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          {/* route to admin orders */}
+          <Route path='/admin/orders' element={<Orders/>}/>
+          {/* route to admin payment history */}
+          <Route path="/admin/paymenthistory" element={<PaymentHistory/>}/>
           {/* testing route */}
           <Route path="/test" element={<Test />} />
+          {/* route to error bcoz no item ordered yet*/}
+          <Route path="/order/errorNoItem" element={<ErrorOrder />} />
+          {/* route to error bcoz not logged in yet */}
+          <Route path="/order/errorNotLoggedInYet" element={<ErrorLogin />} />
         </Routes>
       </main>
       <Footer />
@@ -53,4 +64,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

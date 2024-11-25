@@ -1,5 +1,5 @@
 import { useState } from "react";
-import OrderBg from "../../../src/assets/berryImage.jpg"
+
 import Title from "../AllPage/Title";
 const orderInfo =[
     {

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+
 
 import Navbar from "./components/AllPage/Navbar";
 import LandingPage from "./components/LandingPage/LandingPage";
@@ -8,7 +8,6 @@ import OrderPage from "./components/OrderPage/OrderPage";
 import ProductPage from "./components/ProductsPage/ProductPage";
 import Footer from "./components/AllPage/Footer";
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
-import WarningBanner from "./components/OrderPage/WarningBanner"; 
 
 // Used for testing
 import Test from "./test/Test";
@@ -20,14 +19,6 @@ import PaymentHistory from "./components/AdminPage/PaymentHistory";
 
 
 function App() {
-  const handleFloatingButtonClick = () => {
-    alert("Oke!"); 
-    // next stepnya 
-  };
-  const [showBanner, setShowBanner] = useState(false);
-  const handleShowBanner = () => {
-    setShowBanner(!showBanner);
-  };
   return (
     <Router>
       <Navbar />
@@ -59,7 +50,6 @@ function App() {
         </Routes>
       </main>
       <Footer />
-      <AddButton onClick={handleFloatingButtonClick} label="Add More Items" /> 
     </Router>
   );
 }

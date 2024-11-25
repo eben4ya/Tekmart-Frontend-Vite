@@ -12,6 +12,8 @@ import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
 
+import AddButton from "./components/OrderPage/AddButton"; 
+
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
   const {
@@ -38,6 +40,11 @@ const OrderPage = () => {
       sum + parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * item.quantity,
     0
   );
+
+  const handleFloatingButtonClick = () => {
+    alert("Oke!"); 
+    // next stepnya 
+  };
 
   const handleRemoveItem = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
@@ -258,6 +265,9 @@ const OrderPage = () => {
           </div>
         </div>
       )}
+
+      {/* Floating Action Button */}
+      <AddButton onClick={handleFloatingButtonClick} />
       {/* Snap Container */}
       <div id="snap-container"></div>
       {/* Notification */}

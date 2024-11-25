@@ -12,7 +12,7 @@ import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
 
-import AddButton from "./components/OrderPage/AddButton"; 
+import AddButton from "./AddButton"; 
 
 const OrderPage = () => {
   const { snapEmbed } = useSnap();

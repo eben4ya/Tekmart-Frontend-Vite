@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
-  const { isLoggedIn, handleLogout } = useContext(AuthContext);
+  const { isLoggedIn, handleLogout, user } = useContext(AuthContext);
   const location = useLocation();
 
   return (
@@ -28,7 +28,9 @@ const Navbar = () => {
                 : ""
             }`}
           >
-            <a href="/about">About</a>
+            <a href={user.isAdmin ? "/admin/products" : "/about"}>
+              {user.isAdmin ? "Products" : "About"}
+            </a>
           </li>
           <li
             className={`self-center md:ms-9 cursor-pointer ${
@@ -38,7 +40,9 @@ const Navbar = () => {
                 : ""
             }`}
           >
-            <a href="/products">Products</a>
+            <a href={user.isAdmin ? "/admin/orders" : "/products"}>
+              {user.isAdmin ? "Order" : "Product"}
+            </a>
           </li>
           <li
             className={`self-center md:ms-9 cursor-pointer ${
@@ -48,14 +52,19 @@ const Navbar = () => {
                 : ""
             }`}
           >
-            <a href="/order">Order</a>
+             <a href={user.isAdmin ? "/admin/paymenthistory" : "/order"}>
+              {user.isAdmin ? "Payment History" : "Order"}
+            </a>
           </li>
         </ul>
         <div className="flex item-center justify-center md:text-4xl font-vinque pb-2">
           <h1 className="text-yellow">Teknik</h1>
           <h1
             className={`${
-              location.pathname === "/products" || location.pathname === "/admin/products" ? "text-black" : "text-white"
+              location.pathname === "/products" ||
+              location.pathname === "/admin/products"
+                ? "text-black"
+                : "text-white"
             } ms-5`}
           >
             Mart

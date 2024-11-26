@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ id: "", email: "", isAdmin: false });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -95,8 +95,8 @@ export const AuthProvider = ({ children }) => {
         setIsLoggedIn(true);
         localStorage.setItem("isLoggedIn", true);
         alert("Login successful!");
-        // Redirect to order page
-        window.location.href = "/products";
+        // redirect to home page
+        window.location.href = "/";
       } else {
         alert(`Login failed: ${data.message}`);
       }

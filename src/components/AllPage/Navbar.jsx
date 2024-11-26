@@ -54,7 +54,7 @@ const Navbar = () => {
                 : ""
             }`}
           >
-             <a href={user.isAdmin ? "/admin/paymenthistory" : cart.length  === 0 ? "/order/errorNotLoggedInYet" : "/order"}>
+             <a href={user.isAdmin ? "/admin/paymenthistory" : cart.length  === 0 ? "/order/errorNoItem" : "/order"}>
               {user.isAdmin ? "Payment History" : "Order"}
             </a>
           </li>

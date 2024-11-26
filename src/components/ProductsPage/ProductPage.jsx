@@ -24,7 +24,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     if (selectedProduct) {
-      const productInCart = cart.find((item) => item.id === selectedProduct.id);
+      const productInCart = cart.find((item) => item._id === selectedProduct._id);
       setQuantity(productInCart ? productInCart.quantity : 0);
     }
   }, [selectedProduct, cart]);
@@ -50,7 +50,7 @@ const ProductPage = () => {
   const addToCart = (product, quantity) => {
     const updatedCart = [...cart];
     const productIndex = updatedCart.findIndex(
-      (item) => item.id === product.id
+      (item) => item._id === product._id
     );
 
     if (quantity === 0) {
@@ -78,9 +78,9 @@ const ProductPage = () => {
       <div className="flex overflow-x-auto space-x-[1.67vw]">
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className={`flex flex-col border rounded-xl items-center md:text-md lg:text-lg xl:text-xl p-5 cursor-pointer min-w-[210px] ${
-              cart.some((item) => item.id === product.id) ? "bg-yellow" : ""
+              cart.some((item) => item._id === product._id) ? "bg-yellow" : ""
             }`}
             onClick={() => handleCardClick(product)}
           >

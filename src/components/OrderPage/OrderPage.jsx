@@ -22,7 +22,7 @@ const OrderPage = () => {
     setShowNotification,
     generateOrderId,
   } = useContext(OrderContext);
-  const { isLoggedIn, userSession } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [customerDetails, setCustomerDetails] = useState({
     first_name: "John",
@@ -81,7 +81,7 @@ const OrderPage = () => {
       const orderItems = cart.map((item) => ({
         productId: item.id,
         amount: item.quantity,
-        price: parseFloat(item.price.replace(/[^0-9.-]+/g, "")),
+        price: parseFloat(item.price)
       }));
 
       // Create order in the database
@@ -93,7 +93,6 @@ const OrderPage = () => {
           },
           credentials: "include", // Include credentials to send cookies automatically
           body: JSON.stringify({
-            userId: userSession?.id,
             items: orderItems,
             totalPrice: totalPrice,
           }),

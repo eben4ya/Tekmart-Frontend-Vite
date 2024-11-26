@@ -57,7 +57,7 @@ const AboutUsContent = () => {
             type="button"
             className="self-end bg-black md:rounded-xl lg:rounded-2xl xl:rounded-3xl md:mt-1 lg:mt-2 xl:mt-3 md:px-5 lg:px-6 xl:px-7 md:py-2 lg:py-3 xl:py-4 md:text-sm xl:text-2xl text-white cursor-pointer hover:bg-yellow hover:text-black active:text-white active:bg-yellow"
           >
-            <a href="">See Our List of Products</a>
+            <a href="/products">See Our List of Products</a>
           </button>
         </div>
       </div>

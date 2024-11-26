@@ -15,10 +15,10 @@ Repository ini merupakan bagian dari proyek akhir mata kuliah Pengembangan Aplik
 ## **Table of Contents**
 
 1. [About the Project](#about-the-project)
-2. [Team Members](#team-members)
-3. [Features](#features)
-4. [Tech Stack](#tech-stack)
-5. [UI Link](#ui-link)
+2. [Link Penting](#link-penting)
+3. [Team Members](#team-members)
+4. [Features](#features)
+5. [Tech Stack](#tech-stack)
 
 ---
 

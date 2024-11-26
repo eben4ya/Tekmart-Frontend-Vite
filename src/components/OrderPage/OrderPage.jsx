@@ -12,7 +12,6 @@ import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
 
-import AddButton from "./AddButton"; 
 
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
@@ -23,7 +22,7 @@ const OrderPage = () => {
     setShowNotification,
     generateOrderId,
   } = useContext(OrderContext);
-  const { isLoggedIn, userSession } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [customerDetails, setCustomerDetails] = useState({
     first_name: "John",
@@ -82,7 +81,7 @@ const OrderPage = () => {
       const orderItems = cart.map((item) => ({
         productId: item.id,
         amount: item.quantity,
-        price: parseFloat(item.price.replace(/[^0-9.-]+/g, "")),
+        price: parseFloat(item.price)
       }));
 
       // Create order in the database
@@ -94,7 +93,6 @@ const OrderPage = () => {
           },
           credentials: "include", // Include credentials to send cookies automatically
           body: JSON.stringify({
-            userId: userSession?.id,
             items: orderItems,
             totalPrice: totalPrice,
           }),
@@ -283,7 +281,7 @@ const OrderPage = () => {
           <div className="bg-yellow rounded-lg p-2 mx-[1vw]">
             <div className="flex justify-between items-center p-4 ">
               <span className="font-bold font-poppins flex items-center justify-between">
-                Total Price: IDR{totalPrice.toLocaleString()}.000,00
+                Total Price: IDR{totalPrice.toLocaleString()}
               </span>
               <button
                 onClick={handlePlaceOrder}
@@ -296,8 +294,6 @@ const OrderPage = () => {
         </div>
       )}
 
-      {/* Floating Action Button */}
-      <AddButton onClick={handleFloatingButtonClick} />
       {/* Snap Container */}
       <div id="snap-container"></div>
       {/* Notification */}

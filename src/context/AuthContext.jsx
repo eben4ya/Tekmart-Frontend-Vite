@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import Cookies from "js-cookie";
 
 // Create AuthContext
 export const AuthContext = createContext();
@@ -8,23 +7,18 @@ export const AuthContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userSession, setUserSession] = useState(null);
+  const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    // Check if user session exists (e.g., from a cookie)
-    const userSessionCookie = Cookies.get("userSession");
-    if (userSessionCookie) {
-      setUserSession(JSON.parse(userSessionCookie));
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  useEffect(() => {
     const checkIsLoggedIn = localStorage.getItem("isLoggedIn");
+    const user = localStorage.getItem("user");
     if (checkIsLoggedIn) {
       setIsLoggedIn(true);
+    }
+    if (user) {
+      setUser(JSON.parse(user));
     }
   }, []);
 
@@ -91,17 +85,19 @@ export const AuthProvider = ({ children }) => {
         credentials: "include", // send token cookie to server
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         setEmail("");
         setPassword("");
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
         setIsLoggedIn(true);
         localStorage.setItem("isLoggedIn", true);
-        Cookies.set("userSession", true);
         alert("Login successful!");
         // Redirect to order page
         window.location.href = "/products";
       } else {
-        const data = await response.json();
         alert(`Login failed: ${data.message}`);
       }
     } catch (error) {
@@ -121,15 +117,17 @@ export const AuthProvider = ({ children }) => {
         credentials: "include", // send token cookie to server to remove it
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         document.cookie =
           "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // remove token cookie in browser
+        setUser(null);
+        localStorage.removeItem("user");
         setIsLoggedIn(false);
         localStorage.removeItem("isLoggedIn");
-        Cookies.remove("userSession");
         alert("Logout successful!");
       } else {
-        const data = await response.json();
         alert(`Logout failed: ${data.message}`);
       }
     } catch (error) {
@@ -148,6 +146,8 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
         handleInputChange,
+        user,
+        setUser,
       }}
     >
       {children}

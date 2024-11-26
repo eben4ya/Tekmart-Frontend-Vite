@@ -46,8 +46,8 @@ const Orders = () => {
        subtitle="Where admin could edit the inventory of their products"/>
     <div className="w-full m-4 pl-6 p-2">
         {/* Active Orders */}
-        <h1 className='ml-8 font-poppins font-bold text-2xl'>Active Orders</h1>
-        <div className=" rounded p-2 mb-4">
+        <h1 className='ml-8 font-poppins font-bold text-[2.083vw]'>Active Orders</h1>
+        <div className=" rounded p-2 mb-4 max-h-[22vw] overflow-y-scroll">
           <div
             className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
             onClick={() => toggleSection("activeOrders")}
@@ -115,8 +115,8 @@ const Orders = () => {
     </div>
 
         {/* Orders Prepared */}
-        <h2 className="ml-8 font-poppins font-bold text-2xl">Orders Prepared</h2>
-        <div className="rounded mb-4 p-2">
+        <h2 className="ml-8 font-poppins font-bold text-[2.083vw]">Orders Prepared</h2>
+        <div className="rounded mb-4 p-2 max-h-[22vw] overflow-y-scroll">
           <div
             className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
             onClick={() => toggleSection("ordersPrepared")}
@@ -157,8 +157,8 @@ const Orders = () => {
             <div className="w-full h-px mb-10 bg-black"></div> 
         </div>
         {/* Orders Ready For Pickup */}
-        <h2 className="ml-8 font-poppins font-bold text-2xl"> Orders Ready for Pickup</h2>
-        <div className="rounded mb-4 p-2">
+        <h2 className="ml-8 font-poppins font-bold text-[2.083vw]"> Orders Ready for Pickup</h2>
+        <div className="rounded mb-4 p-2 max-h-[22vw] overflow-y-scroll">
           <div
             className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
             onClick={() => toggleSection("readyForPickup")}
@@ -198,7 +198,7 @@ const Orders = () => {
             <div className="w-full h-px mb-10 bg-black"></div> 
         </div>
         {/* Completed Orders */}
-        <h2 className="ml-8 font-poppins font-bold text-2xl"> Completed Orders</h2>
+        <h2 className="ml-8 font-poppins font-bold text-[2.083vw] max-h-[22vw] overflow-y-scroll"> Completed Orders</h2>
         <div className="rounded mb-4 p-2">
           <div
             className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"

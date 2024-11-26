@@ -12,28 +12,40 @@ const Navbar = () => {
         <ul className="flex-1 md:flex md:text-l text-white font-poppins">
           <li
             className={`self-center cursor-pointer ${
-              location.pathname === "/products" ? "text-black" : ""
+              location.pathname === "/products" ||
+              location.pathname === "/admin/products"
+                ? "text-black"
+                : ""
             }`}
           >
             <a href="/">Home</a>
           </li>
           <li
             className={`self-center md:ms-9 cursor-pointer ${
-              location.pathname === "/products" ? "text-black" : ""
+              location.pathname === "/products" ||
+              location.pathname === "/admin/products"
+                ? "text-black"
+                : ""
             }`}
           >
             <a href="/about">About</a>
           </li>
           <li
             className={`self-center md:ms-9 cursor-pointer ${
-              location.pathname === "/products" ? "text-black" : ""
+              location.pathname === "/products" ||
+              location.pathname === "/admin/products"
+                ? "text-black"
+                : ""
             }`}
           >
             <a href="/products">Products</a>
           </li>
           <li
             className={`self-center md:ms-9 cursor-pointer ${
-              location.pathname === "/products" ? "text-black" : ""
+              location.pathname === "/products" ||
+              location.pathname === "/admin/products"
+                ? "text-black"
+                : ""
             }`}
           >
             <a href="/order">Order</a>
@@ -43,7 +55,7 @@ const Navbar = () => {
           <h1 className="text-yellow">Teknik</h1>
           <h1
             className={`${
-              location.pathname === "/products" ? "text-black" : "text-white"
+              location.pathname === "/products" || location.pathname === "/admin/products" ? "text-black" : "text-white"
             } ms-5`}
           >
             Mart
@@ -52,7 +64,11 @@ const Navbar = () => {
         <div className="flex-1 flex item-center justify-end">
           <button
             type="button"
-            className={`${location.pathname === "/products" ? "bg-yellow outline-white hover:bg-[#E3D531] active:bg-[#FFEE2A] " : "bg-white outline-white hover:bg-yellow active:bg-yellow "} self-center  md:rounded-xl md:px-7 md:py-2.5 md:text-sm font-poppins font-bold cursor-pointer`}
+            className={`${
+              location.pathname === "/products"
+                ? "bg-yellow outline-white hover:bg-[#E3D531] active:bg-[#FFEE2A] "
+                : "bg-white outline-white hover:bg-yellow active:bg-yellow "
+            } self-center  md:rounded-xl md:px-7 md:py-2.5 md:text-sm font-poppins font-bold cursor-pointer`}
           >
             {isLoggedIn ? (
               <a href="/" onClick={handleLogout}>

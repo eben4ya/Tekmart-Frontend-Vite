@@ -12,7 +12,6 @@ import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
 
-import AddButton from "./components/OrderPage/AddButton"; 
 
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
@@ -296,8 +295,6 @@ const OrderPage = () => {
         </div>
       )}
 
-      {/* Floating Action Button */}
-      <AddButton onClick={handleFloatingButtonClick} />
       {/* Snap Container */}
       <div id="snap-container"></div>
       {/* Notification */}

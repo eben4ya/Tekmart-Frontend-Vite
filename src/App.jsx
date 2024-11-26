@@ -15,6 +15,7 @@ import PaymentHistory from "./components/AdminPage/PaymentHistory";
 import Dashboard from "./components/AdminPage/Dashboard";
 import ErrorOrder from "./components/OrderPage/ErrorOrder";
 import ErrorLogin from "./components/OrderPage/ErrorLogin";
+import Products from "./components/AdminPage/Products";
 
 function App() {
   return (
@@ -37,6 +38,8 @@ function App() {
           <Route path="/admin/dashboard" element={<Dashboard />} />
           {/* route to admin orders */}
           <Route path="/admin/orders" element={<Orders />} />
+          {/* route to admin products */}
+          <Route path="/admin/products" element={<Products />} />
           {/* route to admin payment history */}
           <Route path="/admin/paymenthistory" element={<PaymentHistory />} />
           {/* testing route */}

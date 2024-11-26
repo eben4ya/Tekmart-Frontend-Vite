@@ -1,6 +1,11 @@
 import coffeeImage from "../../assets/landingpage.png";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { useLocation } from "react-router-dom";
 
 const Hero = () => {
+  const { isLoggedIn, handleLogout, user } = useContext(AuthContext);
+  const location = useLocation();
   return (
     <section
       className="relative flex flex-col justify-center items-center text-center h-screen w-full bg-cover bg-center"
@@ -22,7 +27,13 @@ const Hero = () => {
         <button 
           // onClick={handleShowBanner} //nyoba2
           className="bg-white font-poppins font-bold text-black py-4 px-5 rounded-2xl hover:bg-yellow active:bg-yellow active:text-white text-2xl shadow-2xl stroke-zinc-200 stroke-2">
-          Get Started Now
+          {isLoggedIn ? (
+              <a href="/products" onClick={handleLogout}>
+                Get Started Now
+              </a>
+            ) : (
+              <a href="/login">Get Started Now</a>
+            )}
         </button>
       </div>
     </section>

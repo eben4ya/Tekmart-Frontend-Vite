@@ -8,6 +8,7 @@ Repository ini merupakan bagian dari proyek akhir mata kuliah Pengembangan Aplik
 - Link UI: [Figma - Teknik Mart Front-End UI](https://www.figma.com/design/iBt58WFSYR3tbkk3EwfS27/Front-End-UI-Teknik-Mart?node-id=0-1&t=qACdcI0XSjHBZa4h-1)
 - Link Presentasi: [Presentasi PAW Kelompok 21](https://youtube.com)
 - Link Slide: [Slides Presentasi PAW Kelompok 21](https://www.canva.com/design/DAGRk20Tptk/yf4d7QHJgGUSnEhD6pgNqQ/edit?utm_content=DAGRk20Tptk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- Link Deployment: [Website Teknik Mart](https://)
 
 ---
 

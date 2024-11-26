@@ -6,17 +6,22 @@ import ProductContext from "../../context/ProductContext";
 import { useState, useEffect, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
 
-
 const ProductPage = () => {
-  const foodsProduct = products.filter((product) => product.category === "Foods");
-  const drinksProduct = products.filter((product) => product.category === "Drinks");
-  const medicinesProduct = products.filter((product) => product.category === "Medicines");
-  const stationeriesProduct = products.filter((product) => product.category === "Stationeries");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart, showNotification, setShowNotification } =
     useContext(OrderContext);
-  const { products, loading, addProduct, deleteProduct } = useContext(ProductContext);
+  const { products } = useContext(ProductContext);
+
+  const categorizedProducts = products.reduce((acc, product) => {
+    if (acc[product.category]) {
+      acc[product.category].push(product);
+    } else {
+      acc[product.category] = [product];
+    }
+    return acc;
+  }, {});
+
   useEffect(() => {
     if (selectedProduct) {
       const productInCart = cart.find((item) => item.id === selectedProduct.id);
@@ -95,16 +100,16 @@ const ProductPage = () => {
   return (
     <div className="w-full h-full px-[1.56vw] mt-[6.61vw] mb-[2.92vw]">
       {/* Foods Product */}
-      {renderProducts("Foods", foodsProduct)}
+      {renderProducts("Foods", categorizedProducts.Foods || [])}
 
       {/* Drinks Product */}
-      {renderProducts("Drinks", drinksProduct)}
+      {renderProducts("Drinks", categorizedProducts.Drinks || [])}
 
       {/* Medicines Product */}
-      {renderProducts("Medicines", medicinesProduct)}
+      {renderProducts("Medicines", categorizedProducts.Medicines || [])}
 
       {/* Stationeries Product */}
-      {renderProducts("Stationeries", stationeriesProduct)}
+      {renderProducts("Stationeries", categorizedProducts.Stationaries || [])}
 
       {cart.length > 0 && (
         <OrderButton

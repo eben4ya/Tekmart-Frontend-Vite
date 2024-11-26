@@ -5,7 +5,7 @@ const ProductContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([
-     { id:"", description:"", name: "Buku Tulis", price: 5000, stock:0, imageUrl:"", category:"" },
+     { id:"", description:"", name: "", price: 0, stock:0, imageUrl:"", category:"" },
   ]);
   const [loading, setLoading] = useState(true);
   const apiEndpoint = "http://localhost:3000/api/product"; // Ganti dengan endpoint server Anda
@@ -20,7 +20,7 @@ export const ProductProvider = ({ children }) => {
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        setProducts(data);
+        setProducts(data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {

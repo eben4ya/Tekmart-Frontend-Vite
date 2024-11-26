@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useLocation } from "react-router-dom";
+import { OrderContext } from "../../context/OrderContext";
 
 const Navbar = () => {
   const { isLoggedIn, handleLogout, user } = useContext(AuthContext);
+  const {cart} = useContext(OrderContext);
   const location = useLocation();
 
   return (
@@ -52,7 +54,7 @@ const Navbar = () => {
                 : ""
             }`}
           >
-             <a href={user.isAdmin ? "/admin/paymenthistory" : "/order"}>
+             <a href={user.isAdmin ? "/admin/paymenthistory" : cart.length  === 0 ? "/order/errorNoItem" : "/order"}>
               {user.isAdmin ? "Payment History" : "Order"}
             </a>
           </li>

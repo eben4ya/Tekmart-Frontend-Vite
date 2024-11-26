@@ -7,37 +7,37 @@ import { useState, useEffect, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
 
 const dummyFoods = [
-  { id: 1, image: bengBengUrl, name: "Beng-Beng", price: "IDR4.000,00" },
+  { id: 1, image: bengBengUrl, name: "Beng-Beng", price: 4000 },
 
-  { id: 2, image: bengBengUrl, name: "Chitato", price: "IDR12.000,00" },
-  { id: 3, image: bengBengUrl, name: "Oreo", price: "IDR8.000,00" },
+  { id: 2, image: bengBengUrl, name: "Chitato", price: 12000 },
+  { id: 3, image: bengBengUrl, name: "Oreo", price: 8000 },
 
-  { id: 4, image: bengBengUrl, name: "Sari Roti", price: "IDR10.000,00" },
+  { id: 4, image: bengBengUrl, name: "Sari Roti", price: 10000 },
 
-  { id: 5, image: bengBengUrl, name: "SilverQueen", price: "IDR15.000,00" },
-  { id: 6, image: bengBengUrl, name: "Indomie", price: "IDR2.500,00" },
+  { id: 5, image: bengBengUrl, name: "SilverQueen", price: 15000 },
+  { id: 6, image: bengBengUrl, name: "Indomie", price: 6000 },
 ];
 
 const dummyDrinks = [
-  { id: 7, image: bengBengUrl, name: "Coca-Cola", price: "IDR7.000,00" },
-  { id: 8, image: bengBengUrl, name: "Pepsi", price: "IDR6.500,00" },
-  { id: 9, image: bengBengUrl, name: "Fanta", price: "IDR6.000,00" },
-  { id: 10, image: bengBengUrl, name: "Sprite", price: "IDR6.000,00" },
-  { id: 11, image: bengBengUrl, name: "Milo", price: "IDR5.000,00" },
-  { id: 12, image: bengBengUrl, name: "Cimory", price: "IDR7.000,00" },
-  { id: 13, image: bengBengUrl, name: "Nutrisari", price: "IDR1.500,00" },
+  { id: 7, image: bengBengUrl, name: "Coca-Cola", price: 7000 },
+  { id: 8, image: bengBengUrl, name: "Pepsi", price: 6500 },
+  { id: 9, image: bengBengUrl, name: "Fanta", price: 6000 },
+  { id: 10, image: bengBengUrl, name: "Sprite", price: 6000 },
+  { id: 11, image: bengBengUrl, name: "Milo", price: 5000 },
+  { id: 12, image: bengBengUrl, name: "Cimory", price: 7000 },
+  { id: 13, image: bengBengUrl, name: "Nutrisari", price: 15000 },
 ];
 
 const dummyMedicines = [
-  { id: 14, image: bengBengUrl, name: "Paracetamol", price: "IDR5.000,00" },
-  { id: 15, image: bengBengUrl, name: "Bodrex", price: "IDR4.500,00" },
-  { id: 16, image: bengBengUrl, name: "Mixagrip", price: "IDR6.000,00" },
+  { id: 14, image: bengBengUrl, name: "Paracetamol", price: 5000 },
+  { id: 15, image: bengBengUrl, name: "Bodrex", price: 4500 },
+  { id: 16, image: bengBengUrl, name: "Mixagrip", price: 6000 },
 ];
 
 const dummyStationeries = [
-  { id: 17, image: bengBengUrl, name: "Pensil", price: "IDR2.000,00" },
-  { id: 18, image: bengBengUrl, name: "Penghapus", price: "IDR1.000,00" },
-  { id: 19, image: bengBengUrl, name: "Buku Tulis", price: "IDR5.000,00" },
+  { id: 17, image: bengBengUrl, name: "Pensil", price: 2000 },
+  { id: 18, image: bengBengUrl, name: "Penghapus", price: 1000 },
+  { id: 19, image: bengBengUrl, name: "Buku Tulis", price: 5000 },
 ];
 
 const ProductPage = () => {
@@ -114,7 +114,7 @@ const ProductPage = () => {
               className="w-32 h-32 object-contain"
             />
             <h1 className="font-bold text-lg">{product.name}</h1>
-            <h1 className="text-md">{product.price}</h1>
+            <h1 className="text-md">IDR{product.price},00</h1>
           </div>
         ))}
       </div>

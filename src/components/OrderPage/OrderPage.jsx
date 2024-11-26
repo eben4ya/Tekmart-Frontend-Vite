@@ -12,6 +12,7 @@ import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
 
+
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
   const {
@@ -34,10 +35,14 @@ const OrderPage = () => {
   const [notifMessage, setNotifMessage] = useState({ type: "", message: "" });
 
   const totalPrice = cart.reduce(
-    (sum, item) =>
-      sum + parseFloat(item.price.replace(/[^0-9.-]+/g, "")) * item.quantity,
+    (sum, item) => sum + parseFloat(item.price) * item.quantity,
     0
   );
+
+  const handleFloatingButtonClick = () => {
+    alert("Oke!"); 
+    // next stepnya 
+  };
 
   const handleRemoveItem = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
@@ -72,6 +77,36 @@ const OrderPage = () => {
       window.location.href = "/login";
       return;
     } else {
+      // Generate order items
+      const orderItems = cart.map((item) => ({
+        productId: item.id,
+        amount: item.quantity,
+        price: parseFloat(item.price)
+      }));
+
+      // Create order in the database
+      try {
+        const response = await fetch("http://localhost:3000/api/order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Include credentials to send cookies automatically
+          body: JSON.stringify({
+            items: orderItems,
+            totalPrice: totalPrice,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to create order");
+        }
+      } catch (error) {
+        console.error("Failed to create order", error);
+        alert("Failed to create order");
+        return;
+      }
+
       // if user logged in, place order
       if (selectedPayment === "cash") {
         setShowNotification(true);
@@ -95,7 +130,7 @@ const OrderPage = () => {
               totalPrice: totalPrice,
               customerDetails,
             }),
-            include: "credentials",
+            credentials: "include",
           });
 
           if (!response.ok) {
@@ -213,10 +248,10 @@ const OrderPage = () => {
             </div>
           </div>
           {/* Payment Method Option */}
+          <h2 className="text-3xl font-poppins font-bold ml-6">
+            Payment Method
+          </h2>
           <div className="bg-white rounded-lg shadow-md p-6 mb-6 mx-[1vw]">
-            <h2 className="text-3xl font-poppins font-bold mb-4">
-              Payment Method
-            </h2>
             <div className="space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
@@ -246,7 +281,7 @@ const OrderPage = () => {
           <div className="bg-yellow rounded-lg p-2 mx-[1vw]">
             <div className="flex justify-between items-center p-4 ">
               <span className="font-bold font-poppins flex items-center justify-between">
-                Total Price: IDR{totalPrice.toLocaleString()}.000,00
+                Total Price: IDR{totalPrice.toLocaleString()}
               </span>
               <button
                 onClick={handlePlaceOrder}
@@ -258,6 +293,7 @@ const OrderPage = () => {
           </div>
         </div>
       )}
+
       {/* Snap Container */}
       <div id="snap-container"></div>
       {/* Notification */}

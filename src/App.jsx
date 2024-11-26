@@ -7,26 +7,30 @@ import OrderPage from "./components/OrderPage/OrderPage";
 import ProductPage from "./components/ProductsPage/ProductPage";
 import Footer from "./components/AllPage/Footer";
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
-import ErrorOrder from "./components/OrderPage/ErrorOrder";
-import ErrorLogin from "./components/OrderPage/ErrorLogin";
-import Dashboard from "./components/AdminPage/Dashboard";
 
 // Used for testing
 import Test from "./test/Test";
 import Orders from "./components/AdminPage/Orders";
 import PaymentHistory from "./components/AdminPage/PaymentHistory";
+import Dashboard from "./components/AdminPage/Dashboard";
+import ErrorOrder from "./components/OrderPage/ErrorOrder";
+import ErrorLogin from "./components/OrderPage/ErrorLogin";
+import Products from "./components/AdminPage/Products";
 
-
-
-
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
+  const { user } = useContext(AuthContext);
   return (
     <Router>
       <Navbar />
       <main className="flex flex-col items-center w-screen h-full">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/"
+            element={user.isAdmin ? <Dashboard /> : <LandingPage />}
+          />
           {/* route to /about */}
           <Route path="/about" element={<AboutPage />} />
           {/* route to /order */}
@@ -37,12 +41,12 @@ function App() {
           <Route path="/login" element={<RegisterLogin type="login" />} />
           {/* route to /register */}
           <Route path="/register" element={<RegisterLogin type="register" />} />
-          {/* route to admin Dashboard */}
-          <Route path="/admin/dashboard" element={<Dashboard />} />
           {/* route to admin orders */}
-          <Route path='/admin/orders' element={<Orders/>}/>
+          <Route path="/admin/orders" element={<Orders />} />
+          {/* route to admin products */}
+          <Route path="/admin/products" element={<Products />} />
           {/* route to admin payment history */}
-          <Route path="/admin/paymenthistory" element={<PaymentHistory/>}/>
+          <Route path="/admin/paymenthistory" element={<PaymentHistory />} />
           {/* testing route */}
           <Route path="/test" element={<Test />} />
           {/* route to error bcoz no item ordered yet*/}

@@ -36,9 +36,9 @@ const Input = ({ type = "", value = "", onChange = () => {} }) => {
           onClick={toggleShowPassword}
         >
           {showPassword ? (
-            <AiFillEyeInvisible className="text-black w-[2.5vw] h-[2.5vw]" />
-          ) : (
             <AiFillEye className="text-black w-[2.5vw] h-[2.5vw]" />
+          ) : (
+            <AiFillEyeInvisible className="text-black w-[2.5vw] h-[2.5vw]" />
           )}
         </div>
       )}

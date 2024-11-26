@@ -282,7 +282,7 @@ const OrderPage = () => {
           <div className="bg-yellow rounded-lg p-2 mx-[1vw]">
             <div className="flex justify-between items-center p-4 ">
               <span className="font-bold font-poppins flex items-center justify-between">
-                Total Price: IDR{totalPrice.toLocaleString()}.000,00
+                Total Price: IDR{totalPrice.toLocaleString()}
               </span>
               <button
                 onClick={handlePlaceOrder}

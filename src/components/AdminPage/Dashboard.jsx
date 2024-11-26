@@ -5,6 +5,8 @@ import PaymentUrl from "/images/dashboard3.png";
 import AddProductModal from './AddProductModal'; 
 import EditProductModal from "./EditProductModal";
 
+import { useState } from "react";
+
 const Dashboard = () => {
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);  // State for Edit Product Modal

@@ -12,7 +12,6 @@ import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
 
-
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
   const {
@@ -20,16 +19,17 @@ const OrderPage = () => {
     setCart,
     showNotification,
     setShowNotification,
-    generateOrderId,
+    orderId,
+    setOrderId,
   } = useContext(OrderContext);
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   const [customerDetails, setCustomerDetails] = useState({
-    first_name: "John",
-    email: "john.doe@example.com",
-    phone: "08123456789",
+    first_name: user.id || "John",
+    email: user.email || "john.doe@example.com",
+    phone: "-",
   });
-  const orderId = generateOrderId();
+
   const [snapShow, setSnapShow] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [notifMessage, setNotifMessage] = useState({ type: "", message: "" });
@@ -40,8 +40,8 @@ const OrderPage = () => {
   );
 
   const handleFloatingButtonClick = () => {
-    alert("Oke!"); 
-    // next stepnya 
+    alert("Oke!");
+    // next stepnya
   };
 
   const handleRemoveItem = (id) => {
@@ -79,9 +79,9 @@ const OrderPage = () => {
     } else {
       // Generate order items
       const orderItems = cart.map((item) => ({
-        productId: item.id,
+        productId: item._id,
         amount: item.quantity,
-        price: parseFloat(item.price)
+        price: parseFloat(item.price),
       }));
 
       // Create order in the database
@@ -93,6 +93,7 @@ const OrderPage = () => {
           },
           credentials: "include", // Include credentials to send cookies automatically
           body: JSON.stringify({
+            userId: user.id,
             items: orderItems,
             totalPrice: totalPrice,
           }),
@@ -100,6 +101,9 @@ const OrderPage = () => {
 
         if (!response.ok) {
           throw new Error("Failed to create order");
+        } else {
+          const data = await response.json();
+          setOrderId(data._id);
         }
       } catch (error) {
         console.error("Failed to create order", error);
@@ -126,7 +130,7 @@ const OrderPage = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              orderId,
+              orderId: orderId,
               totalPrice: totalPrice,
               customerDetails,
             }),

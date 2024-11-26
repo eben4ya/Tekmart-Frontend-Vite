@@ -33,11 +33,11 @@ const Footer = () => {
                     <div className="flex justify-between w-full">
                         <ul className="space-y-2 pr-4">
                             <li><a href="">Home</a></li>
-                            <li><a href="">About</a></li>
+                            <li><a href="/about">About</a></li>
                         </ul>
                         <ul className="space-y-2">
-                            <li><a href="">Order</a></li>
-                            <li><a href="">Products</a></li>
+                            <li><a href="/order">Order</a></li>
+                            <li><a href="/products">Products</a></li>
                         </ul>
                     </div>
                 </div>

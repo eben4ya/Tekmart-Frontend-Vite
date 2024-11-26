@@ -10,17 +10,13 @@ export const OrderProvider = ({ children }) => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
+  const [orderId, setOrderId] = useState("");
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const [showNotification, setShowNotification] = useState(false);
-
-  const generateOrderId = () => {
-    const id = `TX-${uuidv4}`;
-    return id;
-  };
 
   return (
     <OrderContext.Provider
@@ -29,7 +25,8 @@ export const OrderProvider = ({ children }) => {
         setCart,
         showNotification,
         setShowNotification,
-        generateOrderId,
+        orderId,
+        setOrderId,
       }}
     >
       {children}

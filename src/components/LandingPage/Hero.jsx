@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import coffeeImage from "../../assets/landingpage.png";
-
+import { AuthContext } from "../../context/AuthContext";
 const Hero = () => {
+  const { isLoggedIn, user } = useContext(AuthContext);
   return (
     <section
       className="relative flex flex-col justify-center items-center text-center h-screen w-full bg-cover bg-center"
@@ -19,9 +21,13 @@ const Hero = () => {
           <br /> experience, interact, and explore the goodness of the time you{" "}
           <br /> just saved by ordering with this website.
         </p>
-        <button 
+        <button
           // onClick={handleShowBanner} //nyoba2
-          className="bg-white font-poppins font-bold text-black py-4 px-5 rounded-2xl hover:bg-yellow active:bg-yellow active:text-white text-2xl shadow-2xl stroke-zinc-200 stroke-2">
+          className="bg-white font-poppins font-bold text-black py-4 px-5 rounded-2xl hover:bg-yellow active:bg-yellow active:text-white text-2xl shadow-2xl stroke-zinc-200 stroke-2"
+          onClick={() => {
+            location.href = "/products";
+          }}
+        >
           Get Started Now
         </button>
       </div>

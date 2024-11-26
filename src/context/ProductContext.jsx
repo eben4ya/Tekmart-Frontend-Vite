@@ -4,7 +4,9 @@ const ProductContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+     { id:"", description:"", name: "Buku Tulis", price: 5000, stock:0, imageUrl:"", category:"" },
+  ]);
   const [loading, setLoading] = useState(true);
   const apiEndpoint = "http://localhost:3000/api/product"; // Ganti dengan endpoint server Anda
 

@@ -13,6 +13,27 @@ export const OrderProvider = ({ children }) => {
   const [pendingOrders, setPendingOrders] = useState([]);
   const [confirmedOrders, setConfirmedOrders] = useState([]);
 
+  // temporary solution to fetch payments
+  const [allPayments, setAllPayments] = useState([]);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/payment");
+        if (response.ok) {
+          const payments = await response.json();
+          setAllPayments(payments);
+          // alert(JSON.stringify(payments));  
+        } else {
+          console.error("Failed to fetch payments");
+        }
+      } catch (error) {
+        console.error("Error fetching payments:", error);
+      }
+    };
+    fetchPayments();
+  }, []);
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -80,6 +101,7 @@ export const OrderProvider = ({ children }) => {
         pendingOrders,
         confirmedOrders,
         updateOrderStatus,
+        allPayments,
       }}
     >
       {children}

@@ -4,6 +4,13 @@
 Repository ini merupakan bagian dari proyek akhir mata kuliah Pengembangan Aplikasi Web yang menggunakan Tailwind CSS serta React JS yang berbasis pada Vite. Web app ini berbasis pada Teknik Mart yang memiliki isu antrean yang panjang. Dengan adanya web app ini, diharapkan antrean yang ada dapat berkurang. Selain itu, website ini memiliki beberapa fitur yang akan dibahas pada bagian berikutnya.
 
 ---
+## **Link Penting**
+- Link UI: [Figma - Teknik Mart Front-End UI](https://www.figma.com/design/iBt58WFSYR3tbkk3EwfS27/Front-End-UI-Teknik-Mart?node-id=0-1&t=qACdcI0XSjHBZa4h-1)
+- Link Presentasi: [Presentasi PAW Kelompok 21](https://youtube.com)
+- Link Slide: [Slides Presentasi PAW Kelompok 21](https://www.canva.com/design/DAGRk20Tptk/yf4d7QHJgGUSnEhD6pgNqQ/edit?utm_content=DAGRk20Tptk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- Link Deployment: [Website Teknik Mart](https://)
+
+---
 
 ## **Table of Contents**
 
@@ -45,6 +52,3 @@ Proyek ini menggunakan berbagai teknologi modern untuk mendukung pengembangan ya
 Teknologi-teknologi ini dipilih untuk memastikan proyek memiliki performa tinggi, kode yang mudah dikelola, serta desain yang menarik dan responsif.
 
 ---
-
-## **UI Link**
-- Link UI: [Figma - Teknik Mart Front-End UI](https://www.figma.com/design/iBt58WFSYR3tbkk3EwfS27/Front-End-UI-Teknik-Mart?node-id=0-1&t=qACdcI0XSjHBZa4h-1)

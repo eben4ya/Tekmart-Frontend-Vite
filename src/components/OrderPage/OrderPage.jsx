@@ -12,7 +12,6 @@ import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
 
-
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
   const {
@@ -22,12 +21,12 @@ const OrderPage = () => {
     setShowNotification,
     generateOrderId,
   } = useContext(OrderContext);
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   const [customerDetails, setCustomerDetails] = useState({
-    first_name: "John",
-    email: "john.doe@example.com",
-    phone: "08123456789",
+    first_name: user.id || "John",
+    email: user.email || "john.doe@example.com",
+    phone: "-",
   });
   const orderId = generateOrderId();
   const [snapShow, setSnapShow] = useState(false);
@@ -40,8 +39,8 @@ const OrderPage = () => {
   );
 
   const handleFloatingButtonClick = () => {
-    alert("Oke!"); 
-    // next stepnya 
+    alert("Oke!");
+    // next stepnya
   };
 
   const handleRemoveItem = (id) => {
@@ -81,7 +80,7 @@ const OrderPage = () => {
       const orderItems = cart.map((item) => ({
         productId: item.id,
         amount: item.quantity,
-        price: parseFloat(item.price)
+        price: parseFloat(item.price),
       }));
 
       // Create order in the database
@@ -93,6 +92,7 @@ const OrderPage = () => {
           },
           credentials: "include", // Include credentials to send cookies automatically
           body: JSON.stringify({
+            userId: user.id,
             items: orderItems,
             totalPrice: totalPrice,
           }),

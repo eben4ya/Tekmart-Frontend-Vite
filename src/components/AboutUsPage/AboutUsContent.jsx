@@ -1,7 +1,10 @@
 import queuedrUrl from "../../assets/images/Queued.png";
 import usingBrowserrUrl from "../../assets/images/Using-Browser.png";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 
 const AboutUsContent = () => {
+  const {isLoggedIn} = useContext(AuthContext);
   return (
     <div className="flex flex-col w-screen font-poppins my-[2.6vw]">
       <div className="flex md:flex-row md:px-7 lg:px-8 xl:ps-9 xl:pe-36">
@@ -22,8 +25,12 @@ const AboutUsContent = () => {
           <button
             type="button"
             className="self-start bg-black md:rounded-xl lg:rounded-2xl xl:rounded-3xl md:mt-1 lg:mt-2 xl:mt-3 md:px-5 lg:px-6 xl:px-7 md:py-2 lg:py-3 xl:py-4 md:text-sm xl:text-2xl text-white cursor-pointer hover:bg-yellow hover:text-black active:text-white active:bg-yellow"
-          >
-            <a href="">Get Started Now</a>
+          > {isLoggedIn ?(
+            <a href="/">Get Started Now</a>
+          ):(
+            <a href="/login">Get Started Now</a>
+          )}
+            
           </button>
         </div>
       </div>

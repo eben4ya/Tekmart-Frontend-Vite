@@ -8,7 +8,7 @@ const ErrorOrder = () => {
         title="Order Details"
         subtitle="One last step, don’t worry!"
       />
-      <div className="flex flex-col items-center text-center m-12 space-y-6">
+      <div className="flex flex-col items-center text-center h-[21vw] m-12 space-y-6">
         <h1 className="font-poppins font-bold text-8xl">Whoops!</h1>
         <p className="text-center font-poppins font-normal">
           Looks like you haven’t ordered anything just yet! Please click the

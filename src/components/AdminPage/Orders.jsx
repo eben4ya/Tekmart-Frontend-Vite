@@ -9,7 +9,11 @@ const Orders = () => {
     setExpandedSection(expandedSection === section ? null : section);
   };
 
-  const { pendingOrders = [], confirmedOrders = [] } = useContext(OrderContext);
+  const {
+    pendingOrders = [],
+    confirmedOrders = [],
+    updateOrderStatus,
+  } = useContext(OrderContext);
 
   return (
     <>
@@ -44,7 +48,10 @@ const Orders = () => {
                   </div>
                 </div>
                 <div>
-                  <button className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm">
+                  <button
+                    onClick={() => updateOrderStatus(order._id)}
+                    className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm"
+                  >
                     Accept
                   </button>
                 </div>
@@ -106,11 +113,6 @@ const Orders = () => {
                       User: {order.userId ? order.userId.email : "Guest"}
                     </p>
                   </div>
-                </div>
-                <div>
-                  <button className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm">
-                    Accept
-                  </button>
                 </div>
               </div>
               {expandedSection === order._id && (

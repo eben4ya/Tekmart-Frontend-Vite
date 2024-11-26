@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 import { createContext, useState, useEffect } from "react";
 
 export const OrderContext = createContext();
@@ -41,6 +39,33 @@ export const OrderProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
+  const updateOrderStatus = async (orderId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/order/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ statusOrder: "Confirm" }),
+        }
+      );
+
+      if (response.ok) {
+        setPendingOrders((prev) =>
+          prev.filter((order) => order._id !== orderId)
+        );
+        const updatedOrder = await response.json();
+        setConfirmedOrders((prev) => [...prev, updatedOrder]);
+      } else {
+        console.error("Failed to update order status");
+      }
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
+  };
+
   const [showNotification, setShowNotification] = useState(false);
 
   return (
@@ -54,6 +79,7 @@ export const OrderProvider = ({ children }) => {
         setOrderId,
         pendingOrders,
         confirmedOrders,
+        updateOrderStatus,
       }}
     >
       {children}

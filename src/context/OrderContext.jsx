@@ -22,7 +22,7 @@ export const OrderProvider = ({ children }) => {
         if (response.ok) {
           const orders = await response.json();
           setPendingOrders(
-            orders.filter((order) => order.statusOrder === "pending")
+            orders.filter((order) => order.statusOrder === "Pending")
           );
           setConfirmedOrders(
             orders.filter((order) => order.statusOrder === "Confirm")

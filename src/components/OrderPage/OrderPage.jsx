@@ -25,7 +25,7 @@ const OrderPage = () => {
   const { isLoggedIn, user } = useContext(AuthContext);
 
   const [customerDetails, setCustomerDetails] = useState({
-    first_name: user.id || "John",
+    first_name: user.email || "John",
     email: user.email || "john.doe@example.com",
     phone: "-",
   });

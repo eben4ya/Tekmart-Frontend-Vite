@@ -1,40 +1,75 @@
-import { createContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { createContext, useState, useEffect } from "react";
 
-export const ProductContext = createContext();
-
+const ProductContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState([
-    {
-      _id: uuidv4(),
-      name: "Sample Product",
-      description: "This is a sample product",
-      price: 100,
-      stock: 10,
-      imageUrl: "https://via.placeholder.com/150",
-      category: "Sample Category",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const apiEndpoint = "http://localhost:3000/api/product"; // Ganti dengan endpoint server Anda
+
+  // Fetch products from API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(apiEndpoint);
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Add new product
-  const addProduct = (newProduct) => {
-    setProducts((prevProducts) => [
-      ...prevProducts,
-      { ...newProduct, _id: uuidv4() },
-    ]);
+  const addProduct = async (newProduct) => {
+    try {
+      const response = await fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add product");
+      }
+      const addedProduct = await response.json();
+      setProducts((prevProducts) => [...prevProducts, addedProduct]);
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
   };
 
   // Delete product
-  const deleteProduct = (id) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((product) => product._id !== id)
-    );
+  const deleteProduct = async (id) => {
+    try {
+      const response = await fetch(`${apiEndpoint}/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete product");
+      }
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product._id !== id)
+      );
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
   };
 
   return (
-    <ProductContext.Provider value={{ products, addProduct, deleteProduct }}>
+    <ProductContext.Provider
+      value={{ products, loading, addProduct, deleteProduct }}
+    >
       {children}
     </ProductContext.Provider>
   );

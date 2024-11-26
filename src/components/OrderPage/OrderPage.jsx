@@ -19,7 +19,8 @@ const OrderPage = () => {
     setCart,
     showNotification,
     setShowNotification,
-    generateOrderId,
+    orderId,
+    setOrderId,
   } = useContext(OrderContext);
   const { isLoggedIn, user } = useContext(AuthContext);
 
@@ -28,7 +29,7 @@ const OrderPage = () => {
     email: user.email || "john.doe@example.com",
     phone: "-",
   });
-  const orderId = generateOrderId();
+
   const [snapShow, setSnapShow] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [notifMessage, setNotifMessage] = useState({ type: "", message: "" });
@@ -78,7 +79,7 @@ const OrderPage = () => {
     } else {
       // Generate order items
       const orderItems = cart.map((item) => ({
-        productId: item.id,
+        productId: item._id,
         amount: item.quantity,
         price: parseFloat(item.price),
       }));
@@ -100,6 +101,9 @@ const OrderPage = () => {
 
         if (!response.ok) {
           throw new Error("Failed to create order");
+        } else {
+          const data = await response.json();
+          setOrderId(data._id);
         }
       } catch (error) {
         console.error("Failed to create order", error);
@@ -126,7 +130,7 @@ const OrderPage = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              orderId,
+              orderId: orderId,
               totalPrice: totalPrice,
               customerDetails,
             }),

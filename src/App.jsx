@@ -9,7 +9,7 @@ import Footer from "./components/AllPage/Footer";
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
 
 // Used for testing
-import Test from "./test/Test";
+// import Test from "./test/Test";
 import Orders from "./components/AdminPage/Orders";
 import PaymentHistory from "./components/AdminPage/PaymentHistory";
 import Dashboard from "./components/AdminPage/Dashboard";
@@ -48,7 +48,7 @@ function App() {
           {/* route to admin payment history */}
           <Route path="/admin/paymenthistory" element={<PaymentHistory />} />
           {/* testing route */}
-          <Route path="/test" element={<Test />} />
+          {/* <Route path="/test" element={<Test />} /> */}
           {/* route to error bcoz no item ordered yet*/}
           <Route path="/order/errorNoItem" element={<ErrorOrder />} />
           {/* route to error bcoz not logged in yet */}

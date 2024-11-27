@@ -8,7 +8,7 @@ export const ProductProvider = ({ children }) => {
      { id:"", description:"", name: "", price: 0, stock:0, imageUrl:"", category:"" },
   ]);
   const [loading, setLoading] = useState(true);
-  const apiEndpoint = "http://localhost:3000/api/product"; // Ganti dengan endpoint server Anda
+  const apiEndpoint = "https://tekmart-backend-kholil-as-projects.vercel.app/api/product"; // Ganti dengan endpoint server Anda
 
   // Fetch products from API
   useEffect(() => {

@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:3000/api/user/register", {
+      const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:3000/api/user/login", {
+      const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +109,7 @@ export const AuthProvider = ({ children }) => {
   // Logout function
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/user/logout", {
+      const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/user/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

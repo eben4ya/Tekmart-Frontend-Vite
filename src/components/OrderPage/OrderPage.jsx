@@ -86,7 +86,7 @@ const OrderPage = () => {
 
       // Create order in the database
       try {
-        const response = await fetch("http://localhost:3000/api/order", {
+        const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/order", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const OrderPage = () => {
         window.location.href = `/order/${orderId}`;
       } else {
         try {
-          const response = await fetch("http://localhost:3000/api/payment", {
+          const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/payment", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

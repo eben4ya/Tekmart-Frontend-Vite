@@ -9,7 +9,7 @@ export const PaymentProvider = ({ children }) => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/payments");
+        const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/payments");
         if (response.ok) {
           const payments = await response.json();
           setAllPayments(payments);

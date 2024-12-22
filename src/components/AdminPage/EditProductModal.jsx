@@ -6,20 +6,53 @@ const EditProductModal = ({ closeModal }) => {
     category: "Default Category",
     name: "Default Product Name",
     price: "1000",
+    description: "Default Description",
+    stock: "10",
   });
 
   const handleChange = (e, field) => {
-    const value = field === "picture" ? e.target.files[0] : e.target.value;
+    // uncomment the line below if you want to handle file uploads
+    // const value = field === "picture" ? e.target.files[0] : e.target.value;
+    const value = e.target.value;
     setProductDetails({
       ...productDetails,
       [field]: value,
     });
   };
 
-  const handleSaveProduct = () => {
-    // Logic to save the product (e.g., making an API call)
-    console.log("Product details saved:", productDetails);
-    closeModal();
+  const handleSaveProduct = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("name", productDetails.name);
+      formData.append("description", productDetails.description);
+      formData.append("price", productDetails.price);
+      formData.append("stock", productDetails.stock);
+      formData.append("category", productDetails.category);
+      if (productDetails.picture) {
+        formData.append("imageUrl", productDetails.picture);
+      }
+
+      const response = await fetch(
+        `https://tekmart-backend-kholil-as-projects.vercel.app/api/product/${productId}`,
+        {
+          method: "PUT",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Product updated successfully:", data);
+
+      // Close modal after successful save
+      closeModal();
+    } catch (error) {
+      console.error("Error updating product:", error);
+      alert("Failed to update product. Please try again.");
+    }
   };
 
   return (
@@ -46,9 +79,13 @@ const EditProductModal = ({ closeModal }) => {
             </label>
             <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full">
               <input
-                type="file"
-                accept="image/*"
-                className="font-poppins font-normal flex-grow"
+                // type="file"
+                type="text"
+                // accept="image/*"
+                // className="font-poppins font-normal flex-grow"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Hosting URL Here"
+                value={productDetails.picture || ""}
                 onChange={(e) => handleChange(e, "picture")}
               />
             </div>
@@ -64,7 +101,7 @@ const EditProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Category Here"
-                value={productDetails.category}
+                value={productDetails.category || ""}
                 onChange={(e) => handleChange(e, "category")}
               />
             </div>
@@ -80,8 +117,40 @@ const EditProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Name Here"
-                value={productDetails.name}
+                value={productDetails.name || ""}
                 onChange={(e) => handleChange(e, "name")}
+              />
+            </div>
+          </div>
+
+          {/* Product Description */}
+          <div>
+            <label className="block text-lg font-poppins font-bold mb-2">
+              Product Description
+            </label>
+            <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full text-black">
+              <input
+                type="text"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Description Here"
+                value={productDetails.description || ""}
+                onChange={(e) => handleChange(e, "description")}
+              />
+            </div>
+          </div>
+
+          {/* Product Stock */}
+          <div>
+            <label className="block text-lg font-poppins font-bold mb-2">
+              Product Stock
+            </label>
+            <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full text-black">
+              <input
+                type="number"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Stock Here"
+                value={productDetails.stock || ""}
+                onChange={(e) => handleChange(e, "stock")}
               />
             </div>
           </div>
@@ -96,7 +165,7 @@ const EditProductModal = ({ closeModal }) => {
                 type="number"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Price Here"
-                value={productDetails.price}
+                value={productDetails.price || ""}
                 onChange={(e) => handleChange(e, "price")}
               />
             </div>

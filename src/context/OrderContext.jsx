@@ -104,6 +104,8 @@ export const OrderProvider = ({ children }) => {
     }
   };
 
+  const [showUniqueCodeModal, setShowUniqueCodeModal] = useState(false);
+
   const [showNotification, setShowNotification] = useState(false);
 
   return (
@@ -119,6 +121,8 @@ export const OrderProvider = ({ children }) => {
         confirmedOrders,
         updateOrderStatus,
         allPayments,
+        showUniqueCodeModal,
+        setShowUniqueCodeModal,
       }}
     >
       {children}

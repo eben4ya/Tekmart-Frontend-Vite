@@ -19,11 +19,13 @@ export const OrderProvider = ({ children }) => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/payment");
+        const response = await fetch(
+          "https://tekmart-backend-kholil-as-projects.vercel.app/api/payment"
+        );
         if (response.ok) {
           const payments = await response.json();
           setAllPayments(payments);
-          // alert(JSON.stringify(payments));  
+          // alert(JSON.stringify(payments));
         } else {
           console.error("Failed to fetch payments");
         }
@@ -37,7 +39,9 @@ export const OrderProvider = ({ children }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/order");
+        const response = await fetch(
+          "https://tekmart-backend-kholil-as-projects.vercel.app/api/order"
+        );
         if (response.ok) {
           const orders = await response.json();
           setPendingOrders(
@@ -61,29 +65,36 @@ export const OrderProvider = ({ children }) => {
   }, [cart]);
 
   const updateOrderStatus = async (orderId) => {
-    try {
-      const response = await fetch(
-        `https://tekmart-backend-kholil-as-projects.vercel.app/api/order/${orderId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ statusOrder: "Confirm" }),
-        }
-      );
-
-      if (response.ok) {
-        setPendingOrders((prev) =>
-          prev.filter((order) => order._id !== orderId)
+    const uniqueCode = prompt("Enter unique code to confirm order");
+    if (!uniqueCode) {
+      alert("Please enter unique code to confirm order");
+      return;
+    }
+    if (uniqueCode.trim() === "123456") {
+      try {
+        const response = await fetch(
+          `https://tekmart-backend-kholil-as-projects.vercel.app/api/order/${orderId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ statusOrder: "Confirm" }),
+          }
         );
-        const updatedOrder = await response.json();
-        setConfirmedOrders((prev) => [...prev, updatedOrder]);
-      } else {
-        console.error("Failed to update order status");
+
+        if (response.ok) {
+          setPendingOrders((prev) =>
+            prev.filter((order) => order._id !== orderId)
+          );
+          const updatedOrder = await response.json();
+          setConfirmedOrders((prev) => [...prev, updatedOrder]);
+        } else {
+          console.error("Failed to update order status");
+        }
+      } catch (error) {
+        console.error("Error updating order status:", error);
       }
-    } catch (error) {
-      console.error("Error updating order status:", error);
     }
   };
 

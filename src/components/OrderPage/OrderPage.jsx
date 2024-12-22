@@ -93,8 +93,7 @@ const OrderPage = () => {
         setShowNotification(true);
         setNotifMessage({
           type: "info",
-          message:
-            "Midtrans payment is not available for production",
+          message: "Midtrans payment is not available for production",
         });
         // setCart([]);
         // localStorage.setItem("cart", JSON.stringify([]));
@@ -102,7 +101,7 @@ const OrderPage = () => {
         // window.location.href = `/order/${orderId}`;
       }
       // development
-      
+
       // Generate order items
       //   const orderItems = cart.map((item) => ({
       //     productId: item._id,
@@ -118,7 +117,7 @@ const OrderPage = () => {
 
       // // Create order in the database
       // try {
-      //   const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/order", {
+      //   const response = await fetch(`${import.meta.env.VITE_API_ORDER}`, {
       //     method: "POST",
       //     headers: {
       //       "Content-Type": "application/json",
@@ -156,7 +155,7 @@ const OrderPage = () => {
       //   window.location.href = `/order/${orderId}`;
       // } else {
       //   try {
-      //     const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/payment", {
+      //     const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`, {
       //       method: "POST",
       //       headers: {
       //         "Content-Type": "application/json",

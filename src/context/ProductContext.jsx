@@ -5,10 +5,39 @@ const ProductContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([
-     { id:"", description:"", name: "", price: 0, stock:0, imageUrl:"", category:"" },
+    {
+      id: "",
+      description: "",
+      name: "",
+      price: 0,
+      stock: 0,
+      imageUrl: "",
+      category: "",
+    },
   ]);
+  const [clickedProductId, setClickedProductId] = useState("");
+  const [productDetailGlobal, setProductDetailGlobal] = useState({
+    id: "",
+    description: "",
+    name: "",
+    price: 0,
+    stock: 0,
+    imageUrl: "",
+    category: "",
+  });
+
+  const handleChangeEditedProduct = (e, field) => {
+    // uncomment the line below if you want to handle file uploads
+    // const value = field === "picture" ? e.target.files[0] : e.target.value;
+    const value = e.target.value;
+    setProductDetailGlobal({
+      ...productDetailGlobal,
+      [field]: value,
+    });
+  };
+
   const [loading, setLoading] = useState(true);
-  const apiEndpoint = "https://tekmart-backend-kholil-as-projects.vercel.app/api/product"; // Ganti dengan endpoint server Anda
+  const apiEndpoint = `${import.meta.env.VITE_API_PRODUCT}`;
 
   // Fetch products from API
   useEffect(() => {
@@ -34,20 +63,64 @@ export const ProductProvider = ({ children }) => {
   // Add new product
   const addProduct = async (newProduct) => {
     try {
+      const formData = new FormData();
+      formData.append("name", newProduct.name);
+      formData.append("description", newProduct.description);
+      formData.append("price", newProduct.price);
+      formData.append("stock", newProduct.stock);
+      formData.append("category", newProduct.category);
+      formData.append("imageUrl", newProduct.picture);
+
       const response = await fetch(apiEndpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newProduct),
+        body: formData,
+        credentials: "include",
       });
+
       if (!response.ok) {
         throw new Error("Failed to add product");
       }
+
       const addedProduct = await response.json();
-      setProducts((prevProducts) => [...prevProducts, addedProduct]);
+      setProducts((prevProducts) => [...prevProducts, addedProduct.data]);
     } catch (error) {
       console.error("Error adding product:", error);
+      alert("Failed to add product. Please try again.");
+    }
+  };
+
+  // Edit product
+  const editProduct = async (id, updatedProduct) => {
+    try {
+      const formData = new FormData();
+      formData.append("name", updatedProduct.name);
+      formData.append("description", updatedProduct.description);
+      formData.append("price", updatedProduct.price);
+      formData.append("stock", updatedProduct.stock);
+      formData.append("category", updatedProduct.category);
+      if (updatedProduct.picture) {
+        formData.append("imageUrl", updatedProduct.picture);
+      }
+
+      const response = await fetch(`${apiEndpoint}/${id}`, {
+        method: "PUT",
+        body: formData,
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update product");
+      }
+
+      const updatedProductData = await response.json();
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product._id === id ? updatedProductData.data : product
+        )
+      );
+    } catch (error) {
+      console.error("Error updating product:", error);
+      alert("Failed to update product. Please try again.");
     }
   };
 
@@ -56,6 +129,10 @@ export const ProductProvider = ({ children }) => {
     try {
       const response = await fetch(`${apiEndpoint}/${id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Failed to delete product");
@@ -70,7 +147,18 @@ export const ProductProvider = ({ children }) => {
 
   return (
     <ProductContext.Provider
-      value={{ products, loading, addProduct, deleteProduct }}
+      value={{
+        products,
+        loading,
+        addProduct,
+        editProduct,
+        deleteProduct,
+        clickedProductId,
+        setClickedProductId,
+        productDetailGlobal,
+        setProductDetailGlobal,
+        handleChangeEditedProduct,
+      }}
     >
       {children}
     </ProductContext.Provider>

@@ -1,3 +1,5 @@
+// ! this payment context is not used in the project, still using fetch payment in order context
+
 import { createContext, useState, useEffect } from "react";
 
 export const PaymentContext = createContext();
@@ -9,7 +11,7 @@ export const PaymentProvider = ({ children }) => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/payments");
+        const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`);
         if (response.ok) {
           const payments = await response.json();
           setAllPayments(payments);

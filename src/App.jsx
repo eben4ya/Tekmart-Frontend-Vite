@@ -7,6 +7,8 @@ import OrderPage from "./components/OrderPage/OrderPage";
 import ProductPage from "./components/ProductsPage/ProductPage";
 import Footer from "./components/AllPage/Footer";
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
+import FloatingUniqueCodeIcon from "./components/AllPage/FloatingUniqueCodeIcon";
+import UniqueCodeModal from "./components/AllPage/UniqueCodeModal";
 
 // Used for testing
 // import Test from "./test/Test";
@@ -19,9 +21,11 @@ import Products from "./components/AdminPage/Products";
 
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { OrderContext } from "./context/OrderContext";
 
 function App() {
   const { user } = useContext(AuthContext);
+  const { showUniqueCodeModal } = useContext(OrderContext);
   return (
     <Router>
       <Navbar />
@@ -55,6 +59,8 @@ function App() {
           <Route path="/order/errorNotLoggedInYet" element={<ErrorLogin />} />
         </Routes>
       </main>
+      {user.isAdmin === false && <FloatingUniqueCodeIcon />}
+      {showUniqueCodeModal && <UniqueCodeModal />}  
       <Footer />
     </Router>
   );

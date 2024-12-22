@@ -20,8 +20,8 @@ const ProductDetail = ({
           </a>
         </button>
         <img
-          className="w-full"
-          src={selectedProduct.image}
+          className="object-contain md:w-[120px] lg:w-[185px] xl:w-[250px] md:h-[1200px] lg:h-[185px] xl:h-[250px]"
+          src={selectedProduct.imageUrl}
           alt={selectedProduct.name}
         />
         <h1 className="md:text-2xl lg:text-3xl xl:text-[40px]">

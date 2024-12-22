@@ -5,7 +5,7 @@ import ProductContext from "../../context/ProductContext";
 import { useState, useContext } from "react";
 
 const Products = () => {
-  const { products } = useContext(ProductContext);
+  const { products, setProductDetail, setClickedProductId } = useContext(ProductContext);
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false); // State for Edit Product Modal
 
@@ -29,8 +29,10 @@ const Products = () => {
   };
 
   // Function to open the Edit Product Modal
-  const openEditProductModal = () => {
+  const openEditProductModal = (id) => {
     setIsEditProductModalOpen(true);
+    setProductDetail(products.find((product) => product._id === id));
+    setClickedProductId(id);
   };
 
   // Function to close the Edit Product Modal
@@ -44,7 +46,7 @@ const Products = () => {
         <div className="space-y-4">
           {products.map((product) => (
             <div
-              key={product.id}
+              key={product._id}
               className="flex flex-row justify-between items-center border rounded-2xl ps-6 pe-10 py-5"
             >
               <div className="text-xl">
@@ -53,7 +55,7 @@ const Products = () => {
               </div>
               <button
                 type="button"
-                onClick={openEditProductModal}
+                onClick={() => openEditProductModal(product._id)}
                 className="bg-yellow md:rounded-xl md:px-14 md:py-0.5 lg:py-1 xl:py-2.5 md:text-xs lg:text-sm xl:text-base font-bold cursor-pointer hover:bg-yellow hover:text-black active:text-white active:bg-yellow"
               >
                 Edit

@@ -5,10 +5,40 @@ const ProductContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([
-     { id:"", description:"", name: "", price: 0, stock:0, imageUrl:"", category:"" },
+    {
+      id: "",
+      description: "",
+      name: "",
+      price: 0,
+      stock: 0,
+      imageUrl: "",
+      category: "",
+    },
   ]);
+  const [clickedProductId, setClickedProductId] = useState("");
+  const [productDetail, setProductDetail] = useState({
+    id: "",
+    description: "",
+    name: "",
+    price: 0,
+    stock: 0,
+    imageUrl: "",
+    category: "",
+  });
+
+  const handleChangeEditedProduct = (e, field) => {
+    // uncomment the line below if you want to handle file uploads
+    // const value = field === "picture" ? e.target.files[0] : e.target.value;
+    const value = e.target.value;
+    setProductDetail({
+      ...productDetail,
+      [field]: value,
+    });
+  };
+
   const [loading, setLoading] = useState(true);
-  const apiEndpoint = "https://tekmart-backend-kholil-as-projects.vercel.app/api/product"; // Ganti dengan endpoint server Anda
+  const apiEndpoint =
+    "https://tekmart-backend-kholil-as-projects.vercel.app/api/product"; // Ganti dengan endpoint server Anda
 
   // Fetch products from API
   useEffect(() => {
@@ -70,7 +100,17 @@ export const ProductProvider = ({ children }) => {
 
   return (
     <ProductContext.Provider
-      value={{ products, loading, addProduct, deleteProduct }}
+      value={{
+        products,
+        loading,
+        addProduct,
+        deleteProduct,
+        clickedProductId,
+        setClickedProductId,
+        productDetail,
+        setProductDetail,
+        handleChangeEditedProduct,
+      }}
     >
       {children}
     </ProductContext.Provider>

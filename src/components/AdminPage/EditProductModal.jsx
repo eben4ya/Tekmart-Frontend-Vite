@@ -1,39 +1,25 @@
-import { useState } from "react";
+import ProductContext from "../../context/ProductContext";
+
+import { useState, useContext } from "react";
 
 const EditProductModal = ({ closeModal }) => {
-  const [productDetails, setProductDetails] = useState({
-    picture: "",
-    category: "Default Category",
-    name: "Default Product Name",
-    price: "1000",
-    description: "Default Description",
-    stock: "10",
-  });
-
-  const handleChange = (e, field) => {
-    // uncomment the line below if you want to handle file uploads
-    // const value = field === "picture" ? e.target.files[0] : e.target.value;
-    const value = e.target.value;
-    setProductDetails({
-      ...productDetails,
-      [field]: value,
-    });
-  };
+  const { productDetail, handleChangeEditedProduct, clickedProductId } =
+    useContext(ProductContext);
 
   const handleSaveProduct = async () => {
     try {
       const formData = new FormData();
-      formData.append("name", productDetails.name);
-      formData.append("description", productDetails.description);
-      formData.append("price", productDetails.price);
-      formData.append("stock", productDetails.stock);
-      formData.append("category", productDetails.category);
-      if (productDetails.picture) {
-        formData.append("imageUrl", productDetails.picture);
+      formData.append("name", productDetail.name);
+      formData.append("description", productDetail.description);
+      formData.append("price", productDetail.price);
+      formData.append("stock", productDetail.stock);
+      formData.append("category", productDetail.category);
+      if (productDetail.picture) {
+        formData.append("imageUrl", productDetail.picture);
       }
 
       const response = await fetch(
-        `https://tekmart-backend-kholil-as-projects.vercel.app/api/product/${productId}`,
+        `https://tekmart-backend-kholil-as-projects.vercel.app/api/product/${clickedProductId}`,
         {
           method: "PUT",
           body: formData,
@@ -85,8 +71,8 @@ const EditProductModal = ({ closeModal }) => {
                 // className="font-poppins font-normal flex-grow"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Hosting URL Here"
-                value={productDetails.picture || ""}
-                onChange={(e) => handleChange(e, "picture")}
+                value={productDetail.imageUrl || ""}
+                onChange={(e) => handleChangeEditedProduct(e, "picture")}
               />
             </div>
           </div>
@@ -101,8 +87,8 @@ const EditProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Category Here"
-                value={productDetails.category || ""}
-                onChange={(e) => handleChange(e, "category")}
+                value={productDetail.category || ""}
+                onChange={(e) => handleChangeEditedProduct(e, "category")}
               />
             </div>
           </div>
@@ -117,8 +103,8 @@ const EditProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Name Here"
-                value={productDetails.name || ""}
-                onChange={(e) => handleChange(e, "name")}
+                value={productDetail.name || ""}
+                onChange={(e) => handleChangeEditedProduct(e, "name")}
               />
             </div>
           </div>
@@ -133,8 +119,8 @@ const EditProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Description Here"
-                value={productDetails.description || ""}
-                onChange={(e) => handleChange(e, "description")}
+                value={productDetail.description || ""}
+                onChange={(e) => handleChangeEditedProduct(e, "description")}
               />
             </div>
           </div>
@@ -149,8 +135,8 @@ const EditProductModal = ({ closeModal }) => {
                 type="number"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Stock Here"
-                value={productDetails.stock || ""}
-                onChange={(e) => handleChange(e, "stock")}
+                value={productDetail.stock || ""}
+                onChange={(e) => handleChangeEditedProduct(e, "stock")}
               />
             </div>
           </div>
@@ -165,8 +151,8 @@ const EditProductModal = ({ closeModal }) => {
                 type="number"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Price Here"
-                value={productDetails.price || ""}
-                onChange={(e) => handleChange(e, "price")}
+                value={productDetail.price || ""}
+                onChange={(e) => handleChangeEditedProduct(e, "price")}
               />
             </div>
           </div>

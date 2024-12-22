@@ -1,20 +1,26 @@
 import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 
-import { useContext } from "react";
+import { useState, useContext } from "react";
 
 const UniqueCodeModal = () => {
   const { pendingOrders, setShowUniqueCodeModal } = useContext(OrderContext);
   const { user } = useContext(AuthContext);
 
+  const [expandedOrderId, setExpandedOrderId] = useState(null);
+
+  const toggleOrderDetails = (orderId) => {
+    setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
+  };
+
   // Filter orders that are pending and belong to the current user
   const userPendingOrders = pendingOrders.filter(
-    (order) => order.userId && order.userId === user.id
+    (order) => order.userId && order.userId._id === user.id
   );
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg w-full max-w-3xl p-6 relative max-h-[50vh] overflow-y-auto">
+      <div className="bg-white rounded-lg w-full max-w-3xl p-6 relative max-h-[60vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={() => setShowUniqueCodeModal(false)}
@@ -22,26 +28,60 @@ const UniqueCodeModal = () => {
         >
           ✖
         </button>
-        <h2 className="text-[1.4vw] font-bold text-center mb-[2vw]">Your Orders</h2>
+        <h2 className="text-[1.4vw] font-bold text-center mb-[2vw]">
+          Your Orders
+        </h2>
 
         {/* Unique Code Orders */}
         {userPendingOrders.length > 0 ? (
           <ul className="mb-4">
             {userPendingOrders.map((order) => (
-              <li
-                key={order._id}
-                className="flex justify-between bg-yellow p-3 rounded-lg mb-2"
-              >
-                <span>Order: {order.items.length} items</span>
-                <span>Total: IDR {order.totalPrice.toLocaleString()}</span>
-                <span>Unique Code: {order.uniqueCode}</span>
+              <li key={order._id} className="mb-[1.6vw]">
+                <button className="w-full flex justify-between items-center bg-yellow-200 p-3 rounded-lg shadow-md hover:bg-yellow-300 transition">
+                  <span className="font-semibold">Order ID: {order._id}</span>
+                  <span
+                    className="font-bold"
+                    onClick={() => toggleOrderDetails(order._id)}
+                  >
+                    {expandedOrderId === order._id ? "▲" : "▼"}
+                  </span>
+                </button>
+
+                {/* Order Details */}
+                {expandedOrderId === order._id && (
+                  <div className="flex flex-col gap-[0.25vw] mt-3 p-4 bg-yellow-50 rounded-lg shadow-inner">
+                    <p>
+                      <strong>Status:</strong> {order.statusOrder}
+                    </p>
+                    <div>
+                      <strong>Items:</strong>
+                      <ul className="list-disc pl-5 mt-2">
+                        {order.items.map((item) => (
+                          <li key={item._id} className="mb-1">
+                            {item.amount}x {item.productId.name} - IDR{" "}
+                            {(item.price * item.amount).toLocaleString()}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <p>
+                      <strong>Total Price:</strong> IDR{" "}
+                      {order.totalPrice.toLocaleString()}
+                    </p>
+
+                    <p>
+                      <strong>Unique Code:</strong>{" "}
+                      <span className="bg-yellow p-1 font-semibold">{order.uniqueCode}</span>
+                    </p>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-black mb-4 text-center">
+          <p className="text-center text-gray-700">
             No orders. Click{" "}
-            <a className="text-blue-link" href="/products">
+            <a href="/products" className="text-blue-500 underline">
               here
             </a>{" "}
             to shop!

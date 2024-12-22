@@ -7,6 +7,7 @@ import OrderPage from "./components/OrderPage/OrderPage";
 import ProductPage from "./components/ProductsPage/ProductPage";
 import Footer from "./components/AllPage/Footer";
 import RegisterLogin from "./components/RegisterLogin/RegisterLogin";
+import FloatingUniqueCodeIcon from "./components/AllPage/FloatingUniqueCodeIcon";
 
 // Used for testing
 // import Test from "./test/Test";
@@ -55,6 +56,7 @@ function App() {
           <Route path="/order/errorNotLoggedInYet" element={<ErrorLogin />} />
         </Routes>
       </main>
+      {user.isAdmin === false && <FloatingUniqueCodeIcon />}
       <Footer />
     </Router>
   );

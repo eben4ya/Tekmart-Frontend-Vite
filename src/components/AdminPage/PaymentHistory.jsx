@@ -81,43 +81,27 @@ const PaymentHistory = () => {
                 </div>
               </div>
 
-              {/* Order Details */}
-              {/* {openDropdowns.includes(order.id) && (
-                <div className="mt-4 space-y-4">
-                  {order.items.map((item, index) => (
-                    <div
-                      key={index}
-                      className="outline rounded-md outline-white2 bg-zinc  py-2 outline-2 h-16 flex justify-between items-center"
-                    >
-                      <div className="">
-                        <p className="ml-3">
-                          <a className="font-poppins font-bold">
-                            {item.quantity}X
-                          </a>{" "}
-                          <a className="ml-5 font-poppins font-medium">
-                            {item.name}
-                          </a>
-                        </p>
-                      </div>
-                      <p className="mr-8 font-poppins font-bold">
-                        IDR {item.price.toLocaleString()}
+              {/* Payments Details */}
+              {openDropdowns.includes(payment._id) && (
+                <div className="mt-2">
+                  <div className="flex-row py-2 flex justify-between items-center rounded bg-zinc outline outline-white2 outline-2">
+                    {/* email user*/}
+                    <div className="mx-6 my-4 flex flex-row space-x-4">
+                      <p className="font-bold">Customer Email: </p>
+                      <p>
+                        {payment.customerDetails.email != undefined
+                          ? payment.customerDetails.email
+                          : ""}
                       </p>
                     </div>
-                  ))}
-                  <div className="items-center flex flex-row justify-between mt-2 font-bold text-right outline outline-2 rounded-md outline-yellow bg-yellow h-16">
-                    <p className="ml-16 font-poppins font-bold ">Total:</p>
-                    <p className="mr-8 font-poppins">
-                      IDR{" "}
-                      {order.items
-                        .reduce(
-                          (sum, item) => sum + item.price * item.quantity,
-                          0
-                        )
-                        .toLocaleString()}
-                    </p>
+                  </div>
+
+                  <div className="flex flex-row justify-between my-4 px-4 py-5 font-bold text-right bg-yellow rounded outline outline-yellow">
+                    <p className="px-10 font-poppins font-medium">Total</p>
+                    <p className="font-poppins">IDR{payment.totalPrice}</p>
                   </div>
                 </div>
-              )} */}
+              )}
             </div>
           ))}
         </div>

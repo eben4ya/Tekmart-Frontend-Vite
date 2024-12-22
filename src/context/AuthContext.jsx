@@ -39,16 +39,19 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const response = await fetch(
+        "https://tekmart-backend-kholil-as-projects.vercel.app/api/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
 
       if (response.ok) {
         setEmail("");
@@ -73,17 +76,20 @@ export const AuthProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-        credentials: "include", // send token cookie to server
-      });
+      const response = await fetch(
+        "https://tekmart-backend-kholil-as-projects.vercel.app/api/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+          credentials: "include", // send token cookie to server
+        }
+      );
 
       const data = await response.json();
 
@@ -109,13 +115,16 @@ export const AuthProvider = ({ children }) => {
   // Logout function
   const handleLogout = async () => {
     try {
-      const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/user/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // send token cookie to server to remove it
-      });
+      const response = await fetch(
+        "https://tekmart-backend-kholil-as-projects.vercel.app/api/user/logout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // send token cookie to server to remove it
+        }
+      );
 
       const data = await response.json();
 

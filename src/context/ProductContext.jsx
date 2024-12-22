@@ -70,6 +70,7 @@ export const ProductProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newProduct),
+        credentials: "include", 
       });
       if (!response.ok) {
         throw new Error("Failed to add product");
@@ -84,8 +85,12 @@ export const ProductProvider = ({ children }) => {
   // Delete product
   const deleteProduct = async (id) => {
     try {
-      const response = await fetch(`${apiEndpoint}/${id}`, {
+      const response = await fetch(`https://tekmart-backend-kholil-as-projects.vercel.app/api/product/${id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", 
       });
       if (!response.ok) {
         throw new Error("Failed to delete product");

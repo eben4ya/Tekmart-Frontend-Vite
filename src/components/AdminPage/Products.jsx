@@ -5,8 +5,12 @@ import ProductContext from "../../context/ProductContext";
 import { useState, useContext } from "react";
 
 const Products = () => {
-  const { products, setProductDetailGlobal, setClickedProductId } =
-    useContext(ProductContext);
+  const {
+    products,
+    setProductDetailGlobal,
+    setClickedProductId,
+    deleteProduct,
+  } = useContext(ProductContext);
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false); // State for Edit Product Modal
 
@@ -47,8 +51,7 @@ const Products = () => {
       "Are you sure you want to delete this item?"
     );
     if (confirm) {
-      // deleteProduct(id);
-      alert(id);
+      deleteProduct(id);
     }
   };
 

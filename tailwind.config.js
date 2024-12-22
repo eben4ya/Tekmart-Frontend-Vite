@@ -10,6 +10,7 @@ export default {
       'zinc': '#EEEEF0',
       'gray':'#D7D6D6',
       'red':'#FF0000',
+      'blue-link': '#2F80ED',
     },
     extend: {
       fontFamily:{

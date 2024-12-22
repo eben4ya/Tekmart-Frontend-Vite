@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
 const FloatingUniqueCodeIcon = () => {
-  const { pendingOrders, setShowModal } = useContext(OrderContext);
+  const { pendingOrders, setShowUniqueCodeModal } = useContext(OrderContext);
   const { user } = useContext(AuthContext);
   // Filter orders that are pending and belong to the current user
   const userPendingOrders = pendingOrders.filter(
@@ -13,7 +13,7 @@ const FloatingUniqueCodeIcon = () => {
   return (
     <div className="fixed bottom-8 right-8 z-[60]">
       <button
-        onClick={() => setShowModal(true)}
+        onClick={() => setShowUniqueCodeModal(true)}
         className="relative w-[4.4vw] h-[4.4vw] bg-yellow rounded-full shadow-lg flex items-center justify-center text-black font-bold text-3xl hover:scale-110 transition-transform"
       >
         🛒

@@ -2,24 +2,52 @@ import { useState } from "react";
 
 const AddProductModal = ({ closeModal }) => {
   const [productDetails, setProductDetails] = useState({
-    picture: null,
+    picture: "",
     category: "",
     name: "",
+    description: "",
+    stock: 0,
     price: 0,
   });
 
   const handleChange = (e, field) => {
-    const value = field === "picture" ? e.target.files[0] : e.target.value;
+    // uncomment this line if you want to handle file upload
+    // const value = field === "picture" ? e.target.files[0] : e.target.value;
+    const value = e.target.value;
     setProductDetails({
       ...productDetails,
       [field]: value,
     });
   };
 
-  const handleSaveProduct = () => {
-    // Logic to save the product (e.g., making an API call)
-    console.log("Product details saved:", productDetails);
-    closeModal();
+  const handleSaveProduct = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("name", productDetails.name);
+      formData.append("description", productDetails.description);
+      formData.append("price", productDetails.price);
+      formData.append("stock", productDetails.stock);
+      formData.append("category", productDetails.category);
+      formData.append("imageUrl", productDetails.picture);
+
+      const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/product", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Product saved successfully:", data);
+
+      // Close modal after successful save
+      closeModal();
+    } catch (error) {
+      console.error("Error saving product:", error);
+      alert("Failed to save product. Please try again.");
+    }
   };
 
   return (
@@ -46,9 +74,13 @@ const AddProductModal = ({ closeModal }) => {
             </label>
             <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full">
               <input
-                type="file"
-                accept="image/*"
-                className="font-poppins font-normal flex-grow"
+                // type="file"
+                type="text"
+                // accept="image/*"
+                // className="font-poppins font-normal flex-grow"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Hosting URL Here"
+                value={productDetails.picture || ""}
                 onChange={(e) => handleChange(e, "picture")}
               />
             </div>
@@ -82,6 +114,38 @@ const AddProductModal = ({ closeModal }) => {
                 placeholder="Add A Name Here"
                 value={productDetails.name || ""}
                 onChange={(e) => handleChange(e, "name")}
+              />
+            </div>
+          </div>
+
+          {/* Product Description */}
+          <div>
+            <label className="block text-lg font-poppins font-bold mb-2">
+              Product Description
+            </label>
+            <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full text-black">
+              <input
+                type="text"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Description Here"
+                value={productDetails.description || ""}
+                onChange={(e) => handleChange(e, "description")}
+              />
+            </div>
+          </div>
+
+          {/* Product Stock */}
+          <div>
+            <label className="block text-lg font-poppins font-bold mb-2">
+              Product Stock
+            </label>
+            <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full text-black">
+              <input
+                type="number"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Stock Here"
+                value={productDetails.stock || ""}
+                onChange={(e) => handleChange(e, "stock")}
               />
             </div>
           </div>

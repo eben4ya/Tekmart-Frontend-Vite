@@ -30,10 +30,13 @@ const AddProductModal = ({ closeModal }) => {
       formData.append("category", productDetails.category);
       formData.append("imageUrl", productDetails.picture);
 
-      const response = await fetch("https://tekmart-backend-kholil-as-projects.vercel.app/api/product", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://tekmart-backend-kholil-as-projects.vercel.app/api/product",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -44,6 +47,15 @@ const AddProductModal = ({ closeModal }) => {
 
       // Close modal after successful save
       closeModal();
+
+      setProductDetails({
+        picture: "",
+        category: "",
+        name: "",
+        description: "",
+        stock: 0,
+        price: 0,
+      });
     } catch (error) {
       console.error("Error saving product:", error);
       alert("Failed to save product. Please try again.");

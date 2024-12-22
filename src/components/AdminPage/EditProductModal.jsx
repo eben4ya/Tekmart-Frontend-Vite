@@ -1,10 +1,14 @@
 import ProductContext from "../../context/ProductContext";
 
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 const EditProductModal = ({ closeModal }) => {
-  const { productDetail, handleChangeEditedProduct, clickedProductId } =
-    useContext(ProductContext);
+  const {
+    productDetail,
+    handleChangeEditedProduct,
+    clickedProductId,
+    setProductDetail,
+  } = useContext(ProductContext);
 
   const handleSaveProduct = async () => {
     try {
@@ -15,7 +19,7 @@ const EditProductModal = ({ closeModal }) => {
       formData.append("stock", productDetail.stock);
       formData.append("category", productDetail.category);
       if (productDetail.picture) {
-        formData.append("imageUrl", productDetail.picture);
+        formData.append("imageUrl", productDetail.imageUrl);
       }
 
       const response = await fetch(
@@ -35,6 +39,16 @@ const EditProductModal = ({ closeModal }) => {
 
       // Close modal after successful save
       closeModal();
+
+      setProductDetail({
+        id: "",
+        description: "",
+        name: "",
+        price: 0,
+        stock: 0,
+        imageUrl: "",
+        category: "",
+      });
     } catch (error) {
       console.error("Error updating product:", error);
       alert("Failed to update product. Please try again.");

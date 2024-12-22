@@ -3,9 +3,8 @@ import { useState, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
 
 const PaymentHistory = () => {
-  const { allPayments } = useContext(OrderContext); 
+  const { allPayments } = useContext(OrderContext);
   const [openDropdowns, setOpenDropdowns] = useState([]);
-
 
   const toggleDropdown = (id) => {
     if (openDropdowns.includes(id)) {
@@ -28,12 +27,12 @@ const PaymentHistory = () => {
           {allPayments.map((payment) => (
             <div key={payment._id} className=" rounded mb-4 p-2">
               {/* Order Header */}
-              <div
-                className="flex items-center flex-row cursor-pointer justify-between bg-white outline rounded-md outline-2 outline-white2 leading-5 h-16"
-                onClick={() => toggleDropdown(payment._id)}
-              >
+              <div className="flex items-center flex-row  justify-between bg-white outline rounded-md outline-2 outline-white2 leading-5 h-16">
                 <div className="flex flex-row items-center">
-                  <button className="ml-4">
+                  <button
+                    className="ml-4 cursor-pointer"
+                    onClick={() => toggleDropdown(payment._id)}
+                  >
                     {openDropdowns.includes(payment._id) ? "▲" : "▼"}
                   </button>
                   <div className="ml-5">

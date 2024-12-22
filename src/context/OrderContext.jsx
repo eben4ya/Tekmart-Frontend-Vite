@@ -20,9 +20,7 @@ export const OrderProvider = ({ children }) => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const response = await fetch(
-          "https://tekmart-backend-kholil-as-projects.vercel.app/api/payment"
-        );
+        const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`);
         if (response.ok) {
           const payments = await response.json();
           setAllPayments(payments);
@@ -40,9 +38,7 @@ export const OrderProvider = ({ children }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(
-          "https://tekmart-backend-kholil-as-projects.vercel.app/api/order"
-        );
+        const response = await fetch(`${import.meta.env.VITE_API_ORDER}`);
         if (response.ok) {
           const orders = await response.json();
           setPendingOrders(
@@ -77,7 +73,7 @@ export const OrderProvider = ({ children }) => {
     ) {
       try {
         const response = await fetch(
-          `https://tekmart-backend-kholil-as-projects.vercel.app/api/order/${orderId}`,
+          `${import.meta.env.VITE_API_ORDER}/${orderId}`,
           {
             method: "PUT",
             headers: {

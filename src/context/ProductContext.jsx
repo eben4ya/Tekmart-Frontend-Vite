@@ -37,8 +37,7 @@ export const ProductProvider = ({ children }) => {
   };
 
   const [loading, setLoading] = useState(true);
-  const apiEndpoint =
-    "https://tekmart-backend-kholil-as-projects.vercel.app/api/product"; // Ganti dengan endpoint server Anda
+  const apiEndpoint = `${import.meta.env.VITE_API_PRODUCT}`;
 
   // Fetch products from API
   useEffect(() => {

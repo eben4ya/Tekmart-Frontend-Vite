@@ -65,7 +65,39 @@ export const OrderProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const updateOrderStatus = async (orderId) => {
+  // update order status to ready
+  const acceptOrderStatus = async (orderId) => {
+    const confirmAccept = window.confirm("Accept order?");
+    if (!confirmAccept) return;
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_ORDER}/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ statusOrder: "Ready to be Taken" }),
+          credentials: "include",
+        }
+      );
+
+      if (response.ok) {
+        setPendingOrders((prev) =>
+          prev.filter((order) => order._id !== orderId)
+        );
+        const updatedOrder = await response.json();
+        setReadyOrders((prev) => [...prev, updatedOrder]);
+      } else {
+        console.error("Failed to update order status");
+      }
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
+  };
+
+  // update order status to confirm
+  const confirmOrderStatus = async (orderId) => {
     const uniqueCode = prompt("Enter unique code to confirm order");
     if (!uniqueCode) {
       alert("Please enter unique code to confirm order");
@@ -121,7 +153,8 @@ export const OrderProvider = ({ children }) => {
         pendingOrders,
         readyOrders,
         confirmedOrders,
-        updateOrderStatus,
+        acceptOrderStatus,
+        confirmOrderStatus,
         allPayments,
         showUniqueCodeModal,
         setShowUniqueCodeModal,

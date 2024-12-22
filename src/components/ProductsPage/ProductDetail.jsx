@@ -5,6 +5,7 @@ const ProductDetail = ({
   incrementQuantity = () => {},
   addToCart = () => {},
   selectedProduct,
+  setSelectedProduct = () => {},
   quantity = 0,
 }) => {
   return (
@@ -15,9 +16,12 @@ const ProductDetail = ({
           className="absolute md:-right-5 lg:-right-6 md:-top-5 lg:-top-6 bg-yellow rounded-full md:size-10 lg:size-14 xl:size-16 md:text-2xl lg:text-3xl xl:text-[43px] cursor-pointer"
           onClick={closeModal}
         >
-          <a className="leading-none" href="">
+          <div
+            className="leading-none"
+            onClick={() => setSelectedProduct(null)}
+          >
             X
-          </a>
+          </div>
         </button>
         <img
           className="object-contain md:w-[120px] lg:w-[185px] xl:w-[250px] md:h-[1200px] lg:h-[185px] xl:h-[250px]"

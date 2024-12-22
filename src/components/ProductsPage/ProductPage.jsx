@@ -129,6 +129,7 @@ const ProductPage = () => {
           incrementQuantity={incrementQuantity}
           addToCart={addToCart}
           selectedProduct={selectedProduct}
+          setSelectedProduct={setSelectedProduct}
           quantity={quantity}
         />
       )}

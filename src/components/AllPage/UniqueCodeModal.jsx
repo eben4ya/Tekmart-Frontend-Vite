@@ -70,12 +70,15 @@ const UniqueCodeModal = () => {
                       {order.totalPrice.toLocaleString()}
                     </p>
 
-                    <p>
-                      <strong>Unique Code:</strong>{" "}
-                      <span className="bg-yellow p-1 font-semibold">
-                        {order.uniqueCode}
-                      </span>
-                    </p>
+                    {/* Unique Code */}
+                    {order.statusOrder === "Ready to be Taken" && (
+                      <p>
+                        <strong>Unique Code:</strong>{" "}
+                        <span className="bg-yellow p-1 font-semibold">
+                          {order.uniqueCode}
+                        </span>
+                      </p>
+                    )}
                   </div>
                 )}
               </li>

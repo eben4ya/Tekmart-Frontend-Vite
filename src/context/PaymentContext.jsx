@@ -1,3 +1,5 @@
+// ! this payment context is not used in the project, still using fetch payment in order context
+
 import { createContext, useState, useEffect } from "react";
 
 export const PaymentContext = createContext();

@@ -13,6 +13,7 @@ export const OrderProvider = ({ children }) => {
   const [pendingOrders, setPendingOrders] = useState([]);
   const [confirmedOrders, setConfirmedOrders] = useState([]);
 
+  // TODO: moved fetch payment function from  OrderContext.jsx to PaymentContext.jsx
   // temporary solution to fetch payments
   const [allPayments, setAllPayments] = useState([]);
 

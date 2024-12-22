@@ -70,7 +70,10 @@ export const OrderProvider = ({ children }) => {
       alert("Please enter unique code to confirm order");
       return;
     }
-    if (uniqueCode.trim() === "123456") {
+    if (
+      uniqueCode.trim() ===
+      pendingOrders.find((order) => order._id === orderId).uniqueCode
+    ) {
       try {
         const response = await fetch(
           `https://tekmart-backend-kholil-as-projects.vercel.app/api/order/${orderId}`,
@@ -80,6 +83,7 @@ export const OrderProvider = ({ children }) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ statusOrder: "Confirm" }),
+            credentials: "include",
           }
         );
 
@@ -95,6 +99,8 @@ export const OrderProvider = ({ children }) => {
       } catch (error) {
         console.error("Error updating order status:", error);
       }
+    } else {
+      alert("Invalid unique code");
     }
   };
 

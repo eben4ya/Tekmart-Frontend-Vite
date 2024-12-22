@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
 const EditProductModal = ({ closeModal }) => {
   const [productDetails, setProductDetails] = useState({
-    picture: '',
-    category: '',
-    name: '',
-    price: '',
+    picture: "",
+    category: "Default Category",
+    name: "Default Product Name",
+    price: "1000",
   });
 
   const handleChange = (e, field) => {
+    const value = field === "picture" ? e.target.files[0] : e.target.value;
     setProductDetails({
       ...productDetails,
-      [field]: e.target.value,
+      [field]: value,
     });
-  }; //blm kepake karna blm ada produknya (?)
+  };
 
   const handleSaveProduct = () => {
     // Logic to save the product (e.g., making an API call)
-    console.log('Product details saved:', productDetails);
-    closeModal(); 
+    console.log("Product details saved:", productDetails);
+    closeModal();
   };
 
   return (
@@ -33,62 +34,71 @@ const EditProductModal = ({ closeModal }) => {
           X
         </button>
 
-        <h2 className="text-3xl font-poppins font-bold mb-6 text-center">Edit Product</h2>
+        <h2 className="text-3xl font-poppins font-bold mb-6 text-center">
+          Edit Product
+        </h2>
 
         <div className="space-y-8 max-w-[700px] mx-auto">
           {/* Product Picture */}
           <div>
-            <label className="block text-lg font-poppins font-bold mb-2">Product Picture</label>
+            <label className="block text-lg font-poppins font-bold mb-2">
+              Product Picture
+            </label>
             <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full">
-              <span className="font-poppins font-normal flex-grow">{productDetails.picture || 'Add A Picture Here'}</span>
-              <button
-                className="bg-yellow text-black py-2 px-4 rounded-[13px] font-poppins font-bold shadow-[5px_7px_7px_rgba(0,0,0,0.3)]"
-                onClick={() => alert('Edit picture')}
-              >
-                Edit
-              </button>
+              <input
+                type="file"
+                accept="image/*"
+                className="font-poppins font-normal flex-grow"
+                onChange={(e) => handleChange(e, "picture")}
+              />
             </div>
           </div>
 
           {/* Product Category */}
           <div>
-            <label className="block text-lg font-poppins font-bold mb-2">Product Category</label>
+            <label className="block text-lg font-poppins font-bold mb-2">
+              Product Category
+            </label>
             <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full">
-              <span className="font-poppins font-normal flex-grow">{productDetails.category || 'Add A Category Here'}</span>
-              <button
-                className="bg-yellow text-black py-2 px-4 rounded-[13px] font-poppins font-bold shadow-[5px_7px_7px_rgba(0,0,0,0.3)]"
-                onClick={() => alert('Edit category')}
-              >
-                Edit
-              </button>
+              <input
+                type="text"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Category Here"
+                value={productDetails.category}
+                onChange={(e) => handleChange(e, "category")}
+              />
             </div>
           </div>
 
           {/* Product Name */}
           <div>
-            <label className="block text-lg font-poppins font-bold mb-2">Product Name</label>
+            <label className="block text-lg font-poppins font-bold mb-2">
+              Product Name
+            </label>
             <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full">
-              <span className="font-poppins font-normal flex-grow">{productDetails.name || 'Add A Name Here'}</span>
-              <button
-                className="bg-yellow text-black py-2 px-4 rounded-[13px] font-poppins font-bold shadow-[5px_7px_7px_rgba(0,0,0,0.3)]"
-                onClick={() => alert('Edit name')}
-              >
-                Edit
-              </button>
+              <input
+                type="text"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Name Here"
+                value={productDetails.name}
+                onChange={(e) => handleChange(e, "name")}
+              />
             </div>
           </div>
 
           {/* Product Price */}
           <div>
-            <label className="block text-lg font-poppins font-bold mb-2">Product Price</label>
+            <label className="block text-lg font-poppins font-bold mb-2">
+              Product Price
+            </label>
             <div className="flex items-center border border-gray rounded-lg px-6 py-3 w-full">
-              <span className="font-poppins font-normal flex-grow">{productDetails.price || 'Add A Price Here'}</span>
-              <button
-                className="bg-yellow text-black py-2 px-4 rounded-[13px] font-poppins font-bold shadow-[5px_7px_7px_rgba(0,0,0,0.3)]"
-                onClick={() => alert('Edit price')}
-              >
-                Edit
-              </button>
+              <input
+                type="number"
+                className="font-poppins font-normal flex-grow border-none focus:outline-none"
+                placeholder="Add A Price Here"
+                value={productDetails.price}
+                onChange={(e) => handleChange(e, "price")}
+              />
             </div>
           </div>
         </div>
@@ -98,7 +108,7 @@ const EditProductModal = ({ closeModal }) => {
             className="bg-yellow text-black py-4 px-8 rounded-[13px] font-poppins font-bold"
             onClick={handleSaveProduct}
           >
-            Edit Product
+            Save Product
           </button>
           <button
             className="bg-black text-white py-4 px-8 rounded-[13px] font-poppins font-bold"

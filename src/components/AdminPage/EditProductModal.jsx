@@ -8,51 +8,24 @@ const EditProductModal = ({ closeModal }) => {
     handleChangeEditedProduct,
     clickedProductId,
     setProductDetailGlobal,
+    editProduct,
   } = useContext(ProductContext);
 
-  const handleSaveProduct = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("name", productDetailGlobal.name);
-      formData.append("description", productDetailGlobal.description);
-      formData.append("price", productDetailGlobal.price);
-      formData.append("stock", productDetailGlobal.stock);
-      formData.append("category", productDetailGlobal.category);
-      if (productDetailGlobal.picture) {
-        formData.append("imageUrl", productDetailGlobal.imageUrl);
-      }
+  const handleSaveEditedProduct = async () => {
+    await editProduct(clickedProductId, productDetailGlobal);
 
-      const response = await fetch(
-        `https://tekmart-backend-kholil-as-projects.vercel.app/api/product/${clickedProductId}`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
+    // Close modal after successful save
+    closeModal();
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Product updated successfully:", data);
-
-      // Close modal after successful save
-      closeModal();
-
-      setProductDetailGlobal({
-        id: "",
-        description: "",
-        name: "",
-        price: 0,
-        stock: 0,
-        imageUrl: "",
-        category: "",
-      });
-    } catch (error) {
-      console.error("Error updating product:", error);
-      alert("Failed to update product. Please try again.");
-    }
+    setProductDetailGlobal({
+      id: "",
+      description: "",
+      name: "",
+      price: 0,
+      stock: 0,
+      imageUrl: "",
+      category: "",
+    });
   };
 
   return (
@@ -175,7 +148,7 @@ const EditProductModal = ({ closeModal }) => {
         <div className="flex justify-center space-x-4 mt-6">
           <button
             className="bg-yellow text-black py-4 px-8 rounded-[13px] font-poppins font-bold"
-            onClick={handleSaveProduct}
+            onClick={handleSaveEditedProduct}
           >
             Save Product
           </button>

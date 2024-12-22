@@ -64,33 +64,76 @@ export const ProductProvider = ({ children }) => {
   // Add new product
   const addProduct = async (newProduct) => {
     try {
+      const formData = new FormData();
+      formData.append("name", newProduct.name);
+      formData.append("description", newProduct.description);
+      formData.append("price", newProduct.price);
+      formData.append("stock", newProduct.stock);
+      formData.append("category", newProduct.category);
+      formData.append("imageUrl", newProduct.picture);
+
       const response = await fetch(apiEndpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newProduct),
-        credentials: "include", 
+        body: formData,
+        credentials: "include",
       });
+
       if (!response.ok) {
         throw new Error("Failed to add product");
       }
+
       const addedProduct = await response.json();
-      setProducts((prevProducts) => [...prevProducts, addedProduct]);
+      setProducts((prevProducts) => [...prevProducts, addedProduct.data]);
     } catch (error) {
       console.error("Error adding product:", error);
+      alert("Failed to add product. Please try again.");
+    }
+  };
+
+  // Edit product
+  const editProduct = async (id, updatedProduct) => {
+    try {
+      const formData = new FormData();
+      formData.append("name", updatedProduct.name);
+      formData.append("description", updatedProduct.description);
+      formData.append("price", updatedProduct.price);
+      formData.append("stock", updatedProduct.stock);
+      formData.append("category", updatedProduct.category);
+      if (updatedProduct.picture) {
+        formData.append("imageUrl", updatedProduct.picture);
+      }
+
+      const response = await fetch(`${apiEndpoint}/${id}`, {
+        method: "PUT",
+        body: formData,
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update product");
+      }
+
+      const updatedProductData = await response.json();
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product._id === id ? updatedProductData.data : product
+        )
+      );
+    } catch (error) {
+      console.error("Error updating product:", error);
+      alert("Failed to update product. Please try again.");
     }
   };
 
   // Delete product
   const deleteProduct = async (id) => {
     try {
-      const response = await fetch(`https://tekmart-backend-kholil-as-projects.vercel.app/api/product/${id}`, {
+      const response = await fetch(`${apiEndpoint}/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", 
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Failed to delete product");
@@ -109,6 +152,7 @@ export const ProductProvider = ({ children }) => {
         products,
         loading,
         addProduct,
+        editProduct,
         deleteProduct,
         clickedProductId,
         setClickedProductId,

@@ -1,7 +1,10 @@
-import { useState } from "react";
+import ProductContext from "../../context/ProductContext";
+
+import { useState, useContext } from "react";
 
 const AddProductModal = ({ closeModal }) => {
-  const [productDetailLocal, setproductDetailLocal] = useState({
+  const { addProduct } = useContext(ProductContext);
+  const [productDetailLocal, setProductDetailLocal] = useState({
     picture: "",
     category: "",
     name: "",
@@ -14,52 +17,25 @@ const AddProductModal = ({ closeModal }) => {
     // uncomment this line if you want to handle file upload
     // const value = field === "picture" ? e.target.files[0] : e.target.value;
     const value = e.target.value;
-    setproductDetailLocal({
+    setProductDetailLocal({
       ...productDetailLocal,
       [field]: value,
     });
   };
 
   const handleSaveProduct = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("name", productDetailLocal.name);
-      formData.append("description", productDetailLocal.description);
-      formData.append("price", productDetailLocal.price);
-      formData.append("stock", productDetailLocal.stock);
-      formData.append("category", productDetailLocal.category);
-      formData.append("imageUrl", productDetailLocal.picture);
+    await addProduct(productDetailLocal);
+    // Close modal after successful save
+    closeModal();
 
-      const response = await fetch(
-        "https://tekmart-backend-kholil-as-projects.vercel.app/api/product",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Product saved successfully:", data);
-
-      // Close modal after successful save
-      closeModal();
-
-      setproductDetailLocal({
-        picture: "",
-        category: "",
-        name: "",
-        description: "",
-        stock: 0,
-        price: 0,
-      });
-    } catch (error) {
-      console.error("Error saving product:", error);
-      alert("Failed to save product. Please try again.");
-    }
+    setProductDetailLocal({
+      picture: "",
+      category: "",
+      name: "",
+      description: "",
+      stock: 0,
+      price: 0,
+    });
   };
 
   return (

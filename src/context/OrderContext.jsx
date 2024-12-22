@@ -11,6 +11,7 @@ export const OrderProvider = ({ children }) => {
   const [orderId, setOrderId] = useState("");
 
   const [pendingOrders, setPendingOrders] = useState([]);
+  const [readyOrders, setReadyOrders] = useState([]);
   const [confirmedOrders, setConfirmedOrders] = useState([]);
 
   // TODO: moved fetch payment function from  OrderContext.jsx to PaymentContext.jsx
@@ -43,6 +44,9 @@ export const OrderProvider = ({ children }) => {
           const orders = await response.json();
           setPendingOrders(
             orders.filter((order) => order.statusOrder === "Pending")
+          );
+          setReadyOrders(
+            orders.filter((order) => order.statusOrder === "Ready to be Taken")
           );
           setConfirmedOrders(
             orders.filter((order) => order.statusOrder === "Confirm")
@@ -115,6 +119,7 @@ export const OrderProvider = ({ children }) => {
         orderId,
         setOrderId,
         pendingOrders,
+        readyOrders,
         confirmedOrders,
         updateOrderStatus,
         allPayments,

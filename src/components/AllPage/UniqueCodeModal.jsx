@@ -4,7 +4,8 @@ import { AuthContext } from "../../context/AuthContext";
 import { useState, useContext } from "react";
 
 const UniqueCodeModal = () => {
-  const { pendingOrders, setShowUniqueCodeModal } = useContext(OrderContext);
+  const { pendingOrders, readyOrders, setShowUniqueCodeModal } =
+    useContext(OrderContext);
   const { user } = useContext(AuthContext);
 
   const [expandedOrderId, setExpandedOrderId] = useState(null);
@@ -13,8 +14,8 @@ const UniqueCodeModal = () => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
   };
 
-  // Filter orders that are pending and belong to the current user
-  const userPendingOrders = pendingOrders.filter(
+  // Filter orders that are pending or ready to be taken and belong to the current user
+  const avalilabeOrders = [...pendingOrders, ...readyOrders].filter(
     (order) => order.userId && order.userId._id === user.id
   );
 
@@ -33,9 +34,9 @@ const UniqueCodeModal = () => {
         </h2>
 
         {/* Unique Code Orders */}
-        {userPendingOrders.length > 0 ? (
+        {avalilabeOrders.length > 0 ? (
           <ul className="mb-4">
-            {userPendingOrders.map((order) => (
+            {avalilabeOrders.map((order) => (
               <li key={order._id} className="mb-[1.6vw]">
                 <button className="w-full flex justify-between items-center bg-yellow-200 p-3 rounded-lg shadow-md hover:bg-yellow-300 transition">
                   <span className="font-semibold">Order ID: {order._id}</span>
@@ -71,7 +72,9 @@ const UniqueCodeModal = () => {
 
                     <p>
                       <strong>Unique Code:</strong>{" "}
-                      <span className="bg-yellow p-1 font-semibold">{order.uniqueCode}</span>
+                      <span className="bg-yellow p-1 font-semibold">
+                        {order.uniqueCode}
+                      </span>
                     </p>
                   </div>
                 )}

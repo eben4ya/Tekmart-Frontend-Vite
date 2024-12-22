@@ -5,7 +5,7 @@ import ProductContext from "../../context/ProductContext";
 import { useState, useContext } from "react";
 
 const Products = () => {
-  const { products, setProductDetail, setClickedProductId } = useContext(ProductContext);
+  const { products, setProductDetailGlobal, setClickedProductId } = useContext(ProductContext);
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false); // State for Edit Product Modal
 
@@ -31,7 +31,7 @@ const Products = () => {
   // Function to open the Edit Product Modal
   const openEditProductModal = (id) => {
     setIsEditProductModalOpen(true);
-    setProductDetail(products.find((product) => product._id === id));
+    setProductDetailGlobal(products.find((product) => product._id === id));
     setClickedProductId(id);
   };
 

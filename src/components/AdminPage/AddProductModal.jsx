@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const AddProductModal = ({ closeModal }) => {
-  const [productDetails, setProductDetails] = useState({
+  const [productDetailLocal, setproductDetailLocal] = useState({
     picture: "",
     category: "",
     name: "",
@@ -14,8 +14,8 @@ const AddProductModal = ({ closeModal }) => {
     // uncomment this line if you want to handle file upload
     // const value = field === "picture" ? e.target.files[0] : e.target.value;
     const value = e.target.value;
-    setProductDetails({
-      ...productDetails,
+    setproductDetailLocal({
+      ...productDetailLocal,
       [field]: value,
     });
   };
@@ -23,12 +23,12 @@ const AddProductModal = ({ closeModal }) => {
   const handleSaveProduct = async () => {
     try {
       const formData = new FormData();
-      formData.append("name", productDetails.name);
-      formData.append("description", productDetails.description);
-      formData.append("price", productDetails.price);
-      formData.append("stock", productDetails.stock);
-      formData.append("category", productDetails.category);
-      formData.append("imageUrl", productDetails.picture);
+      formData.append("name", productDetailLocal.name);
+      formData.append("description", productDetailLocal.description);
+      formData.append("price", productDetailLocal.price);
+      formData.append("stock", productDetailLocal.stock);
+      formData.append("category", productDetailLocal.category);
+      formData.append("imageUrl", productDetailLocal.picture);
 
       const response = await fetch(
         "https://tekmart-backend-kholil-as-projects.vercel.app/api/product",
@@ -48,7 +48,7 @@ const AddProductModal = ({ closeModal }) => {
       // Close modal after successful save
       closeModal();
 
-      setProductDetails({
+      setproductDetailLocal({
         picture: "",
         category: "",
         name: "",
@@ -92,7 +92,7 @@ const AddProductModal = ({ closeModal }) => {
                 // className="font-poppins font-normal flex-grow"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Hosting URL Here"
-                value={productDetails.picture || ""}
+                value={productDetailLocal.picture || ""}
                 onChange={(e) => handleChange(e, "picture")}
               />
             </div>
@@ -108,7 +108,7 @@ const AddProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Category Here"
-                value={productDetails.category || ""}
+                value={productDetailLocal.category || ""}
                 onChange={(e) => handleChange(e, "category")}
               />
             </div>
@@ -124,7 +124,7 @@ const AddProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Name Here"
-                value={productDetails.name || ""}
+                value={productDetailLocal.name || ""}
                 onChange={(e) => handleChange(e, "name")}
               />
             </div>
@@ -140,7 +140,7 @@ const AddProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Description Here"
-                value={productDetails.description || ""}
+                value={productDetailLocal.description || ""}
                 onChange={(e) => handleChange(e, "description")}
               />
             </div>
@@ -156,7 +156,7 @@ const AddProductModal = ({ closeModal }) => {
                 type="number"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Stock Here"
-                value={productDetails.stock || ""}
+                value={productDetailLocal.stock || ""}
                 onChange={(e) => handleChange(e, "stock")}
               />
             </div>
@@ -172,7 +172,7 @@ const AddProductModal = ({ closeModal }) => {
                 type="number"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Price Here"
-                value={productDetails.price || ""}
+                value={productDetailLocal.price || ""}
                 onChange={(e) => handleChange(e, "price")}
               />
             </div>

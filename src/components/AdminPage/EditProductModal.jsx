@@ -4,22 +4,22 @@ import { useContext } from "react";
 
 const EditProductModal = ({ closeModal }) => {
   const {
-    productDetail,
+    productDetailGlobal,
     handleChangeEditedProduct,
     clickedProductId,
-    setProductDetail,
+    setProductDetailGlobal,
   } = useContext(ProductContext);
 
   const handleSaveProduct = async () => {
     try {
       const formData = new FormData();
-      formData.append("name", productDetail.name);
-      formData.append("description", productDetail.description);
-      formData.append("price", productDetail.price);
-      formData.append("stock", productDetail.stock);
-      formData.append("category", productDetail.category);
-      if (productDetail.picture) {
-        formData.append("imageUrl", productDetail.imageUrl);
+      formData.append("name", productDetailGlobal.name);
+      formData.append("description", productDetailGlobal.description);
+      formData.append("price", productDetailGlobal.price);
+      formData.append("stock", productDetailGlobal.stock);
+      formData.append("category", productDetailGlobal.category);
+      if (productDetailGlobal.picture) {
+        formData.append("imageUrl", productDetailGlobal.imageUrl);
       }
 
       const response = await fetch(
@@ -40,7 +40,7 @@ const EditProductModal = ({ closeModal }) => {
       // Close modal after successful save
       closeModal();
 
-      setProductDetail({
+      setProductDetailGlobal({
         id: "",
         description: "",
         name: "",
@@ -85,7 +85,7 @@ const EditProductModal = ({ closeModal }) => {
                 // className="font-poppins font-normal flex-grow"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Hosting URL Here"
-                value={productDetail.imageUrl || ""}
+                value={productDetailGlobal.imageUrl || ""}
                 onChange={(e) => handleChangeEditedProduct(e, "picture")}
               />
             </div>
@@ -101,7 +101,7 @@ const EditProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Category Here"
-                value={productDetail.category || ""}
+                value={productDetailGlobal.category || ""}
                 onChange={(e) => handleChangeEditedProduct(e, "category")}
               />
             </div>
@@ -117,7 +117,7 @@ const EditProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Name Here"
-                value={productDetail.name || ""}
+                value={productDetailGlobal.name || ""}
                 onChange={(e) => handleChangeEditedProduct(e, "name")}
               />
             </div>
@@ -133,7 +133,7 @@ const EditProductModal = ({ closeModal }) => {
                 type="text"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Description Here"
-                value={productDetail.description || ""}
+                value={productDetailGlobal.description || ""}
                 onChange={(e) => handleChangeEditedProduct(e, "description")}
               />
             </div>
@@ -149,7 +149,7 @@ const EditProductModal = ({ closeModal }) => {
                 type="number"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Stock Here"
-                value={productDetail.stock || ""}
+                value={productDetailGlobal.stock || ""}
                 onChange={(e) => handleChangeEditedProduct(e, "stock")}
               />
             </div>
@@ -165,7 +165,7 @@ const EditProductModal = ({ closeModal }) => {
                 type="number"
                 className="font-poppins font-normal flex-grow border-none focus:outline-none"
                 placeholder="Add A Price Here"
-                value={productDetail.price || ""}
+                value={productDetailGlobal.price || ""}
                 onChange={(e) => handleChangeEditedProduct(e, "price")}
               />
             </div>

@@ -16,7 +16,7 @@ export const ProductProvider = ({ children }) => {
     },
   ]);
   const [clickedProductId, setClickedProductId] = useState("");
-  const [productDetail, setProductDetail] = useState({
+  const [productDetailGlobal, setProductDetailGlobal] = useState({
     id: "",
     description: "",
     name: "",
@@ -30,8 +30,8 @@ export const ProductProvider = ({ children }) => {
     // uncomment the line below if you want to handle file uploads
     // const value = field === "picture" ? e.target.files[0] : e.target.value;
     const value = e.target.value;
-    setProductDetail({
-      ...productDetail,
+    setProductDetailGlobal({
+      ...productDetailGlobal,
       [field]: value,
     });
   };
@@ -107,8 +107,8 @@ export const ProductProvider = ({ children }) => {
         deleteProduct,
         clickedProductId,
         setClickedProductId,
-        productDetail,
-        setProductDetail,
+        productDetailGlobal,
+        setProductDetailGlobal,
         handleChangeEditedProduct,
       }}
     >

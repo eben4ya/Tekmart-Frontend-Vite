@@ -30,12 +30,12 @@ const Orders = () => {
         <div className="rounded p-2 mb-4 max-h-[22vw] overflow-y-scroll">
           {pendingOrders.map((order) => (
             <div key={order._id}>
-              <div
-                className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
-                onClick={() => toggleSection(order._id)}
-              >
+              <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
                 <div className="font-semibold flex flex-row px-2 mx-4 my-1">
-                  <button className="">
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => toggleSection(order._id)}
+                  >
                     {expandedSection === order._id ? "▲" : "▼"}
                   </button>
                   <div className="mx-6">

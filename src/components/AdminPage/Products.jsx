@@ -1,3 +1,5 @@
+import { FaSpinner } from "react-icons/fa";
+
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
 
@@ -7,6 +9,7 @@ import { useState, useContext } from "react";
 const Products = () => {
   const {
     products,
+    loading,
     setProductDetailGlobal,
     setClickedProductId,
     deleteProduct,
@@ -59,35 +62,44 @@ const Products = () => {
     return (
       <div className="flex flex-col w-full md:px-6 lg:px-7 xl:px-[1vw] font-poppins mb-[2.5vw]">
         <h1 className="text-[2.08vw] font-bold mb-[1.67vw]">{title}</h1>
-        <div className="space-y-4">
-          {products.map((product) => (
-            <div
-              key={product._id}
-              className="flex flex-row justify-between items-center border rounded-2xl ps-6 pe-10 py-5"
-            >
-              <div className="text-xl">
-                <h1 className="font-bold">{product.name}</h1>
-                <h1>{product.price}</h1>
-              </div>
-              <div className="flex flex-row gap-[1vw]">
-                <button
-                  type="button"
-                  onClick={() => openEditProductModal(product._id)}
-                  className="bg-yellow md:rounded-xl md:px-14 md:py-0.5 lg:py-1 xl:py-2.5 md:text-xs lg:text-sm xl:text-base font-bold cursor-pointer hover:bg-yellow hover:text-black active:text-white active:bg-yellow"
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  onClick={() => openDeleteProductModal(product._id)}
-                  className="bg-red md:rounded-xl md:px-12 md:py-0.5 lg:py-1 xl:py-2.5 md:text-xs lg:text-sm xl:text-base font-bold cursor-pointer hover:bg-red hover:text-black active:text-white active:bg-red"
-                >
-                  Delete
-                </button>
-              </div>
+
+        {loading ? (
+          <div className="w-[8.744vw] h-[9.76vw] flex justify-center items-center">
+            <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+              <FaSpinner className="text-[2vw] animate-spin text-primary" />
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {products.map((product) => (
+              <div
+                key={product._id}
+                className="flex flex-row justify-between items-center border rounded-2xl ps-6 pe-10 py-5"
+              >
+                <div className="text-xl">
+                  <h1 className="font-bold">{product.name}</h1>
+                  <h1>{product.price}</h1>
+                </div>
+                <div className="flex flex-row gap-[1vw]">
+                  <button
+                    type="button"
+                    onClick={() => openEditProductModal(product._id)}
+                    className="bg-yellow md:rounded-xl md:px-14 md:py-0.5 lg:py-1 xl:py-2.5 md:text-xs lg:text-sm xl:text-base font-bold cursor-pointer hover:bg-yellow hover:text-black active:text-white active:bg-yellow"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openDeleteProductModal(product._id)}
+                    className="bg-red md:rounded-xl md:px-12 md:py-0.5 lg:py-1 xl:py-2.5 md:text-xs lg:text-sm xl:text-base font-bold cursor-pointer hover:bg-red hover:text-black active:text-white active:bg-red"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   };

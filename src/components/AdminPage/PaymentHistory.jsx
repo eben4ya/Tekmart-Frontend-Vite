@@ -24,7 +24,7 @@ const PaymentHistory = () => {
         subtitle="Where admin could edit the inventory of their products."
       />
 
-      <div className="p-4 w-full min-h-[34vw] flex justify-center items-center">
+      <div className="p-4 w-full min-h-[34vw] flex justify-center ">
         {loading ? (
           <div className="flex justify-center items-center w-full h-full">
             <FaSpinner className="text-[2vw] animate-spin text-primary" />

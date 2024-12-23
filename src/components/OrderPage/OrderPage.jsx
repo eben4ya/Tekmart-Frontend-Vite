@@ -114,15 +114,18 @@ const OrderPage = () => {
       }
 
       if (selectedPayment === "cash") {
-        setShowNotification(true);
-        setNotifMessage({
-          type: "info",
-          message: `Order placed successfully, please wait & check the order status in basket icon`,
-        });
+        // setShowNotification(true);
+        // setNotifMessage({
+        //   type: "info",
+        //   message: `Order placed successfully, please wait & check the order status in basket icon`,
+        // });
+        alert(
+          "Order placed successfully, please wait & check the order status in basket icon"
+        );
         setCart([]);
         localStorage.setItem("cart", JSON.stringify([]));
-        // redirect to list order page
-        // window.location.href = `/order/${orderId}`;
+        // reload page
+        window.location.reload();
       } else {
         // !production
         setShowNotification(true);

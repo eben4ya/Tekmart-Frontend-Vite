@@ -11,6 +11,7 @@ import { useState, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
+import { redirect } from "react-router-dom";
 
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
@@ -155,7 +156,7 @@ const OrderPage = () => {
         //   }
 
         //   const data = await response.json();
-        //   const { token } = data;
+        //   const { token, redirect_url } = data;
         //   console.log("Payment Token: " + token);
 
         //   // !DONT FORGET
@@ -166,7 +167,7 @@ const OrderPage = () => {
         //       alert("Payment Success: " + JSON.stringify(result));
         //       // give navigation to the next page
         //       setSnapShow(false);
-        //       window.location.href = `/order/${orderId}`;
+        //       redirect(redirect_url);
         //     },
         //     onPending: (result) => {
         //       alert("Payment Pending: " + JSON.stringify(result));

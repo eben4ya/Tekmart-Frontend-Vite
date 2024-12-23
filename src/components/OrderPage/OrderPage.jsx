@@ -111,7 +111,6 @@ const OrderPage = () => {
         }
       }
 
-      // !temporary for production
       if (selectedPayment === "cash") {
         setShowNotification(true);
         setNotifMessage({
@@ -123,6 +122,7 @@ const OrderPage = () => {
         // redirect to list order page
         // window.location.href = `/order/${orderId}`;
       } else {
+        // !production
         setShowNotification(true);
         setNotifMessage({
           type: "info",
@@ -132,76 +132,64 @@ const OrderPage = () => {
         // localStorage.setItem("cart", JSON.stringify([]));
         // redirect to list order page
         // window.location.href = `/order/${orderId}`;
+
+        // !development
+        // try {
+        //   const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`, {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       orderId: orderId,
+        //       totalPrice: totalPrice,
+        //       customerDetails,
+        //       paymentMethod: selectedPayment,
+        //     }),
+        //     credentials: "include",
+        //   });
+
+        //   if (!response.ok) {
+        //     throw new Error("Failed to initiate payment");
+        //   }
+
+        //   const data = await response.json();
+        //   const { token } = data;
+        //   console.log("Payment Token: " + token);
+
+        //   // !DONT FORGET
+        //   setSnapShow(true);
+
+        //   snapEmbed(token, "snap-container", {
+        //     onSuccess: (result) => {
+        //       alert("Payment Success: " + JSON.stringify(result));
+        //       // give navigation to the next page
+        //       setSnapShow(false);
+        //       window.location.href = `/order/${orderId}`;
+        //     },
+        //     onPending: (result) => {
+        //       alert("Payment Pending: " + JSON.stringify(result));
+        //       setSnapShow(false);
+        //     },
+        //     onError: (result) => {
+        //       alert("Payment Failed: " + JSON.stringify(result));
+        //       setSnapShow(false);
+        //     },
+        //     onClose: () => {
+        //       alert("Payment popup closed");
+        //       setSnapShow(false);
+        //     },
+        //   });
+
+        //   setCart([]);
+        //   setFailedPayment(false);
+        //   localStorage.setItem("cart", JSON.stringify([]));
+        // } catch (error) {
+        //   console.error("Failed to initiate payment", error);
+        //   // alert("Failed to initiate payment");
+        //   setFailedPayment(true);
+        // }
       }
-
-      // !development
-      // if user logged in, place order
-      // if (selectedPayment === "cash") {
-      //   setShowNotification(true);
-      //   setNotifMessage({
-      //     type: "info",
-      //     message: "Order placed successfully",
-      //   });
-      //   setCart([]);
-      //   localStorage.setItem("cart", JSON.stringify([]));
-      //   // redirect to list order page
-      //   window.location.href = `/order/${orderId}`;
-      // } else {
-      //   try {
-      //     const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`, {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         orderId: orderId,
-      //         totalPrice: totalPrice,
-      //         customerDetails,
-      //       }),
-      //       credentials: "include",
-      //     });
-
-      //     if (!response.ok) {
-      //       throw new Error("Failed to initiate payment");
-      //     }
-
-      //     const data = await response.json();
-      //     const { token } = data;
-      //     console.log("Payment Token: " + token);
-
-      //     // !DONT FORGET
-      //     setSnapShow(true);
-
-      //     snapEmbed(token, "snap-container", {
-      //       onSuccess: (result) => {
-      //         alert("Payment Success: " + JSON.stringify(result));
-      //         // give navigation to the next page
-      //         setSnapShow(false);
-      //         window.location.href = `/order/${orderId}`;
-      //       },
-      //       onPending: (result) => {
-      //         alert("Payment Pending: " + JSON.stringify(result));
-      //         setSnapShow(false);
-      //       },
-      //       onError: (result) => {
-      //         alert("Payment Failed: " + JSON.stringify(result));
-      //         setSnapShow(false);
-      //       },
-      //       onClose: () => {
-      //         alert("Payment popup closed");
-      //         setSnapShow(false);
-      //       },
-      //     });
-
-      //     setCart([]);
-      //     setFailedPayment(false);
-      //     localStorage.setItem("cart", JSON.stringify([]));
-      //   } catch (error) {
-      //     console.error("Failed to initiate payment", error);
-      //     // alert("Failed to initiate payment");
-      //     setFailedPayment(true);
-      //   }
-      // }
     }
   };
 

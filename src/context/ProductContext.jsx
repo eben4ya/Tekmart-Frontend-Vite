@@ -63,23 +63,36 @@ export const ProductProvider = ({ children }) => {
   // Add new product
   const addProduct = async (newProduct) => {
     try {
-      const formData = new FormData();
-      formData.append("name", newProduct.name);
-      formData.append("description", newProduct.description);
-      formData.append("price", newProduct.price);
-      formData.append("stock", newProduct.stock);
-      formData.append("category", newProduct.category);
-      formData.append("imageUrl", newProduct.picture);
+      // uncomment the line below if you want to handle file uploads
+      // const formData = new FormData();
+      // formData.append("name", newProduct.name);
+      // formData.append("description", newProduct.description);
+      // formData.append("price", newProduct.price);
+      // formData.append("stock", newProduct.stock);
+      // formData.append("category", newProduct.category);
+      // formData.append("imageUrl", newProduct.picture);
 
       const response = await fetch(apiEndpoint, {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: newProduct.name,
+          description: newProduct.description,
+          price: newProduct.price,
+          stock: newProduct.stock,
+          category: newProduct.category,
+          imageUrl: newProduct.picture, // URL gambar
+        }),
         credentials: "include",
       });
 
       if (!response.ok) {
         throw new Error("Failed to add product");
       }
+
+      alert("Product added successfully!");
 
       const addedProduct = await response.json();
       setProducts((prevProducts) => [...prevProducts, addedProduct.data]);
@@ -92,25 +105,38 @@ export const ProductProvider = ({ children }) => {
   // Edit product
   const editProduct = async (id, updatedProduct) => {
     try {
-      const formData = new FormData();
-      formData.append("name", updatedProduct.name);
-      formData.append("description", updatedProduct.description);
-      formData.append("price", updatedProduct.price);
-      formData.append("stock", updatedProduct.stock);
-      formData.append("category", updatedProduct.category);
-      if (updatedProduct.picture) {
-        formData.append("imageUrl", updatedProduct.picture);
-      }
+      // uncomment the line below if you want to handle file uploads
+      // const formData = new FormData();
+      // formData.append("name", updatedProduct.name);
+      // formData.append("description", updatedProduct.description);
+      // formData.append("price", updatedProduct.price);
+      // formData.append("stock", updatedProduct.stock);
+      // formData.append("category", updatedProduct.category);
+      // if (updatedProduct.picture) {
+      //   formData.append("imageUrl", updatedProduct.picture);
+      // }
 
       const response = await fetch(`${apiEndpoint}/${id}`, {
         method: "PUT",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: updatedProduct.name,
+          description: updatedProduct.description,
+          price: updatedProduct.price,
+          stock: updatedProduct.stock,
+          category: updatedProduct.category,
+          imageUrl: updatedProduct.picture,
+        }),
         credentials: "include",
       });
 
       if (!response.ok) {
         throw new Error("Failed to update product");
       }
+
+      alert("Product updated successfully!");
 
       const updatedProductData = await response.json();
       setProducts((prevProducts) =>

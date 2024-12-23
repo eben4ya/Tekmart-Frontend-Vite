@@ -18,7 +18,45 @@ const Orders = () => {
     acceptOrderStatus,
     confirmOrderStatus,
     loading,
+    setFailedPayment,
   } = useContext(OrderContext);
+
+  const paymentMethodCash = async (
+    orderId,
+    totalPrice,
+    customerDetails,
+    paymentMethod
+  ) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderId: orderId,
+          totalPrice: totalPrice,
+          customerDetails,
+          paymentMethod: paymentMethod,
+        }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to initiate payment");
+      }
+
+      const data = await response.json();
+      const { token } = data;
+      console.log("Payment Token: " + token);
+
+      setFailedPayment(false);
+    } catch (error) {
+      console.error("Failed to initiate cash payment", error);
+      // alert("Failed to initiate payment");
+      setFailedPayment(true);
+    }
+  };
 
   return (
     <>
@@ -39,7 +77,7 @@ const Orders = () => {
                 <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
             </div>
-          ) : (
+          ) : pendingOrders.length > 0 ? (
             pendingOrders.map((order) => (
               <div key={order._id}>
                 <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
@@ -100,6 +138,12 @@ const Orders = () => {
                 )}
               </div>
             ))
+          ) : (
+            <div className="w-[8.744vw] h-[9.76vw] ml-[1vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <p className="text-[1vw] text-primary">No New Orders</p>
+              </div>
+            </div>
           )}
         </div>
 
@@ -114,7 +158,7 @@ const Orders = () => {
                 <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
             </div>
-          ) : (
+          ) : readyOrders.length > 0 ? (
             readyOrders.map((order) => (
               <div key={order._id}>
                 <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
@@ -136,7 +180,20 @@ const Orders = () => {
                   </div>
                   <div>
                     <button
-                      onClick={() => confirmOrderStatus(order._id)}
+                      onClick={() => {
+                        confirmOrderStatus(order._id);
+                        if (order.paymentMethod === "Cash") {
+                          paymentMethodCash(
+                            order._id,
+                            order.items.reduce(
+                              (sum, item) => sum + item.price * item.amount,
+                              0
+                            ),
+                            order.userId,
+                            order.paymentMethod
+                          );
+                        }
+                      }}
                       className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm"
                     >
                       Confirm
@@ -175,6 +232,12 @@ const Orders = () => {
                 )}
               </div>
             ))
+          ) : (
+            <div className="w-[8.744vw] h-[9.76vw] ml-[1vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <p className="text-[1vw] text-primary">No Orders Ready</p>
+              </div>
+            </div>
           )}
         </div>
 
@@ -189,7 +252,7 @@ const Orders = () => {
                 <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
             </div>
-          ) : (
+          ) : confirmedOrders.length > 0 ? (
             confirmedOrders.map((order) => (
               <div key={order._id}>
                 <div
@@ -242,6 +305,12 @@ const Orders = () => {
                 )}
               </div>
             ))
+          ) : (
+            <div className="w-[10vw] h-[9.76vw] ml-[1.3vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <p className="text-[1vw] text-primary">No Completed Orders</p>
+              </div>
+            </div>
           )}
         </div>
       </div>

@@ -19,6 +19,7 @@ export const OrderProvider = ({ children }) => {
   // TODO: moved fetch payment function from  OrderContext.jsx to PaymentContext.jsx
   // temporary solution to fetch payments
   const [allPayments, setAllPayments] = useState([]);
+  const [failedPayment, setFailedPayment] = useState(false);
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -96,6 +97,8 @@ export const OrderProvider = ({ children }) => {
         );
         const updatedOrder = await response.json();
         setReadyOrders((prev) => [...prev, updatedOrder]);
+        alert("Order accepted!");
+        window.location.reload();
       } else {
         console.error("Failed to update order status");
       }
@@ -113,7 +116,7 @@ export const OrderProvider = ({ children }) => {
     }
     if (
       uniqueCode.trim() ===
-      pendingOrders.find((order) => order._id === orderId).uniqueCode
+      readyOrders.find((order) => order._id === orderId).uniqueCode
     ) {
       try {
         const response = await fetch(
@@ -129,11 +132,13 @@ export const OrderProvider = ({ children }) => {
         );
 
         if (response.ok) {
-          setPendingOrders((prev) =>
+          setReadyOrders((prev) =>
             prev.filter((order) => order._id !== orderId)
           );
           const updatedOrder = await response.json();
           setConfirmedOrders((prev) => [...prev, updatedOrder]);
+          alert("Order confirmed!");
+          window.location.reload();
         } else {
           console.error("Failed to update order status");
         }
@@ -167,6 +172,8 @@ export const OrderProvider = ({ children }) => {
         showUniqueCodeModal,
         setShowUniqueCodeModal,
         loading,
+        failedPayment,
+        setFailedPayment,
       }}
     >
       {children}

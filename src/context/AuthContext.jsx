@@ -7,20 +7,32 @@ export const AuthContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({ id: "", email: "", isAdmin: false });
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser
+      ? JSON.parse(storedUser)
+      : { id: "", email: "", isAdmin: false };
+  });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
     const checkIsLoggedIn = localStorage.getItem("isLoggedIn");
-    const user = localStorage.getItem("user");
     if (checkIsLoggedIn) {
       setIsLoggedIn(true);
     }
-    if (user) {
-      setUser(JSON.parse(user));
-    }
   }, []);
+
+  // Update localStorage whenever `user` state changes
+  useEffect(() => {
+    if (user && user.id) {
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("isLoggedIn", true);
+    } else {
+      localStorage.removeItem("user");
+      localStorage.removeItem("isLoggedIn");
+    }
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Register login
+  // Register function
   const handleRegister = async () => {
     if (!email || !password) {
       alert("Email and password are required!");
@@ -44,18 +56,14 @@ export const AuthProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
         setEmail("");
         setPassword("");
         alert("Registration successful! Please login.");
-        // redirect to login page
-        window.location.href = "/login";
+        window.location.href = "/login"; // redirect to login page
       } else {
         const data = await response.json();
         alert(`Registration failed: ${data.message}`);
@@ -75,13 +83,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_LOGIN}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
         credentials: "include", // send token cookie to server
       });
 
@@ -90,13 +93,10 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         setEmail("");
         setPassword("");
-        setUser(data);
-        localStorage.setItem("user", JSON.stringify(data));
+        setUser(data); // user state is updated, triggering useEffect
         setIsLoggedIn(true);
-        localStorage.setItem("isLoggedIn", true);
         alert("Login successful!");
-        // redirect to home page
-        window.location.href = "/";
+        window.location.href = "/"; // redirect to home page
       } else {
         alert(`Login failed: ${data.message}`);
       }
@@ -111,23 +111,18 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_LOGOUT}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include", // send token cookie to server to remove it
       });
 
-      const data = await response.json();
-
       if (response.ok) {
-        document.cookie =
-          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // remove token cookie in browser
-        setUser(null);
-        localStorage.removeItem("user");
+        setUser({ id: "", email: "", isAdmin: false }); // clear user state
         setIsLoggedIn(false);
+        localStorage.removeItem("user");
         localStorage.removeItem("isLoggedIn");
         alert("Logout successful!");
       } else {
+        const data = await response.json();
         alert(`Logout failed: ${data.message}`);
       }
     } catch (error) {

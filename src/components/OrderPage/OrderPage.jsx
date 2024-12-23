@@ -11,6 +11,7 @@ import { useState, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
 import { AuthContext } from "../../context/AuthContext";
 import useSnap from "../../hooks/useSnap";
+import { redirect } from "react-router-dom";
 
 const OrderPage = () => {
   const { snapEmbed } = useSnap();
@@ -21,12 +22,14 @@ const OrderPage = () => {
     setShowNotification,
     orderId,
     setOrderId,
+    failedPayment,
+    setFailedPayment,
   } = useContext(OrderContext);
   const { isLoggedIn, user } = useContext(AuthContext);
 
   const [customerDetails, setCustomerDetails] = useState({
-    first_name: user.email || "John",
-    email: user.email || "john.doe@example.com",
+    first_name: user.email || "Benaya",
+    email: user.email || "benayaimanuela25@mail.ugm.ac.id",
     phone: "-",
   });
 
@@ -38,11 +41,6 @@ const OrderPage = () => {
     (sum, item) => sum + parseFloat(item.price) * item.quantity,
     0
   );
-
-  const handleFloatingButtonClick = () => {
-    alert("Oke!");
-    // next stepnya
-  };
 
   const handleRemoveItem = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
@@ -77,19 +75,59 @@ const OrderPage = () => {
       window.location.href = "/login";
       return;
     } else {
-      // temporary for production
-      if (selectedPayment === "cash") {
-        setShowNotification(true);
-        setNotifMessage({
-          type: "info",
-          message:
-            "Order placed successfully, here is your unique code: 265901. Please show this code to the cashier",
-        });
+      // Generate order items
+      const orderItems = cart.map((item) => ({
+        productId: item._id,
+        amount: item.quantity,
+        price: parseFloat(item.price),
+      }));
+
+      // Create order in the database
+      // if payment failed but order created, don't create order again
+      if (failedPayment === false) {
+        try {
+          const response = await fetch(`${import.meta.env.VITE_API_ORDER}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include", // Include credentials to send cookies automatically
+            body: JSON.stringify({
+              userId: user.id,
+              items: orderItems,
+              totalPrice: totalPrice,
+              paymentMethod: selectedPayment,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to create order");
+          } else {
+            const data = await response.json();
+            setOrderId(data._id);
+          }
+        } catch (error) {
+          console.error("Failed to create order", error);
+          alert("Failed to create order");
+          return;
+        }
+      }
+
+      if (selectedPayment === "Cash") {
+        // setShowNotification(true);
+        // setNotifMessage({
+        //   type: "info",
+        //   message: `Order placed successfully, please wait & check the order status in basket icon`,
+        // });
+        alert(
+          "Order placed successfully, please wait & check the order status in basket icon"
+        );
         setCart([]);
         localStorage.setItem("cart", JSON.stringify([]));
-        // redirect to list order page
-        // window.location.href = `/order/${orderId}`;
+        // reload page
+        window.location.reload();
       } else {
+        // !production
         setShowNotification(true);
         setNotifMessage({
           type: "info",
@@ -99,114 +137,64 @@ const OrderPage = () => {
         // localStorage.setItem("cart", JSON.stringify([]));
         // redirect to list order page
         // window.location.href = `/order/${orderId}`;
+
+        // !development
+        // try {
+        //   const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`, {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       orderId: orderId,
+        //       totalPrice: totalPrice,
+        //       customerDetails,
+        //       paymentMethod: selectedPayment,
+        //     }),
+        //     credentials: "include",
+        //   });
+
+        //   if (!response.ok) {
+        //     throw new Error("Failed to initiate payment");
+        //   }
+
+        //   const data = await response.json();
+        //   const { token, redirect_url } = data;
+        //   console.log("Payment Token: " + token);
+
+        //   // !DONT FORGET
+        //   setSnapShow(true);
+
+        //   snapEmbed(token, "snap-container", {
+        //     onSuccess: (result) => {
+        //       alert("Payment Success: " + JSON.stringify(result));
+        //       // give navigation to the next page
+        //       setSnapShow(false);
+        //       redirect(redirect_url);
+        //     },
+        //     onPending: (result) => {
+        //       alert("Payment Pending: " + JSON.stringify(result));
+        //       setSnapShow(false);
+        //     },
+        //     onError: (result) => {
+        //       alert("Payment Failed: " + JSON.stringify(result));
+        //       setSnapShow(false);
+        //     },
+        //     onClose: () => {
+        //       alert("Payment popup closed");
+        //       setSnapShow(false);
+        //     },
+        //   });
+
+        //   setCart([]);
+        //   setFailedPayment(false);
+        //   localStorage.setItem("cart", JSON.stringify([]));
+        // } catch (error) {
+        //   console.error("Failed to initiate payment", error);
+        //   // alert("Failed to initiate payment");
+        //   setFailedPayment(true);
+        // }
       }
-      // development
-
-      // Generate order items
-      //   const orderItems = cart.map((item) => ({
-      //     productId: item._id,
-      //     amount: item.quantity,
-      //     price: parseFloat(item.price),
-      //   }));
-      // Generate order items
-      // const orderItems = cart.map((item) => ({
-      //   productId: item._id,
-      //   amount: item.quantity,
-      //   price: parseFloat(item.price),
-      // }));
-
-      // // Create order in the database
-      // try {
-      //   const response = await fetch(`${import.meta.env.VITE_API_ORDER}`, {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     credentials: "include", // Include credentials to send cookies automatically
-      //     body: JSON.stringify({
-      //       userId: user.id,
-      //       items: orderItems,
-      //       totalPrice: totalPrice,
-      //     }),
-      //   });
-
-      //   if (!response.ok) {
-      //     throw new Error("Failed to create order");
-      //   } else {
-      //     const data = await response.json();
-      //     setOrderId(data._id);
-      //   }
-      // } catch (error) {
-      //   console.error("Failed to create order", error);
-      //   alert("Failed to create order");
-      //   return;
-      // }
-
-      // // if user logged in, place order
-      // if (selectedPayment === "cash") {
-      //   setShowNotification(true);
-      //   setNotifMessage({
-      //     type: "info",
-      //     message: "Order placed successfully",
-      //   });
-      //   setCart([]);
-      //   localStorage.setItem("cart", JSON.stringify([]));
-      //   // redirect to list order page
-      //   window.location.href = `/order/${orderId}`;
-      // } else {
-      //   try {
-      //     const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`, {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         orderId: orderId,
-      //         totalPrice: totalPrice,
-      //         customerDetails,
-      //       }),
-      //       credentials: "include",
-      //     });
-
-      //     if (!response.ok) {
-      //       throw new Error("Failed to initiate payment");
-      //     }
-
-      //     const data = await response.json();
-      //     const { token } = data;
-      //     console.log("Payment Token: " + token);
-
-      //     // !DONT FORGET
-      //     setSnapShow(true);
-
-      //     snapEmbed(token, "snap-container", {
-      //       onSuccess: (result) => {
-      //         alert("Payment Success: " + JSON.stringify(result));
-      //         // give navigation to the next page
-      //         setSnapShow(false);
-      //         window.location.href = `/order/${orderId}`;
-      //       },
-      //       onPending: (result) => {
-      //         alert("Payment Pending: " + JSON.stringify(result));
-      //         setSnapShow(false);
-      //       },
-      //       onError: (result) => {
-      //         alert("Payment Failed: " + JSON.stringify(result));
-      //         setSnapShow(false);
-      //       },
-      //       onClose: () => {
-      //         alert("Payment popup closed");
-      //         setSnapShow(false);
-      //       },
-      //     });
-
-      //     setCart([]);
-      //     localStorage.setItem("cart", JSON.stringify([]));
-      //   } catch (error) {
-      //     console.error("Failed to initiate payment", error);
-      //     alert("Failed to initiate payment");
-      //   }
-      // }
     }
   };
 
@@ -303,8 +291,8 @@ const OrderPage = () => {
                 <input
                   type="radio"
                   name="payment"
-                  value="cash"
-                  checked={selectedPayment === "cash"}
+                  value="Cash"
+                  checked={selectedPayment === "Cash"}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                   className="form-radio text-yellow"
                 ></input>
@@ -331,6 +319,8 @@ const OrderPage = () => {
 
       {/* Snap Container */}
       <div id="snap-container"></div>
+      {/* in order to better UI payment when fullscreen */}
+      {snapShow && <span className="mb-[2vw]"></span>}
       {/* Notification */}
       {showNotification && (
         <NotificationBanner

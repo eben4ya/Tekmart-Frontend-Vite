@@ -19,6 +19,7 @@ export const OrderProvider = ({ children }) => {
   // TODO: moved fetch payment function from  OrderContext.jsx to PaymentContext.jsx
   // temporary solution to fetch payments
   const [allPayments, setAllPayments] = useState([]);
+  const [failedPayment, setFailedPayment] = useState(false);
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -169,6 +170,8 @@ export const OrderProvider = ({ children }) => {
         showUniqueCodeModal,
         setShowUniqueCodeModal,
         loading,
+        failedPayment,
+        setFailedPayment,
       }}
     >
       {children}

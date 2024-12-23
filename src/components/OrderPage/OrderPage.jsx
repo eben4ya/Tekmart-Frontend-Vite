@@ -95,6 +95,7 @@ const OrderPage = () => {
               userId: user.id,
               items: orderItems,
               totalPrice: totalPrice,
+              paymentMethod: selectedPayment,
             }),
           });
 

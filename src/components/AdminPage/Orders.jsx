@@ -18,7 +18,45 @@ const Orders = () => {
     acceptOrderStatus,
     confirmOrderStatus,
     loading,
+    setFailedPayment,
   } = useContext(OrderContext);
+
+  const paymentMethodCash = async (
+    orderId,
+    totalPrice,
+    customerDetails,
+    paymentMethod
+  ) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderId: orderId,
+          totalPrice: totalPrice,
+          customerDetails,
+          paymentMethod: paymentMethod,
+        }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to initiate payment");
+      }
+
+      const data = await response.json();
+      const { token } = data;
+      console.log("Payment Token: " + token);
+
+      setFailedPayment(false);
+    } catch (error) {
+      console.error("Failed to initiate cash payment", error);
+      // alert("Failed to initiate payment");
+      setFailedPayment(true);
+    }
+  };
 
   return (
     <>
@@ -136,7 +174,20 @@ const Orders = () => {
                   </div>
                   <div>
                     <button
-                      onClick={() => confirmOrderStatus(order._id)}
+                      onClick={() => {
+                        confirmOrderStatus(order._id);
+                        if (order.paymentMethod === "Cash") {
+                          paymentMethodCash(
+                            order._id,
+                            order.items.reduce(
+                              (sum, item) => sum + item.price * item.amount,
+                              0
+                            ),
+                            order.userId,
+                            order.paymentMethod
+                          );
+                        }
+                      }}
                       className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm"
                     >
                       Confirm

@@ -331,6 +331,8 @@ const OrderPage = () => {
 
       {/* Snap Container */}
       <div id="snap-container"></div>
+      {/* in order to better UI payment when fullscreen */}
+      {snapShow && <span className="mb-[2vw]"></span>}
       {/* Notification */}
       {showNotification && (
         <NotificationBanner

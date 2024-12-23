@@ -97,6 +97,7 @@ export const OrderProvider = ({ children }) => {
         );
         const updatedOrder = await response.json();
         setReadyOrders((prev) => [...prev, updatedOrder]);
+        alert("Order accepted!");
         window.location.reload();
       } else {
         console.error("Failed to update order status");
@@ -136,6 +137,7 @@ export const OrderProvider = ({ children }) => {
           );
           const updatedOrder = await response.json();
           setConfirmedOrders((prev) => [...prev, updatedOrder]);
+          alert("Order confirmed!");
           window.location.reload();
         } else {
           console.error("Failed to update order status");

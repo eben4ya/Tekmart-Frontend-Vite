@@ -87,7 +87,7 @@ const UniqueCodeModal = () => {
         ) : (
           <p className="text-center text-gray-700">
             No orders. Click{" "}
-            <a href="/products" className="text-blue-500 underline">
+            <a href="/products" className="text-blue-link underline">
               here
             </a>{" "}
             to shop!

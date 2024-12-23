@@ -4,11 +4,12 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
 const FloatingUniqueCodeIcon = () => {
-  const { pendingOrders, setShowUniqueCodeModal } = useContext(OrderContext);
+  const { pendingOrders, readyOrders, setShowUniqueCodeModal } =
+    useContext(OrderContext);
   const { user } = useContext(AuthContext);
   // Filter orders that are pending and belong to the current user
-  const userPendingOrders = pendingOrders.filter(
-    (order) => order.userId && order.userId === user.id
+  const combineOrder = [...pendingOrders, ...readyOrders].filter(
+    (order) => order.userId && order.userId._id === user.id
   );
   return (
     <div className="fixed bottom-8 right-8 z-[60]">
@@ -18,9 +19,9 @@ const FloatingUniqueCodeIcon = () => {
       >
         🛒
         {/* Notification Badge */}
-        {userPendingOrders.length > 0 && (
+        {combineOrder.length > 0 && (
           <span className="absolute top-0 right-0 bg-red text-white text-sm rounded-full w-6 h-6 flex items-center justify-center">
-            {userPendingOrders.length}
+            {combineOrder.length}
           </span>
         )}
       </button>

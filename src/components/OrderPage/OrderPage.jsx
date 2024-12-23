@@ -113,7 +113,7 @@ const OrderPage = () => {
         }
       }
 
-      if (selectedPayment === "cash") {
+      if (selectedPayment === "Cash") {
         // setShowNotification(true);
         // setNotifMessage({
         //   type: "info",
@@ -291,8 +291,8 @@ const OrderPage = () => {
                 <input
                   type="radio"
                   name="payment"
-                  value="cash"
-                  checked={selectedPayment === "cash"}
+                  value="Cash"
+                  checked={selectedPayment === "Cash"}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                   className="form-radio text-yellow"
                 ></input>

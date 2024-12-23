@@ -43,7 +43,7 @@ const OrderPage = () => {
   );
 
   const handleRemoveItem = (id) => {
-    const updatedCart = cart.filter((item) => item.id !== id);
+    const updatedCart = cart.filter((item) => item._id !== id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
@@ -227,7 +227,7 @@ const OrderPage = () => {
               {cart.length > 0 ? (
                 cart.map((item) => (
                   <div
-                    key={item.id}
+                    key={item._id}
                     className="flex justify-between items-center bg-gray-80 rounded pb-4 pt-4 pl-4 pr-4 outline outline-zinc outline-2"
                   >
                     <div className="flex items-center gap-4">
@@ -251,7 +251,7 @@ const OrderPage = () => {
                         <Trash
                           className="w-6 h-6"
                           color="#FFDE4D"
-                          onClick={() => handleRemoveItem(item.id)}
+                          onClick={() => handleRemoveItem(item._id)}
                         />
                       </button>
                     </div>

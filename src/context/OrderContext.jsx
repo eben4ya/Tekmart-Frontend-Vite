@@ -10,6 +10,8 @@ export const OrderProvider = ({ children }) => {
   });
   const [orderId, setOrderId] = useState("");
 
+  const [loading, setLoading] = useState(true);
+
   const [pendingOrders, setPendingOrders] = useState([]);
   const [readyOrders, setReadyOrders] = useState([]);
   const [confirmedOrders, setConfirmedOrders] = useState([]);
@@ -20,6 +22,7 @@ export const OrderProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchPayments = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`);
         if (response.ok) {
@@ -31,6 +34,8 @@ export const OrderProvider = ({ children }) => {
         }
       } catch (error) {
         console.error("Error fetching payments:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPayments();
@@ -38,6 +43,7 @@ export const OrderProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${import.meta.env.VITE_API_ORDER}`);
         if (response.ok) {
@@ -56,6 +62,8 @@ export const OrderProvider = ({ children }) => {
         }
       } catch (error) {
         console.error("Error fetching orders:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchOrders();
@@ -158,6 +166,7 @@ export const OrderProvider = ({ children }) => {
         allPayments,
         showUniqueCodeModal,
         setShowUniqueCodeModal,
+        loading,
       }}
     >
       {children}

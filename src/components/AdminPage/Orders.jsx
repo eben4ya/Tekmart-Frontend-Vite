@@ -1,3 +1,5 @@
+import { FaSpinner } from "react-icons/fa";
+
 import { useState, useContext } from "react";
 import { OrderContext } from "../../context/OrderContext";
 
@@ -15,6 +17,7 @@ const Orders = () => {
     confirmedOrders = [],
     acceptOrderStatus,
     confirmOrderStatus,
+    loading,
   } = useContext(OrderContext);
 
   return (
@@ -30,66 +33,74 @@ const Orders = () => {
           New Orders
         </h1>
         <div className="rounded p-2 mb-4 max-h-[22vw] overflow-y-scroll">
-          {pendingOrders.map((order) => (
-            <div key={order._id}>
-              <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
-                <div className="font-semibold flex flex-row px-2 mx-4 my-1">
-                  <button
-                    className="cursor-pointer"
-                    onClick={() => toggleSection(order._id)}
-                  >
-                    {expandedSection === order._id ? "▲" : "▼"}
-                  </button>
-                  <div className="mx-6">
-                    <p className="font-inter font-medium">
-                      Order: [{order.items.length}] items
-                    </p>
-                    <p className="font-inter font-light">
-                      User: {order.userId ? order.userId.email : "Guest"}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <button
-                    onClick={() => acceptOrderStatus(order._id)}
-                    className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm"
-                  >
-                    Accept
-                  </button>
-                </div>
+          {loading ? (
+            <div className="w-[8.744vw] h-[9.76vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
-              {expandedSection === order._id && (
-                <div className="mr-8 mt-2 space-y-2">
-                  {order.items.map((item) => (
-                    <div
-                      key={item._id}
-                      className="flex-row py-2 flex justify-between items-center rounded bg-zinc outline outline-white2 outline-2"
+            </div>
+          ) : (
+            pendingOrders.map((order) => (
+              <div key={order._id}>
+                <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
+                  <div className="font-semibold flex flex-row px-2 mx-4 my-1">
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => toggleSection(order._id)}
                     >
-                      <div className="font-poppins mx-6 my-4 flex flex-row space-x-4">
-                        <p className="font-bold">{item.amount}x</p>
-                        <p>{item.productId.name}</p>
-                      </div>
-                      <p className="mx-4 font-poppins font-bold">
-                        IDR{item.price.toLocaleString()}
+                      {expandedSection === order._id ? "▲" : "▼"}
+                    </button>
+                    <div className="mx-6">
+                      <p className="font-inter font-medium">
+                        Order: [{order.items.length}] items
+                      </p>
+                      <p className="font-inter font-light">
+                        User: {order.userId ? order.userId.email : "Guest"}
                       </p>
                     </div>
-                  ))}
-                  <div className="flex flex-row justify-between my-4 px-4 py-5 font-bold text-right bg-yellow rounded outline outline-yellow">
-                    <p className="px-10 font-poppins font-medium">Total</p>
-                    <p className="font-poppins">
-                      IDR
-                      {order.items
-                        .reduce(
-                          (sum, item) => sum + item.price * item.amount,
-                          0
-                        )
-                        .toLocaleString()}
-                    </p>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => acceptOrderStatus(order._id)}
+                      className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm"
+                    >
+                      Accept
+                    </button>
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
+                {expandedSection === order._id && (
+                  <div className="mr-8 mt-2 space-y-2">
+                    {order.items.map((item) => (
+                      <div
+                        key={item._id}
+                        className="flex-row py-2 flex justify-between items-center rounded bg-zinc outline outline-white2 outline-2"
+                      >
+                        <div className="font-poppins mx-6 my-4 flex flex-row space-x-4">
+                          <p className="font-bold">{item.amount}x</p>
+                          <p>{item.productId.name}</p>
+                        </div>
+                        <p className="mx-4 font-poppins font-bold">
+                          IDR{item.price.toLocaleString()}
+                        </p>
+                      </div>
+                    ))}
+                    <div className="flex flex-row justify-between my-4 px-4 py-5 font-bold text-right bg-yellow rounded outline outline-yellow">
+                      <p className="px-10 font-poppins font-medium">Total</p>
+                      <p className="font-poppins">
+                        IDR
+                        {order.items
+                          .reduce(
+                            (sum, item) => sum + item.price * item.amount,
+                            0
+                          )
+                          .toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
         </div>
 
         {/* Orders Ready */}
@@ -97,66 +108,74 @@ const Orders = () => {
           Orders Ready
         </h1>
         <div className="rounded p-2 mb-4 max-h-[22vw] overflow-y-scroll">
-          {readyOrders.map((order) => (
-            <div key={order._id}>
-              <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
-                <div className="font-semibold flex flex-row px-2 mx-4 my-1">
-                  <button
-                    className="cursor-pointer"
-                    onClick={() => toggleSection(order._id)}
-                  >
-                    {expandedSection === order._id ? "▲" : "▼"}
-                  </button>
-                  <div className="mx-6">
-                    <p className="font-inter font-medium">
-                      Order: [{order.items.length}] items
-                    </p>
-                    <p className="font-inter font-light">
-                      User: {order.userId ? order.userId.email : "Guest"}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <button
-                    onClick={() => confirmOrderStatus(order._id)}
-                    className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm"
-                  >
-                    Confirm
-                  </button>
-                </div>
+          {loading ? (
+            <div className="w-[8.744vw] h-[9.76vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
-              {expandedSection === order._id && (
-                <div className="mr-8 mt-2 space-y-2">
-                  {order.items.map((item) => (
-                    <div
-                      key={item._id}
-                      className="flex-row py-2 flex justify-between items-center rounded bg-zinc outline outline-white2 outline-2"
+            </div>
+          ) : (
+            readyOrders.map((order) => (
+              <div key={order._id}>
+                <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
+                  <div className="font-semibold flex flex-row px-2 mx-4 my-1">
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => toggleSection(order._id)}
                     >
-                      <div className="font-poppins mx-6 my-4 flex flex-row space-x-4">
-                        <p className="font-bold">{item.amount}x</p>
-                        <p>{item.productId.name}</p>
-                      </div>
-                      <p className="mx-4 font-poppins font-bold">
-                        IDR{item.price.toLocaleString()}
+                      {expandedSection === order._id ? "▲" : "▼"}
+                    </button>
+                    <div className="mx-6">
+                      <p className="font-inter font-medium">
+                        Order: [{order.items.length}] items
+                      </p>
+                      <p className="font-inter font-light">
+                        User: {order.userId ? order.userId.email : "Guest"}
                       </p>
                     </div>
-                  ))}
-                  <div className="flex flex-row justify-between my-4 px-4 py-5 font-bold text-right bg-yellow rounded outline outline-yellow">
-                    <p className="px-10 font-poppins font-medium">Total</p>
-                    <p className="font-poppins">
-                      IDR
-                      {order.items
-                        .reduce(
-                          (sum, item) => sum + item.price * item.amount,
-                          0
-                        )
-                        .toLocaleString()}
-                    </p>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => confirmOrderStatus(order._id)}
+                      className="font-poppins font-bold bg-black text-white rounded-xl shadow-lg px-4 py-2 mx-4 hover:bg-yellow hover:text-black active:text-white active:bg-yellow text-sm"
+                    >
+                      Confirm
+                    </button>
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
+                {expandedSection === order._id && (
+                  <div className="mr-8 mt-2 space-y-2">
+                    {order.items.map((item) => (
+                      <div
+                        key={item._id}
+                        className="flex-row py-2 flex justify-between items-center rounded bg-zinc outline outline-white2 outline-2"
+                      >
+                        <div className="font-poppins mx-6 my-4 flex flex-row space-x-4">
+                          <p className="font-bold">{item.amount}x</p>
+                          <p>{item.productId.name}</p>
+                        </div>
+                        <p className="mx-4 font-poppins font-bold">
+                          IDR{item.price.toLocaleString()}
+                        </p>
+                      </div>
+                    ))}
+                    <div className="flex flex-row justify-between my-4 px-4 py-5 font-bold text-right bg-yellow rounded outline outline-yellow">
+                      <p className="px-10 font-poppins font-medium">Total</p>
+                      <p className="font-poppins">
+                        IDR
+                        {order.items
+                          .reduce(
+                            (sum, item) => sum + item.price * item.amount,
+                            0
+                          )
+                          .toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
         </div>
 
         {/* Completed Orders */}
@@ -164,58 +183,66 @@ const Orders = () => {
           Completed Orders
         </h2>
         <div className="rounded p-2 mb-4 max-h-[22vw] overflow-y-scroll">
-          {confirmedOrders.map((order) => (
-            <div key={order._id}>
-              <div
-                className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
-                onClick={() => toggleSection(order._id)}
-              >
-                <div className="font-semibold flex flex-row px-2 mx-4 my-1">
-                  <button className="">
-                    {expandedSection === order._id ? "▲" : "▼"}
-                  </button>
-                  <div className="mx-6">
-                    <p className="font-inter font-medium">
-                      Order: [{order.items.length}] items
-                    </p>
-                    <p className="font-inter font-light">
-                      User: {order.userId ? order.userId.email : "Guest"}
-                    </p>
-                  </div>
-                </div>
+          {loading ? (
+            <div className="w-[8.744vw] h-[9.76vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
-              {expandedSection === order._id && (
-                <div className="mr-8 mt-2 space-y-2">
-                  {order.items.map((item) => (
-                    <div
-                      key={item._id}
-                      className="flex-row py-2 flex justify-between items-center rounded bg-zinc outline outline-white2 outline-2"
-                    >
-                      <div className="font-poppins mx-6 my-4 flex flex-row space-x-4">
-                        <p className="font-bold">{item.amount}x</p>
-                        <p>{item.productId.name}</p>
-                      </div>
-                      <p className="mx-4 font-poppins font-bold">
-                        IDR{item.price.toLocaleString()}
+            </div>
+          ) : (
+            confirmedOrders.map((order) => (
+              <div key={order._id}>
+                <div
+                  className="rounded bg-white flex flex-row justify-between items-center cursor-pointer py-2 outline outline-white2 outline-2 mr-8"
+                  onClick={() => toggleSection(order._id)}
+                >
+                  <div className="font-semibold flex flex-row px-2 mx-4 my-1">
+                    <button className="">
+                      {expandedSection === order._id ? "▲" : "▼"}
+                    </button>
+                    <div className="mx-6">
+                      <p className="font-inter font-medium">
+                        Order: [{order.items.length}] items
+                      </p>
+                      <p className="font-inter font-light">
+                        User: {order.userId ? order.userId.email : "Guest"}
                       </p>
                     </div>
-                  ))}
-                  <div className="flex flex-row justify-between my-4 px-4 py-5 font-bold text-right bg-yellow rounded outline outline-yellow">
-                    <p className="px-10 font-poppins font-medium">Total</p>
-                    <p className="font-poppins">
-                      IDR
-                      {order.items
-                        .reduce(
-                          (sum, item) => sum + item.price * item.amount,
-                          0
-                        )
-                        .toLocaleString()}
-                    </p>
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
+                {expandedSection === order._id && (
+                  <div className="mr-8 mt-2 space-y-2">
+                    {order.items.map((item) => (
+                      <div
+                        key={item._id}
+                        className="flex-row py-2 flex justify-between items-center rounded bg-zinc outline outline-white2 outline-2"
+                      >
+                        <div className="font-poppins mx-6 my-4 flex flex-row space-x-4">
+                          <p className="font-bold">{item.amount}x</p>
+                          <p>{item.productId.name}</p>
+                        </div>
+                        <p className="mx-4 font-poppins font-bold">
+                          IDR{item.price.toLocaleString()}
+                        </p>
+                      </div>
+                    ))}
+                    <div className="flex flex-row justify-between my-4 px-4 py-5 font-bold text-right bg-yellow rounded outline outline-yellow">
+                      <p className="px-10 font-poppins font-medium">Total</p>
+                      <p className="font-poppins">
+                        IDR
+                        {order.items
+                          .reduce(
+                            (sum, item) => sum + item.price * item.amount,
+                            0
+                          )
+                          .toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
         </div>
       </div>
     </>

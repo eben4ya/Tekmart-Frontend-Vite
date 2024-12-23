@@ -113,7 +113,7 @@ export const OrderProvider = ({ children }) => {
     }
     if (
       uniqueCode.trim() ===
-      pendingOrders.find((order) => order._id === orderId).uniqueCode
+      readyOrders.find((order) => order._id === orderId).uniqueCode
     ) {
       try {
         const response = await fetch(
@@ -129,7 +129,7 @@ export const OrderProvider = ({ children }) => {
         );
 
         if (response.ok) {
-          setPendingOrders((prev) =>
+          setReadyOrders((prev) =>
             prev.filter((order) => order._id !== orderId)
           );
           const updatedOrder = await response.json();

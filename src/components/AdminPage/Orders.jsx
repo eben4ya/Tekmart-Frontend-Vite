@@ -77,7 +77,7 @@ const Orders = () => {
                 <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
             </div>
-          ) : (
+          ) : pendingOrders.length > 0 ? (
             pendingOrders.map((order) => (
               <div key={order._id}>
                 <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
@@ -138,6 +138,12 @@ const Orders = () => {
                 )}
               </div>
             ))
+          ) : (
+            <div className="w-[8.744vw] h-[9.76vw] ml-[1vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <p className="text-[1vw] text-primary">No New Orders</p>
+              </div>
+            </div>
           )}
         </div>
 
@@ -152,7 +158,7 @@ const Orders = () => {
                 <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
             </div>
-          ) : (
+          ) : readyOrders.length > 0 ? (
             readyOrders.map((order) => (
               <div key={order._id}>
                 <div className="rounded bg-white flex flex-row justify-between items-center  py-2 outline outline-white2 outline-2 mr-8">
@@ -226,6 +232,12 @@ const Orders = () => {
                 )}
               </div>
             ))
+          ) : (
+            <div className="w-[8.744vw] h-[9.76vw] ml-[1vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <p className="text-[1vw] text-primary">No Orders Ready</p>
+              </div>
+            </div>
           )}
         </div>
 
@@ -240,7 +252,7 @@ const Orders = () => {
                 <FaSpinner className="text-[2vw] animate-spin text-primary" />
               </div>
             </div>
-          ) : (
+          ) : confirmedOrders.length > 0 ? (
             confirmedOrders.map((order) => (
               <div key={order._id}>
                 <div
@@ -293,6 +305,12 @@ const Orders = () => {
                 )}
               </div>
             ))
+          ) : (
+            <div className="w-[10vw] h-[9.76vw] ml-[1.3vw] flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]">
+                <p className="text-[1vw] text-primary">No Completed Orders</p>
+              </div>
+            </div>
           )}
         </div>
       </div>

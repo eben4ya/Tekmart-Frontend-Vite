@@ -1,3 +1,5 @@
+import { FaSpinner } from "react-icons/fa";
+
 import OrderButton from "./OrderButton";
 import ProductDetail from "./ProductDetail";
 import NotificationBanner from "../AllPage/NotificationBanner";
@@ -11,7 +13,7 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart, showNotification, setShowNotification } =
     useContext(OrderContext);
-  const { products } = useContext(ProductContext);
+  const { products, loading } = useContext(ProductContext);
 
   const categorizedProducts = products.reduce((acc, product) => {
     if (acc[product.category]) {
@@ -93,6 +95,13 @@ const ProductPage = () => {
             <h1 className="text-md">IDR{product.price},00</h1>
           </div>
         ))}
+        {loading && (
+          <div className='w-[8.744vw] h-[9.76vw] flex justify-center items-center'>
+            <div className='flex flex-col justify-center items-center w-full h-[7.6536vw] rounded-[0.88vw]'>
+              <FaSpinner className='text-[2vw] animate-spin text-primary' />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

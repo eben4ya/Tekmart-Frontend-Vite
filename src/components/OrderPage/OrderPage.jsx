@@ -207,7 +207,7 @@ const OrderPage = () => {
         subtitle="One last step, don’t worry!"
       />
       {!snapShow && (
-        <div className="w-full max-h-[44vw] mx-auto px-4 py-8">
+        <div className="w-full min-h-[32vw] mx-auto px-4 py-8">
           {/* Order Summary */}
           <div className="bg-white p-6 mb-6">
             <div className="flex justify-between items-center mb-4">

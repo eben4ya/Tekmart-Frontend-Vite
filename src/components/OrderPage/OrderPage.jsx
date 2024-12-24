@@ -75,45 +75,45 @@ const OrderPage = () => {
       window.location.href = "/login";
       return;
     } else {
-      // Generate order items
-      const orderItems = cart.map((item) => ({
-        productId: item._id,
-        amount: item.quantity,
-        price: parseFloat(item.price),
-      }));
-
-      // Create order in the database
-      // if payment failed but order created, don't create order again
-      if (failedPayment === false) {
-        try {
-          const response = await fetch(`${import.meta.env.VITE_API_ORDER}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include", // Include credentials to send cookies automatically
-            body: JSON.stringify({
-              userId: user.id,
-              items: orderItems,
-              totalPrice: totalPrice,
-              paymentMethod: selectedPayment,
-            }),
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to create order");
-          } else {
-            const data = await response.json();
-            setOrderId(data._id);
-          }
-        } catch (error) {
-          console.error("Failed to create order", error);
-          alert("Failed to create order");
-          return;
-        }
-      }
-
       if (selectedPayment === "Cash") {
+        // Generate order items
+        const orderItems = cart.map((item) => ({
+          productId: item._id,
+          amount: item.quantity,
+          price: parseFloat(item.price),
+        }));
+
+        // Create order in the database
+        // if payment failed but order created, don't create order again
+        if (failedPayment === false) {
+          try {
+            const response = await fetch(`${import.meta.env.VITE_API_ORDER}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include", // Include credentials to send cookies automatically
+              body: JSON.stringify({
+                userId: user.id,
+                items: orderItems,
+                totalPrice: totalPrice,
+                paymentMethod: selectedPayment,
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error("Failed to create order");
+            } else {
+              const data = await response.json();
+              setOrderId(data._id);
+            }
+          } catch (error) {
+            console.error("Failed to create order", error);
+            alert("Failed to create order");
+            return;
+          }
+        }
+
         // setShowNotification(true);
         // setNotifMessage({
         //   type: "info",
@@ -139,6 +139,45 @@ const OrderPage = () => {
         // window.location.href = `/order/${orderId}`;
 
         // !development
+
+        // Generate order items
+        // const orderItems = cart.map((item) => ({
+        //   productId: item._id,
+        //   amount: item.quantity,
+        //   price: parseFloat(item.price),
+        // }));
+
+        // Create order in the database
+        // if payment failed but order created, don't create order again
+        // if (failedPayment === false) {
+        //   try {
+        //     const response = await fetch(`${import.meta.env.VITE_API_ORDER}`, {
+        //       method: "POST",
+        //       headers: {
+        //         "Content-Type": "application/json",
+        //       },
+        //       credentials: "include", // Include credentials to send cookies automatically
+        //       body: JSON.stringify({
+        //         userId: user.id,
+        //         items: orderItems,
+        //         totalPrice: totalPrice,
+        //         paymentMethod: selectedPayment,
+        //       }),
+        //     });
+
+        //     if (!response.ok) {
+        //       throw new Error("Failed to create order");
+        //     } else {
+        //       const data = await response.json();
+        //       setOrderId(data._id);
+        //     }
+        //   } catch (error) {
+        //     console.error("Failed to create order", error);
+        //     alert("Failed to create order");
+        //     return;
+        //   }
+        // }
+
         // try {
         //   const response = await fetch(`${import.meta.env.VITE_API_PAYMENT}`, {
         //     method: "POST",
